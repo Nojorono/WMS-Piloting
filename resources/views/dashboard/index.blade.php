@@ -24,7 +24,7 @@ Dashboard
                                 On Hand Qty
                             </div>
                             <div class="col-sm-12 mb-2 text-primary fw-bold fs-5">
-                                {{ @$data["quantity_report"][0]->on_hand_qty }}
+                                {{ (!empty(@$data["quantity_report"][0]->on_hand_qty)) ? @$data["quantity_report"][0]->on_hand_qty : 0 }}
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@ Dashboard
                                 Available Qty
                             </div>
                             <div class="col-sm-12 mb-2 text-primary fw-bold fs-5">
-                                {{ @$data["quantity_report"][0]->available_qty }}
+                                {{ (!empty(@$data["quantity_report"][0]->available_qty)) ? @$data["quantity_report"][0]->available_qty : 0 }}
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@ Dashboard
                                 Fast Aging
                             </div>
                             <div class="col-sm-12 mb-2 text-primary fw-bold fs-5">
-                                {{ @$data["fast_aging"][0]->aging }}
+                                {{ (!empty(@$data["fast_aging"][0]->aging)) ? @$data["fast_aging"][0]->aging : 0 }}
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@ Dashboard
                                 Medium Aging
                             </div>
                             <div class="col-sm-12 mb-2 text-primary fw-bold fs-5">
-                                {{ @$data["medium_aging"][0]->aging }}
+                                {{ (!empty(@$data["medium_aging"][0]->aging)) ? @$data["medium_aging"][0]->aging : 0 }}
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@ Dashboard
                                 Slow Aging
                             </div>
                             <div class="col-sm-12 mb-2 text-primary fw-bold fs-5">
-                                {{ @$data["slow_aging"][0]->aging }}
+                                {{ (!empty(@$data["slow_aging"][0]->aging)) ? @$data["slow_aging"][0]->aging : 0 }}
                             </div>
                         </div>
                     </div>
@@ -805,7 +805,8 @@ function generateOutboundReport() {
 $(document).ready(async function () {
     $("#li_dashboard").addClass("active");
     $("#a_dashboard").addClass("active");
-
+    $("#logo_dashboard").addClass("d-none");
+    $("#logo_white_dashboard").removeClass("d-none");
     
     
     $("#date_from").on("change",async function () {
