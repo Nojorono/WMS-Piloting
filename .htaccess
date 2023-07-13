@@ -1,0 +1,70 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+     # Denied sensitive directories, shows 404 instead of 403
+
+     RewriteRule ^app/ - [L,R=404]
+
+     RewriteRule ^bootstrap/ - [L,R=404]
+ 
+     RewriteRule ^config/ - [L,R=404]
+ 
+     RewriteRule ^database/ - [L,R=404]
+ 
+     RewriteRule ^images/ - [L,R=404]
+ 
+     #RewriteRule ^public/ - [L,R=404]
+ 
+     RewriteRule ^resources/ - [L,R=404]
+ 
+     RewriteRule ^routes/ - [L,R=404]
+ 
+     RewriteRule ^storage/ - [L,R=404]
+ 
+     RewriteRule ^tests/ - [L,R=404]
+ 
+     RewriteRule ^vendor/ - [L,R=404]
+ 
+     RewriteRule ^node_modules/ - [L,R=404]
+ 
+ 
+ 
+     # Denied sensitive files, shows 404 instead of 403
+ 
+     RewriteRule ^.editorconfig - [L,R=404]
+ 
+     RewriteRule ^.env* - [L,R=404]
+ 
+     RewriteRule ^.git* - [L,R=404]
+ 
+     RewriteRule ^.htaccess - [L,R=404]
+ 
+     RewriteRule ^artisan - [L,R=404]
+ 
+     RewriteRule ^web.config - [L,R=404]
+ 
+     RewriteRule ^frontend.md - [L,R=404]
+ 
+     RewriteRule ^composer.* - [L,R=404]
+ 
+     RewriteRule ^pack*.* - [L,R=404]
+     
+</IfModule>
