@@ -204,6 +204,8 @@ $(document).ready(function () {
     $("#dropdown_toggle_report").prop('aria-expanded',true);
     $("#dropdown_toggle_report").addClass('active');
     $("#dropdown_report").addClass('show');
+    $("#logo_report").addClass("d-none");
+    $("#logo_white_report").removeClass("d-none");
     $("#li_report_summary_outbound").addClass("active");
     $("#a_report_summary_outbound").addClass("active");
     

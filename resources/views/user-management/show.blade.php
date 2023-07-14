@@ -334,6 +334,8 @@ $(document).ready(function () {
     $("#dropdown_toggle_setting").prop('aria-expanded',true);
     $("#dropdown_toggle_setting").addClass('active');
     $("#dropdown_setting").addClass('show');
+    $("#logo_setting").addClass("d-none");
+    $("#logo_white_setting").removeClass("d-none");
     $("#li_user_management").addClass("active");
     $("#a_user_management").addClass("active");
 

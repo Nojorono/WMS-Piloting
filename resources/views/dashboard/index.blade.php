@@ -354,7 +354,7 @@ function generateInboundReport() {
             processData: false,
             cache: false,
             beforeSend: function () {
-                
+
             },
             error: function (error) {
                 Swal
@@ -433,7 +433,7 @@ function generateInboundReport() {
 
 
                     if('data_grafik' in response.data){
-                        
+
                         $("#chart_container").html(`
                         <div class="chart">
                             <canvas id="line-chart" class="chart-canvas" height="300px"></canvas>
@@ -569,7 +569,7 @@ function generateInboundReport() {
 
 function generateOutboundReport() {
     return new Promise((resolve,reject) => {
-        
+
         $(`#container_outbound_total_planning`).html("Loading...");
         $(`#container_outbound_total_picking`).html("Loading...");
         $(`#container_outbound_total_packing`).html("Loading...");
@@ -577,7 +577,7 @@ function generateOutboundReport() {
         $(`#container_outbound_qty_picking`).html("Loading...");
         $(`#container_outbound_qty_packing`).html("Loading...");
         $("#chart_container_outbound").html("");
-        
+
         const url = "{{ route('dashboard_getOutboundReport') }}";
         const _token = $("meta[name='csrf-token']").prop("content");
         const _method = "POST";
@@ -598,7 +598,7 @@ function generateOutboundReport() {
             processData: false,
             cache: false,
             beforeSend: function () {
-                
+
             },
             error: function (error) {
                 Swal
@@ -712,13 +712,13 @@ function generateOutboundReport() {
                                 list_qty_packing.push(element);
                             });
                         }
-    
+
                         $("#chart_container_outbound").html(`
                         <div class="chart">
                             <canvas id="bar-chart" class="chart-canvas" height="300px"></canvas>
                         </div>
                         `);
-                    
+
                         const ctx5 = document.getElementById("bar-chart").getContext("2d");
                         new Chart(ctx5, {
                             type: "bar",
@@ -807,8 +807,7 @@ $(document).ready(async function () {
     $("#a_dashboard").addClass("active");
     $("#logo_dashboard").addClass("d-none");
     $("#logo_white_dashboard").removeClass("d-none");
-    
-    
+
     $("#date_from").on("change",async function () {
         await generateInboundReport();
     });
@@ -831,7 +830,7 @@ $(document).ready(async function () {
             generateOutboundReport(),
         ])
     } catch (error) {
-        
+
     }
 
 });

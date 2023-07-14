@@ -468,6 +468,8 @@ $(document).ready(function () {
     $("#dropdown_toggle_outbound").prop('aria-expanded',true);
     $("#dropdown_toggle_outbound").addClass('active');
     $("#dropdown_outbound").addClass('show');
+    $("#logo_outbound").addClass("d-none");
+    $("#logo_white_outbound").removeClass("d-none");
     $("#li_packing").addClass("active");
     $("#a_packing").addClass("active");
 

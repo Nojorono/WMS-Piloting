@@ -332,6 +332,8 @@ $(document).ready(function () {
     $("#dropdown_toggle_report").prop('aria-expanded',true);
     $("#dropdown_toggle_report").addClass('active');
     $("#dropdown_report").addClass('show');
+    $("#logo_report").addClass("d-none");
+    $("#logo_white_report").removeClass("d-none");
     $("#li_movement_report").addClass("active");
     $("#a_movement_report").addClass("active");
     addDataDropDownProcessCode();

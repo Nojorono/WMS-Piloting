@@ -158,21 +158,21 @@ class LoginController extends Controller
             foreach ($parrent_menu as $key_parrent_menu => $value_parrent_menu) {
                 $child_menu = $this->query_Get_Menu_by_parent_id_and_username($value_parrent_menu->menu_id,$username);
                 if(!empty($value_parrent_menu->menu_link) && count($child_menu) == 0){
-                    $menu_icon = (isset($value_parrent_menu->menu_icon)  && !empty($value_parrent_menu->menu_icon)) ? $value_parrent_menu->menu_icon : asset("img/logo_rpx.png");
-                    $menu_icon_white = (isset($value_parrent_menu->menu_icon_white)  && !empty($value_parrent_menu->menu_icon_white)) ? $value_parrent_menu->menu_icon_white : asset("img/logo_rpx.png");
+                    $menu_icon = (isset($value_parrent_menu->menu_icon)  && !empty($value_parrent_menu->menu_icon)) ? $value_parrent_menu->menu_icon : asset("img/logokonek.png");
+                    $menu_icon_white = (isset($value_parrent_menu->menu_icon_white)  && !empty($value_parrent_menu->menu_icon_white)) ? $value_parrent_menu->menu_icon_white : asset("img/logokonek.png");
                     $html .= "
                     <li class='nav-item' id='li_".$value_parrent_menu->id_dom."'>
                         <a class='nav-link text-xs' href='".url("".$value_parrent_menu->menu_link."")."' id='a_".$value_parrent_menu->id_dom."'>
                             <div class='icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center'>
-                                <img src='".$menu_icon."' width='21px' height='21px' alt='Logo' id='logo_".$value_parrent_menu->id_dom."' class=''>
-                                <img src='".$menu_icon_white."' width='21px' height='21px' alt='Logo' id='logo_white_".$value_parrent_menu->id_dom."' class='d-none'>
+                                <img src='".url($menu_icon)."' width='21px' height='21px' alt='Logo' id='logo_".$value_parrent_menu->id_dom."' class=''>
+                                <img src='".url($menu_icon_white)."' width='21px' height='21px' alt='Logo' id='logo_white_".$value_parrent_menu->id_dom."' class='d-none'>
                             </div>
                             <span class='nav-link-text ms-1'>".$value_parrent_menu->description."</span>
                         </a>
                     </li>";
                 }else if (empty($value_parrent_menu->menu_link) && count($child_menu) > 0) {
-                    $menu_icon = (isset($value_parrent_menu->menu_icon)  && !empty($value_parrent_menu->menu_icon)) ? $value_parrent_menu->menu_icon : asset("img/logo_rpx.png");
-                    $menu_icon_white = (isset($value_parrent_menu->menu_icon_white)  && !empty($value_parrent_menu->menu_icon_white)) ? $value_parrent_menu->menu_icon_white : asset("img/logo_rpx.png");
+                    $menu_icon = (isset($value_parrent_menu->menu_icon)  && !empty($value_parrent_menu->menu_icon)) ? $value_parrent_menu->menu_icon : asset("img/logokonek.png");
+                    $menu_icon_white = (isset($value_parrent_menu->menu_icon_white)  && !empty($value_parrent_menu->menu_icon_white)) ? $value_parrent_menu->menu_icon_white : asset("img/logokonek.png");
                     $html .= "
                     <li class='nav-item' id='li_".$value_parrent_menu->id_dom."'>
                         <a data-bs-toggle='collapse' href='#dropdown_".$value_parrent_menu->id_dom."' class='nav-link text-xs' id='dropdown_toggle_".$value_parrent_menu->id_dom."' aria-controls='dropdown_".$value_parrent_menu->id_dom."' role='button' aria-expanded='false'>

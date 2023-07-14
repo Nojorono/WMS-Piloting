@@ -274,6 +274,8 @@ GR Return
         $("#dropdown_toggle_inbound").prop('aria-expanded', true);
         $("#dropdown_toggle_inbound").addClass('active');
         $("#dropdown_inbound").addClass('show');
+        $("#logo_inbound").addClass("d-none");
+        $("#logo_white_inbound").removeClass("d-none");
         $("#li_gr_return").addClass("active");
         $("#a_gr_return").addClass("active");
 

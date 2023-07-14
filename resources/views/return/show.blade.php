@@ -290,6 +290,8 @@
         $("#dropdown_toggle_inbound").prop('aria-expanded', true);
         $("#dropdown_toggle_inbound").addClass('active');
         $("#dropdown_inbound").addClass('show');
+        $("#logo_inbound").addClass("d-none");
+        $("#logo_white_inbound").removeClass("d-none");
         $("#li_return").addClass("active");
         $("#a_return").addClass("active");
 

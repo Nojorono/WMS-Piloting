@@ -334,6 +334,8 @@ $(document).ready(function () {
     $("#dropdown_toggle_inventory").prop('aria-expanded',true);
     $("#dropdown_toggle_inventory").addClass('active');
     $("#dropdown_inventory").addClass('show');
+    $("#logo_inventory").addClass("d-none");
+    $("#logo_white_inventory").removeClass("d-none");
     $("#li_movement_location").addClass("active");
     $("#a_movement_location").addClass("active");
 

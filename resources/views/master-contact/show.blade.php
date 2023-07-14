@@ -167,6 +167,8 @@ $(document).ready(function () {
     $("#dropdown_toggle_master").prop('aria-expanded',true);
     $("#dropdown_toggle_master").addClass('active');
     $("#dropdown_master").addClass('show');
+    $("#logo_master").addClass("d-none");
+    $("#logo_white_master").removeClass("d-none");
     $("#li_master_contact").addClass("active");
     $("#a_master_contact").addClass("active");
 });
