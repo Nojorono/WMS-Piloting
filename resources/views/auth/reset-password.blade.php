@@ -45,7 +45,7 @@ Login
             </a>
         </div>
         <div class="col-md-12 text-center custom-text-color--dark-blue " >
-            <h2 class="my-4 my-md-0 custom-text-color--dark-blue"><b>WMS IVORY</b></h2>
+            <h2 class="my-4 my-md-0 custom-text-color--dark-blue"><b>WMS</b></h2>
         </div>
         <div class="col-md-4">
             <div class="card custom-border">
