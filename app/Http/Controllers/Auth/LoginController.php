@@ -163,7 +163,7 @@ class LoginController extends Controller
                     <li class='nav-item' id='li_".$value_parrent_menu->id_dom."'>
                         <a class='nav-link text-xs' href='".url("".$value_parrent_menu->menu_link."")."' id='a_".$value_parrent_menu->id_dom."'>
                             <div class='icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center'>
-                                <img src='{{asset(".$menu_icon.")}}' width='21px' height='21px' alt='Logo'>
+                                <img src='".$menu_icon."' width='21px' height='21px' alt='Logo'>
                             </div>
                             <span class='nav-link-text ms-1'>".$value_parrent_menu->description."</span>
                         </a>
@@ -175,7 +175,7 @@ class LoginController extends Controller
                     <li class='nav-item' id='li_".$value_parrent_menu->id_dom."'>
                         <a data-bs-toggle='collapse' href='#dropdown_".$value_parrent_menu->id_dom."' class='nav-link text-xs' id='dropdown_toggle_".$value_parrent_menu->id_dom."' aria-controls='dropdown_".$value_parrent_menu->id_dom."' role='button' aria-expanded='false'>
                             <div class='icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center '>
-                                <img src='{{asset(".$menu_icon.")}}' width='21px' height='21px' alt='Logo'>
+                                <img src='".$menu_icon."' width='21px' height='21px' alt='Logo'>
                             </div>
                             <span class='nav-link-text ms-1'>".$value_parrent_menu->description."</span>
                         </a>
