@@ -54,8 +54,8 @@ class MasterWarehouseController extends Controller
             "a.wh_id",
         ])
         ->from("m_warehouse as a")
-        ->leftJoin("m_wh_client_project as b","b.wh_id","=","a.wh_id")
-        ->where("b.client_project_id",session('current_client_project_id'))
+        // ->leftJoin("m_wh_client_project_whs as b","b.wh_id","=","a.wh_id")
+        ->where("a.client_project_id",session('current_client_project_id'))
         ->orderBy("a.wh_code","ASC")
         ->get();
 
@@ -92,8 +92,7 @@ class MasterWarehouseController extends Controller
         city,
         country,
         postal_code,
-        phone,
-        is_rpx_wh
+        phone
         FROM m_warehouse
         WHERE wh_code = ?
         ",[$wh_code]);
@@ -110,7 +109,7 @@ class MasterWarehouseController extends Controller
     public function show(Request $request, $id)
     {
         $data = [];
-        $data["arr_choice_is_rpx_warehouse"] = $this->get_Choice_Is_RPX_Warehouse();
+        // $data["arr_choice_is_rpx_warehouse"] = $this->get_Choice_Is_RPX_Warehouse();
         $data["current_data"] = $this->get_Warehouse($id);
         return view("master-warehouse.show",compact("data"));
     }
@@ -151,7 +150,7 @@ class MasterWarehouseController extends Controller
         }
 
         $data = [];
-        $data["arr_choice_is_rpx_warehouse"] = $this->get_Choice_Is_RPX_Warehouse();
+        // $data["arr_choice_is_rpx_warehouse"] = $this->get_Choice_Is_RPX_Warehouse();
         return view("master-warehouse.create",compact("data"));
     }
 
@@ -175,7 +174,6 @@ class MasterWarehouseController extends Controller
         $country = $request->input("country");
         $zip_code = $request->input("zip_code");
         $phone = $request->input("phone");
-        $is_rpx_warehouse = $request->input("is_rpx_warehouse");
 
         $data_error = [];
 
@@ -189,10 +187,6 @@ class MasterWarehouseController extends Controller
 
         if(empty($warehouse_name)){
             $data_error["warehouse_name"][] = "Warehouse Name is Required";
-        }
-
-        if(empty($is_rpx_warehouse)){
-            $data_error["is_rpx_warehouse"][] = "Please Choose";
         }
 
         if(count($data_error) > 0){
@@ -216,7 +210,7 @@ class MasterWarehouseController extends Controller
                 "postal_code" => $zip_code,
                 "country" => $country,
                 "phone" => $phone,
-                "is_rpx_wh" => $is_rpx_warehouse,
+                "client_project_id" => session('current_client_project_id'),
                 "created_by" => session("username"),
                 "created_on" => $this->datetime_now,
             ]);
@@ -260,7 +254,7 @@ class MasterWarehouseController extends Controller
         }
         $data = [];
         
-        $data["arr_choice_is_rpx_warehouse"] = $this->get_Choice_Is_RPX_Warehouse();
+        // $data["arr_choice_is_rpx_warehouse"] = $this->get_Choice_Is_RPX_Warehouse();
         $data["current_data"] = $current_data;
 
         return view("master-warehouse.edit",compact("data"));
@@ -313,6 +307,7 @@ class MasterWarehouseController extends Controller
                 "country" => $country,
                 "postal_code" => $zip_code,
                 "phone" => $phone,
+                "client_project_id" => session('current_client_project_id'),
                 "user_updated" => session("username"),
                 "datetime_updated" => $this->datetime_now,
             ]);

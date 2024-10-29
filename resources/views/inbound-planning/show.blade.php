@@ -76,7 +76,7 @@ Inbound Planning
                                     </div>
                                     <div class="col-sm-3 mb-2">
                                         <label for="order_type" class="form-label text-xs">Order Type*</label>
-                                        <input type="hidden" id="order_id" name="order_id" value="{{ $data["current_data"]->order_id }}" >
+                                        <input type="hidden" id="order_id" name="order_id" value="{{ $data["current_data"]->order_id }}">
                                         <input type="text" autocomplete="off" class="form-control py-0" id="order_type" name="order_type" value="{{ $data["current_data"]->order_type }}" readonly>
                                         <div id="validation_order_type" class="invalid-feedback text-xs"></div>
                                     </div>
@@ -137,7 +137,7 @@ Inbound Planning
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-xs" data-bs-toggle="tab" href="#page-tab--attachment">Attachment</a>
-                                    </li> 
+                                    </li>
                                 </ul>
                             </div>
                             <div class="card-body tab-content py-0">
@@ -168,12 +168,12 @@ Inbound Planning
                                                     </thead>
                                                     <tbody>
                                                         @php
-                                                            $current_row = 0;
+                                                        $current_row = 0;
                                                         @endphp
                                                         @if (count($data["current_data_detail"]) > 0)
                                                         @foreach ($data["current_data_detail"] as $current_data_detail )
                                                         @php
-                                                            $current_row ++;
+                                                        $current_row ++;
                                                         @endphp
                                                         <tr id='table_item_detail_{{ $current_row }}'>
                                                             <td>
@@ -220,7 +220,7 @@ Inbound Planning
                                                                 <input type='date' class='form-control py-0' name='expired_date[]' id='expired_date_{{ $current_row }}' value="{{ (!empty($current_data_detail->expired_date)) ? date("Y-m-d",strtotime($current_data_detail->expired_date)) : "" }}" readonly>
                                                                 <div id="validation_expired_date_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
-                                                            <td>  
+                                                            <td>
                                                                 <input type='text' class='form-control py-0' name='uom[]' id='uom_{{ $current_row }}' value="{{ $current_data_detail->uom_name }}" readonly>
                                                                 <div id="validation_uom_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
@@ -236,12 +236,12 @@ Inbound Planning
                                                                 <input type='text' class='form-control py-0' name='id_classification[]' id='id_classification_{{ $current_row }}' value="{{ $current_data_detail->clasification_id }}" readonly>
                                                                 <div id="validation_id_classification_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
-                                                            <td>  
+                                                            <td>
                                                                 <input type='text' class='form-control py-0' name='classification[]' id='classification_{{ $current_row }}' value="{{ $current_data_detail->classification_name }}" readonly>
                                                                 <div id="validation_classification_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
                                                         </tr>
-                                                        @endforeach    
+                                                        @endforeach
                                                         @endif
                                                     </tbody>
                                                 </table>
@@ -303,42 +303,42 @@ Inbound Planning
                                 <div class="tab-pane" id="page-tab--attachment">
                                     <div class="row ">
                                         <div class="col-sm-12 mb-2">
-                                            <input type="file" class="form-control py-0"name="file_1" id="file_1" disabled>
+                                            <input type="file" class="form-control py-0" name="file_1" id="file_1" disabled>
                                             <div id="validation_file_1" class="invalid-feedback text-xs"></div>
                                         </div>
                                         <div class="col-sm-12 mb-2">
-                                            <input type="file" class="form-control py-0"name="file_2" id="file_2" disabled>
+                                            <input type="file" class="form-control py-0" name="file_2" id="file_2" disabled>
                                             <div id="validation_file_2" class="invalid-feedback text-xs"></div>
                                         </div>
                                         <div class="col-sm-12 mb-2">
-                                            <input type="file" class="form-control py-0"name="file_3" id="file_3" disabled>
+                                            <input type="file" class="form-control py-0" name="file_3" id="file_3" disabled>
                                             <div id="validation_file_3" class="invalid-feedback text-xs"></div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                     </div>
                     @if (session('user_edit') == 1)
-                    <div class="col-sm-12 mb-2">      
+                    <div class="col-sm-12 mb-2">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-12 mb-2">
                                         <div class="d-flex">
                                             @if ($data["current_data"]->status_id == "OPI")
-                                                <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_confirm_to_unreceive" name="btn_confirm_to_unreceive"> Confirm Inbound Planning</button>
+                                            <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_confirm_to_unreceive" name="btn_confirm_to_unreceive"> Confirm Inbound Planning</button>
                                             @endif
                                             @if ($data["current_data"]->status_id == "UIN")
-                                                <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_assign_to_checker" name="btn_assign_to_checker">Assign to Checker</button>
-                                                <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_view_checker" name="btn_view_checker">View Checker</button>
-                                                <a href="{{ route("inbound_planning.inboundCheckingAndReceive",[ "id" => $data["current_data"]->inbound_planning_no])}}" class="text-decoration-none me-2">
-                                                    <button type="button" class="btn btn-primary mb-0 py-1" id="btn_inbound_checking_receive" name="btn_inbound_checking_receive">Inbound Checking And Receive</button>
-                                                </a>
+                                            <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_assign_to_checker" name="btn_assign_to_checker">Assign to Checker</button>
+                                            <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_view_checker" name="btn_view_checker">View Checker</button>
+                                            <a href="{{ route("inbound_planning.inboundCheckingAndReceive",[ "id" => $data["current_data"]->inbound_planning_no])}}" class="text-decoration-none me-2">
+                                                <button type="button" class="btn btn-primary mb-0 py-1" id="btn_inbound_checking_receive" name="btn_inbound_checking_receive">Inbound Checking And Receive</button>
+                                            </a>
                                             @endif
 
                                             @if ($data["can_confirm"] && $data["current_data"]->status_id == "UIN")
-                                                <button type="button" class="btn btn-primary mb-0 py-1 ms-auto me-0" id="btn_confirm_inbound_planning" name="btn_confirm_inbound_planning">Confirm</button>
+                                            <button type="button" class="btn btn-primary mb-0 py-1 ms-auto me-0" id="btn_confirm_inbound_planning" name="btn_confirm_inbound_planning">Confirm</button>
                                             @endif
                                         </div>
                                     </div>
@@ -356,34 +356,34 @@ Inbound Planning
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-body">
-            <form method="POST" action="{{ route('inbound_planning.confirmToUnreceive' , [ 'id' => $data["current_data"]->inbound_planning_no ]) }}" id="form-process-unreceive">
-            @csrf
-            @method('POST')
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label class="form-label text-xs">Are you sure this Inbound Planning is correct ? </label>
-                        </div>
-                        <div class="col-sm-12">
-                            <button type="submit" class="btn btn-primary mb-0 py-1">Yes</button>
-                            <button type="button" class="btn btn-primary mb-0 py-1" data-bs-dismiss="modal">No</button>
+                <form method="POST" action="{{ route('inbound_planning.confirmToUnreceive' , [ 'id' => $data["current_data"]->inbound_planning_no ]) }}" id="form-process-unreceive">
+                    @csrf
+                    @method('POST')
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="form-label text-xs">Are you sure this Inbound Planning is correct ? </label>
+                                </div>
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary mb-0 py-1">Yes</button>
+                                    <button type="button" class="btn btn-primary mb-0 py-1" data-bs-dismiss="modal">No</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="modal-ViewChecker" tabindex="-1" aria-labelledby="modal-ViewCheckerLabel" aria-hidden="true" >
+<div class="modal fade" id="modal-ViewChecker" tabindex="-1" aria-labelledby="modal-ViewCheckerLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="modal-ViewCheckerLabel">View Checker</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="modal-ViewCheckerLabel">View Checker</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="card">
@@ -403,8 +403,8 @@ Inbound Planning
                                         </thead>
                                         <tbody>
                                             @php
-                                                $row_count_checker = 1;
-                                                
+                                            $row_count_checker = 1;
+
                                             @endphp
                                             @if (count($data["current_data_wh_activity"]) > 0)
                                             @foreach ($data["current_data_wh_activity"] as $current_data_wh_activity )
@@ -431,7 +431,7 @@ Inbound Planning
                                                 </td>
                                             </tr>
                                             @php
-                                               
+
                                             $row_count_checker ++;
                                             @endphp
                                             @endforeach
@@ -448,47 +448,47 @@ Inbound Planning
     </div>
 </div>
 
-<div class="modal fade" id="modal-AssignToChecker" tabindex="-1" aria-labelledby="modal-AssignToCheckerLabel" aria-hidden="true" >
+<div class="modal fade" id="modal-AssignToChecker" tabindex="-1" aria-labelledby="modal-AssignToCheckerLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="modal-AssignToCheckerLabel">Assign To Checker</h5>
-            <button type="button" class="btn btn-primary mb-0 py-1" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                <h5 class="modal-title" id="modal-AssignToCheckerLabel">Assign To Checker</h5>
+                <button type="button" class="btn btn-primary mb-0 py-1" data-bs-dismiss="modal" aria-label="Close">Close</button>
             </div>
             <div class="modal-body">
-            <form method="POST" action="{{ route('inbound_planning.processAssignChecker' , [ 'id' => $data["current_data"]->inbound_planning_no ]) }}" id="form-assign-checker">
-            @csrf
-            @method('POST')
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-12 mb-2">
-                                <button type="button" class="btn btn-primary mb-0 py-1" name="btn_add_row_checker" id="btn_add_row_checker">Add Row Checker</button>
-                            </div>
-                            <div class="col-sm-12 mb-2">
-                                <div class="table-responsive">
-                                    <table class="table " id="tabel-AssignToChecker" style="width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-xs">Checker Name</th>
-                                                <th class="text-xs">Date Start</th>
-                                                <th class="text-xs">Time Start</th>
-                                                <th class="text-xs">Date Finish</th>
-                                                <th class="text-xs">Time Finish</th>
-                                                <th class="text-xs">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
+                <form method="POST" action="{{ route('inbound_planning.processAssignChecker' , [ 'id' => $data["current_data"]->inbound_planning_no ]) }}" id="form-assign-checker">
+                    @csrf
+                    @method('POST')
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12 mb-2">
+                                    <button type="button" class="btn btn-primary mb-0 py-1" name="btn_add_row_checker" id="btn_add_row_checker">Add Row Checker</button>
                                 </div>
-                            </div>
-                            <div class="col-sm-12 mb-2">
-                                <button type="submit" class="btn btn-primary mb-0 py-1" name="btn_save_checker" id="btn_save_checker">Save</button>
+                                <div class="col-sm-12 mb-2">
+                                    <div class="table-responsive">
+                                        <table class="table " id="tabel-AssignToChecker" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-xs">Checker Name</th>
+                                                    <th class="text-xs">Date Start</th>
+                                                    <th class="text-xs">Time Start</th>
+                                                    <th class="text-xs">Date Finish</th>
+                                                    <th class="text-xs">Time Finish</th>
+                                                    <th class="text-xs">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 mb-2">
+                                    <button type="submit" class="btn btn-primary mb-0 py-1" name="btn_save_checker" id="btn_save_checker">Save</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>
@@ -498,11 +498,11 @@ Inbound Planning
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="modal-TargetUserCheckerLabel">Target User Checker</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="modal-TargetUserCheckerLabel">Target User Checker</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <input type="hidden" name="user_checker_target_row" id="user_checker_target_row" value="">
+                <input type="hidden" name="user_checker_target_row" id="user_checker_target_row" value="">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -530,136 +530,143 @@ Inbound Planning
 
 @section("javascript")
 <script type="text/javascript">
-function displayModalTargetUserChecker(row) {
-    $("#user_checker_target_row").val(row);
-    $("#tabel-TargetUserChecker").DataTable().destroy();
-    $("#tabel-TargetUserChecker").DataTable({
-        processing: true,
-        serverSide: true,
-        ordering: false,
-        ajax: "{{ route('inbound_planning.datatablesTargetUserAssign') }}",
-        columns:[
-            {data: 'username', searchable: true,},
-            {data: 'fullname', searchable: true,},
-        ],
-    });
-
-    $("#modal-TargetUserChecker").modal("show");
-}
-
-function deleteRowChecker(row) {
-    $(`#row_checker_${row}`).remove();
-}
-
-$(document).ready(function () {
-    $("#dropdown_toggle_inbound").prop('aria-expanded',true);
-    $("#dropdown_toggle_inbound").addClass('active');
-    $("#dropdown_inbound").addClass('show');
-    $("#logo_inbound").addClass("d-none");
-    $("#logo_white_inbound").removeClass("d-none");
-    $("#li_inbound_planning").addClass("active");
-    $("#a_inbound_planning").addClass("active");
-    
-    let row_count_checker = 1;
-
-    $("#btn_confirm_to_unreceive").on("click",function () {
-        $("#modal-ConfirmToUnreceive").modal('show');
-    });
-
-    $("#form-process-unreceive").on("submit",function (e) {
-        e.preventDefault();
-        const url = $(this).prop('action');
-        const _token = $("input[name='_token']").val();
-        const _method = $("input[name='_method']").val();
-        const formData = new FormData();
-        formData.append("_token",_token);
-        formData.append("_method",_method);
-        $.ajax({
-            url:url,
-            method: _method,
-            data: formData,
-            contentType: false,
-            processData: false,
-            cache: false,
-            beforeSend: function () {
-            },
-            error: function (error) {
-                Swal
-                .mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-primary me-2',
-                    },
-                    buttonsStyling: false,
-                })
-                .fire({
-                    text: 'Something Wrong',
-                    type: 'error',
-                    icon: 'error',
-                });
-            },
-            complete: function () {
-
-            },
-            success: function (response) {
-                if(typeof response !== 'object'){
-                    Swal
-                    .mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-primary me-2',
-                        },
-                        buttonsStyling: false,
-                    })
-                    .fire({
-                        text: 'Something Wrong',
-                        type: 'error',
-                        icon: 'error',
-                    });
-                    return;
-                }
-
-                if(response.err){
-                    Swal
-                    .mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-primary me-2',
-                        },
-                        buttonsStyling: false,
-                    })
-                    .fire({
-                        text: 'Something Wrong',
-                        type: 'error',
-                        icon: 'error',
-                    });
-                    return;
-                }
-
-                Swal
-                .mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-primary me-2',
-                    },
-                    buttonsStyling: false,
-                })
-                .fire({
-                    text: `${response.message}`,
-                    type: 'success',
-                    icon: 'success',
-                });
-
-                window.location.reload();
-                return;
-
-            },
+    function displayModalTargetUserChecker(row) {
+        $("#user_checker_target_row").val(row);
+        $("#tabel-TargetUserChecker").DataTable().destroy();
+        $("#tabel-TargetUserChecker").DataTable({
+            processing: true,
+            serverSide: true,
+            ordering: false,
+            ajax: "{{ route('inbound_planning.datatablesTargetUserAssign') }}",
+            columns: [{
+                    data: 'username',
+                    searchable: true,
+                },
+                {
+                    data: 'fullname',
+                    searchable: true,
+                },
+            ],
         });
-    });
 
-    $("#btn_assign_to_checker").on("click",function () {
-        $("#modal-AssignToChecker").modal({backdrop: 'static', keyboard: false});
-        $("#modal-AssignToChecker").modal('show');
-    });
+        $("#modal-TargetUserChecker").modal("show");
+    }
 
-    $("#btn_add_row_checker").on("click",function () {
-        const html_row_checker = `
+    function deleteRowChecker(row) {
+        $(`#row_checker_${row}`).remove();
+    }
+
+    $(document).ready(function() {
+        $("#dropdown_toggle_inbound").prop('aria-expanded', true);
+        $("#dropdown_toggle_inbound").addClass('active');
+        $("#dropdown_inbound").addClass('show');
+        $("#logo_inbound").addClass("d-none");
+        $("#logo_white_inbound").removeClass("d-none");
+        $("#li_inbound_planning").addClass("active");
+        $("#a_inbound_planning").addClass("active");
+
+        let row_count_checker = 1;
+
+        $("#btn_confirm_to_unreceive").on("click", function() {
+            $("#modal-ConfirmToUnreceive").modal('show');
+        });
+
+        $("#form-process-unreceive").on("submit", function(e) {
+            e.preventDefault();
+            const url = $(this).prop('action');
+            const _token = $("input[name='_token']").val();
+            const _method = $("input[name='_method']").val();
+            const formData = new FormData();
+            formData.append("_token", _token);
+            formData.append("_method", _method);
+            $.ajax({
+                url: url,
+                method: _method,
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                beforeSend: function() {},
+                error: function(error) {
+                    Swal
+                        .mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-primary me-2',
+                            },
+                            buttonsStyling: false,
+                        })
+                        .fire({
+                            text: 'Something Wrong',
+                            type: 'error',
+                            icon: 'error',
+                        });
+                },
+                complete: function() {
+
+                },
+                success: function(response) {
+                    if (typeof response !== 'object') {
+                        Swal
+                            .mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-primary me-2',
+                                },
+                                buttonsStyling: false,
+                            })
+                            .fire({
+                                text: 'Something Wrong',
+                                type: 'error',
+                                icon: 'error',
+                            });
+                        return;
+                    }
+
+                    if (response.err) {
+                        Swal
+                            .mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-primary me-2',
+                                },
+                                buttonsStyling: false,
+                            })
+                            .fire({
+                                text: 'Something Wrong',
+                                type: 'error',
+                                icon: 'error',
+                            });
+                        return;
+                    }
+
+                    Swal
+                        .mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-primary me-2',
+                            },
+                            buttonsStyling: false,
+                        })
+                        .fire({
+                            text: `${response.message}`,
+                            type: 'success',
+                            icon: 'success',
+                        });
+
+                    window.location.reload();
+                    return;
+
+                },
+            });
+        });
+
+        $("#btn_assign_to_checker").on("click", function() {
+            $("#modal-AssignToChecker").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            $("#modal-AssignToChecker").modal('show');
+        });
+
+        $("#btn_add_row_checker").on("click", function() {
+            const html_row_checker = `
         <tr id="row_checker_${row_count_checker}">
             <td>
                 <div class="input-group">  
@@ -688,276 +695,276 @@ $(document).ready(function () {
                 <button type="button" class="btn btn-primary mb-0 py-1" name="btn_remove_row_checker_${row_count_checker}" id="btn_remove_row_checker_${row_count_checker}" onclick="deleteRowChecker('${row_count_checker}')">Remove</button>
             </td>
         </tr>`;
-        row_count_checker++;
-        $("#tabel-AssignToChecker > tbody").append(html_row_checker);
-    });
-
-    $("#tabel-TargetUserChecker > tbody").on('click','tr',function () {
-        const target_row = $("#user_checker_target_row").val();
-        const dom_tr = $(this);
-        if( $($(dom_tr).children("td")[0]).text() == "No data available in table"){
-            return;
-        }
-        const username = $($(dom_tr).children("td")[0]).text();
-        
-        $(`#checker_username_${target_row}`).val(username);
-        
-        $("#modal-TargetUserChecker").modal('hide');
-    });
-
-    $("#form-assign-checker").on("submit",function (e) {
-        e.preventDefault();
-        const url = $(this).prop('action');
-        const _token = $("input[name='_token']").val();
-        const _method = $("input[name='_method']").val();
-        const arr_checker_username = [];
-        $("input[name^='checker_username']").each(function () {
-            arr_checker_username.push({
-                id: $(this).prop('id'),
-                value: $(this).val(),
-            });    
+            row_count_checker++;
+            $("#tabel-AssignToChecker > tbody").append(html_row_checker);
         });
 
-        const arr_checker_date_start = [];
-        $("input[name^='checker_date_start']").each(function () {
-            arr_checker_date_start.push({
-                id: $(this).prop('id'),
-                value: $(this).val(),
-            });    
+        $("#tabel-TargetUserChecker > tbody").on('click', 'tr', function() {
+            const target_row = $("#user_checker_target_row").val();
+            const dom_tr = $(this);
+            if ($($(dom_tr).children("td")[0]).text() == "No data available in table") {
+                return;
+            }
+            const username = $($(dom_tr).children("td")[0]).text();
+
+            $(`#checker_username_${target_row}`).val(username);
+
+            $("#modal-TargetUserChecker").modal('hide');
         });
 
-        const arr_checker_time_start = [];
-        $("input[name^='checker_time_start']").each(function () {
-            arr_checker_time_start.push({
-                id: $(this).prop('id'),
-                value: $(this).val(),
-            });    
-        });
-
-        const arr_checker_date_finish = [];
-        $("input[name^='checker_date_finish']").each(function () {
-            arr_checker_date_finish.push({
-                id: $(this).prop('id'),
-                value: $(this).val(),
-            });    
-        });
-
-        const arr_checker_time_finish = [];
-        $("input[name^='checker_time_finish']").each(function () {
-            arr_checker_time_finish.push({
-                id: $(this).prop('id'),
-                value: $(this).val(),
-            });    
-        });
-
-        
-
-        const formData = new FormData();
-        formData.append("_token",_token);
-        formData.append("_method",_method);
-        formData.append("arr_checker_username",JSON.stringify(arr_checker_username));
-        formData.append("arr_checker_date_start",JSON.stringify(arr_checker_date_start));
-        formData.append("arr_checker_time_start",JSON.stringify(arr_checker_time_start));
-        formData.append("arr_checker_date_finish",JSON.stringify(arr_checker_date_finish));
-        formData.append("arr_checker_time_finish",JSON.stringify(arr_checker_time_finish));
-
-        $.ajax({
-            url:url,
-            method: _method,
-            data: formData,
-            contentType: false,
-            processData: false,
-            cache: false,
-            beforeSend: function () {
-                $("input[name^='checker_username']").removeClass('is-invalid');
-                $("[id^='validation_checker_username']").html('');
-                $("input[name^='checker_date_start']").removeClass('is-invalid');
-                $("[id^='validation_checker_date_start']").html('');
-                $("input[name^='checker_time_start']").removeClass('is-invalid');
-                $("[id^='validation_checker_time_start']").html('');
-                $("input[name^='checker_date_finish']").removeClass('is-invalid');
-                $("[id^='validation_checker_date_finish']").html('');
-                $("input[name^='checker_time_finish']").removeClass('is-invalid');
-                $("[id^='validation_checker_time_finish']").html('');
-                
-            },
-            error: function (error) {
-                Swal
-                .mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-primary me-2',
-                    },
-                    buttonsStyling: false,
-                })
-                .fire({
-                    text: 'Something Wrong',
-                    type: 'error',
-                    icon: 'error',
+        $("#form-assign-checker").on("submit", function(e) {
+            e.preventDefault();
+            const url = $(this).prop('action');
+            const _token = $("input[name='_token']").val();
+            const _method = $("input[name='_method']").val();
+            const arr_checker_username = [];
+            $("input[name^='checker_username']").each(function() {
+                arr_checker_username.push({
+                    id: $(this).prop('id'),
+                    value: $(this).val(),
                 });
-            },
-            complete: function () {
+            });
 
-            },
-            success: function (response) {
-                if(typeof response !== 'object'){
+            const arr_checker_date_start = [];
+            $("input[name^='checker_date_start']").each(function() {
+                arr_checker_date_start.push({
+                    id: $(this).prop('id'),
+                    value: $(this).val(),
+                });
+            });
+
+            const arr_checker_time_start = [];
+            $("input[name^='checker_time_start']").each(function() {
+                arr_checker_time_start.push({
+                    id: $(this).prop('id'),
+                    value: $(this).val(),
+                });
+            });
+
+            const arr_checker_date_finish = [];
+            $("input[name^='checker_date_finish']").each(function() {
+                arr_checker_date_finish.push({
+                    id: $(this).prop('id'),
+                    value: $(this).val(),
+                });
+            });
+
+            const arr_checker_time_finish = [];
+            $("input[name^='checker_time_finish']").each(function() {
+                arr_checker_time_finish.push({
+                    id: $(this).prop('id'),
+                    value: $(this).val(),
+                });
+            });
+
+
+
+            const formData = new FormData();
+            formData.append("_token", _token);
+            formData.append("_method", _method);
+            formData.append("arr_checker_username", JSON.stringify(arr_checker_username));
+            formData.append("arr_checker_date_start", JSON.stringify(arr_checker_date_start));
+            formData.append("arr_checker_time_start", JSON.stringify(arr_checker_time_start));
+            formData.append("arr_checker_date_finish", JSON.stringify(arr_checker_date_finish));
+            formData.append("arr_checker_time_finish", JSON.stringify(arr_checker_time_finish));
+
+            $.ajax({
+                url: url,
+                method: _method,
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                beforeSend: function() {
+                    $("input[name^='checker_username']").removeClass('is-invalid');
+                    $("[id^='validation_checker_username']").html('');
+                    $("input[name^='checker_date_start']").removeClass('is-invalid');
+                    $("[id^='validation_checker_date_start']").html('');
+                    $("input[name^='checker_time_start']").removeClass('is-invalid');
+                    $("[id^='validation_checker_time_start']").html('');
+                    $("input[name^='checker_date_finish']").removeClass('is-invalid');
+                    $("[id^='validation_checker_date_finish']").html('');
+                    $("input[name^='checker_time_finish']").removeClass('is-invalid');
+                    $("[id^='validation_checker_time_finish']").html('');
+
+                },
+                error: function(error) {
                     Swal
-                    .mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-primary me-2',
-                        },
-                        buttonsStyling: false,
-                    })
-                    .fire({
-                        text: 'Something Wrong',
-                        type: 'error',
-                        icon: 'error',
-                    });
-                    return;
-                }
+                        .mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-primary me-2',
+                            },
+                            buttonsStyling: false,
+                        })
+                        .fire({
+                            text: 'Something Wrong',
+                            type: 'error',
+                            icon: 'error',
+                        });
+                },
+                complete: function() {
 
-                if(response.err){
-                    for (const key_data in response.data) {
-                        if (Object.hasOwnProperty.call(response.data, key_data)) {
-                            const arr_message = response.data[key_data];
-                            let text_message = "";
-                            arr_message.forEach(error_message => {
-                                text_message += `${error_message} <br>`;
+                },
+                success: function(response) {
+                    if (typeof response !== 'object') {
+                        Swal
+                            .mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-primary me-2',
+                                },
+                                buttonsStyling: false,
+                            })
+                            .fire({
+                                text: 'Something Wrong',
+                                type: 'error',
+                                icon: 'error',
                             });
-                            $(`#${key_data}`).addClass('is-invalid');
-                            $(`#validation_${key_data}`).html(text_message);
+                        return;
+                    }
+
+                    if (response.err) {
+                        for (const key_data in response.data) {
+                            if (Object.hasOwnProperty.call(response.data, key_data)) {
+                                const arr_message = response.data[key_data];
+                                let text_message = "";
+                                arr_message.forEach(error_message => {
+                                    text_message += `${error_message} <br>`;
+                                });
+                                $(`#${key_data}`).addClass('is-invalid');
+                                $(`#validation_${key_data}`).html(text_message);
+                            }
                         }
+                        Swal
+                            .mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-primary me-2',
+                                },
+                                buttonsStyling: false,
+                            })
+                            .fire({
+                                text: `${response.message}`,
+                                type: 'error',
+                                icon: 'error',
+                            });
+                        return;
                     }
                     Swal
-                    .mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-primary me-2',
-                        },
-                        buttonsStyling: false,
-                    })
-                    .fire({
-                        text: `${response.message}`,
-                        type: 'error',
-                        icon: 'error',
-                    });
+                        .mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-primary me-2',
+                            },
+                            buttonsStyling: false,
+                        })
+                        .fire({
+                            text: `${response.message}`,
+                            type: 'success',
+                            icon: 'success',
+                        });
+                    window.location.reload();
                     return;
-                }
-                Swal
-                .mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-primary me-2',
-                    },
-                    buttonsStyling: false,
-                })
-                .fire({
-                    text: `${response.message}`,
-                    type: 'success',
-                    icon: 'success',
-                });
-                window.location.reload();
-                return;
 
-            },
+                },
+            });
+        });
+
+        $("#btn_view_checker").on("click", function() {
+            $("#modal-ViewChecker").modal('show');
+        });
+
+        $("#btn_confirm_inbound_planning").on("click", function() {
+            const confirmed = confirm("Are you sure this data is already correct ?");
+
+            if (!confirmed) {
+                return;
+            }
+
+            const url = "{{ route('inbound_planning.confirmInboundPlanning', [ 'id'=> $data['current_data']->inbound_planning_no ]) }}";
+            const _token = $("meta[name='csrf-token']").prop('content');
+            const _method = "POST";
+
+            const formData = new FormData();
+            formData.append("_token", _token);
+            formData.append("_method", _method);
+
+            $.ajax({
+                url: url,
+                method: _method,
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                beforeSend: function() {
+
+                },
+                error: function(error) {
+                    Swal
+                        .mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-primary me-2',
+                            },
+                            buttonsStyling: false,
+                        })
+                        .fire({
+                            text: 'Something Wrong',
+                            type: 'error',
+                            icon: 'error',
+                        });
+                },
+                complete: function() {
+
+                },
+                success: function(response) {
+                    if (typeof response !== 'object') {
+                        Swal
+                            .mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-primary me-2',
+                                },
+                                buttonsStyling: false,
+                            })
+                            .fire({
+                                text: 'Something Wrong',
+                                type: 'error',
+                                icon: 'error',
+                            });
+                        return;
+                    }
+
+                    if (response.err) {
+                        Swal
+                            .mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-primary me-2',
+                                },
+                                buttonsStyling: false,
+                            })
+                            .fire({
+                                text: `${response.message}`,
+                                type: 'error',
+                                icon: 'error',
+                            });
+                        return;
+                    }
+
+                    Swal
+                        .mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-primary me-2',
+                            },
+                            buttonsStyling: false,
+                        })
+                        .fire({
+                            text: `${response.message}`,
+                            type: 'success',
+                            icon: 'success',
+                        });
+
+                    window.location = "{{ route('inbound_planning.index') }}";
+                    return;
+
+                },
+            });
         });
     });
-
-    $("#btn_view_checker").on("click",function () {
-        $("#modal-ViewChecker").modal('show');
-    });
-    
-    $("#btn_confirm_inbound_planning").on("click",function () {
-        const confirmed = confirm("Are you sure this data is already correct ?");
-        
-        if(!confirmed){
-            return;
-        }
-
-        const url = "{{ route('inbound_planning.confirmInboundPlanning', [ 'id'=> $data['current_data']->inbound_planning_no ]) }}";
-        const _token = $("meta[name='csrf-token']").prop('content');
-        const _method = "POST";
-
-        const formData = new FormData();
-        formData.append("_token",_token);
-        formData.append("_method",_method);
-
-        $.ajax({
-            url:url,
-            method: _method,
-            data: formData,
-            contentType: false,
-            processData: false,
-            cache: false,
-            beforeSend: function () {
-                
-            },
-            error: function (error) {
-                Swal
-                .mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-primary me-2',
-                    },
-                    buttonsStyling: false,
-                })
-                .fire({
-                    text: 'Something Wrong',
-                    type: 'error',
-                    icon: 'error',
-                });
-            },
-            complete: function () {
-
-            },
-            success: function (response) {
-                if(typeof response !== 'object'){
-                    Swal
-                    .mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-primary me-2',
-                        },
-                        buttonsStyling: false,
-                    })
-                    .fire({
-                        text: 'Something Wrong',
-                        type: 'error',
-                        icon: 'error',
-                    });
-                    return;
-                }
-
-                if(response.err){
-                    Swal
-                    .mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-primary me-2',
-                        },
-                        buttonsStyling: false,
-                    })
-                    .fire({
-                        text: `${response.message}`,
-                        type: 'error',
-                        icon: 'error',
-                    });
-                    return;
-                }
-
-                Swal
-                .mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-primary me-2',
-                    },
-                    buttonsStyling: false,
-                })
-                .fire({
-                    text: `${response.message}`,
-                    type: 'success',
-                    icon: 'success',
-                });
-
-                window.location = "{{ route('inbound_planning.index') }}";
-                return;
-
-            },
-        });
-    });
-});
 </script>
 @endsection

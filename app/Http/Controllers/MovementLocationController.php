@@ -70,7 +70,7 @@ class MovementLocationController extends Controller
             ])
             ->from("t_wh_movement as a")
             ->leftJoin("m_wh_client_project as b", "a.client_project_id", "=", "b.client_project_id")
-            ->leftJoin("m_warehouse as c", "b.wh_id", "=", "c.wh_id")
+            ->leftJoin("m_warehouse as c", "c.wh_id", "=", "a.wh_id")
             ->leftJoin("m_status as d", "a.status_id", "=", "d.status_id")
             ->where("a.client_project_id", session("current_client_project_id"))
             ->where(function ($query) use ($movement_location_id) {
@@ -183,7 +183,7 @@ class MovementLocationController extends Controller
         date(a.datetime_created) AS created_date
         FROM t_wh_movement AS a
         LEFT JOIN m_wh_client_project AS b ON a.client_project_id = b.client_project_id
-        LEFT JOIN m_warehouse AS c ON b.wh_id = c.wh_id
+        LEFT JOIN m_warehouse AS c ON a.wh_id = c.wh_id
         LEFT JOIN m_status AS d ON a.status_id = d.status_id
         LEFT JOIN t_wh_temporary_movement_copy e ON a.movement_id=e.movement_id
         WHERE a.client_project_id = ?
@@ -353,8 +353,8 @@ class MovementLocationController extends Controller
                 "b.wh_code",
             ])
             ->from("m_wh_client_project as a")
-            ->leftJoin("m_warehouse as b", "a.wh_id", "=", "b.wh_id")
-            ->where("client_project_id", session("current_client_project_id"))
+            ->leftJoin("m_warehouse as b", "a.client_project_id", "=", "b.client_project_id")
+            ->where("a.client_project_id", session("current_client_project_id"))
             ->get();
         return $data;
     }
@@ -417,10 +417,13 @@ class MovementLocationController extends Controller
             ->select([
                 "a.location_code",
                 "a.location_type",
+                "c.wh_code",
             ])
             ->from("m_wh_location as a")
-            ->leftJoin("m_wh_client_project as b", "a.wh_id", "=", "b.wh_id")
+            ->leftJoin("m_wh_client_project as b", "a.client_project_id", "=", "b.client_project_id")
+            ->leftJoin("m_warehouse as c","c.wh_id","=","a.wh_id")
             ->where("b.client_project_id", session("current_client_project_id"))
+            // ->where("c.wh_id", session("current_wh_id"))
             ->orderBy("a.location_code", "ASC")
             ->get();
         return $data;
@@ -429,7 +432,7 @@ class MovementLocationController extends Controller
     public function datatablesModalItemDetailLocation()
     {
         $data = $this->get_Modal_Item_Detail_location();
-
+        // echo($data);die();
         return DataTables::of($data)
             ->make(true);
     }
@@ -569,6 +572,7 @@ class MovementLocationController extends Controller
             DB::table("t_wh_movement")
                 ->insert([
                     "movement_id" => $movement_id,
+                    "wh_id" => session("current_warehouse_id"),
                     "client_project_id" => session("current_client_project_id"),
                     "movement_date" => $movement_date,
                     "status_id" => "OPM",
@@ -685,7 +689,7 @@ class MovementLocationController extends Controller
             ->leftJoin("m_wh_user_level as b", "b.user_level_id", "=", "a.user_level_id")
             ->leftJoin("m_wh_user_client_project as c", "c.username", "=", "a.username")
             ->leftJoin("m_wh_client_project as d", "d.client_project_id", "=", "c.client_project_id")
-            ->where("d.wh_id", session('current_warehouse_id'))
+            ->where("a.wh_id", session('current_warehouse_id'))
             ->where("d.client_id", session('current_client_id'))
             ->where("c.client_project_id", session('current_client_project_id'))
             ->whereIn("b.user_level_id", ["2", "3"])
@@ -814,7 +818,7 @@ class MovementLocationController extends Controller
         FROM t_wh_movement a
         LEFT JOIN m_wh_client_project b ON a.client_project_id=b.client_project_id
         LEFT JOIN m_wh_client c ON b.client_id=c.client_id
-        LEFT JOIN m_warehouse d ON b.wh_id=d.wh_id
+        LEFT JOIN m_warehouse d ON a.wh_id=d.wh_id
         WHERE a.movement_id = ?
         ", [
             @$current_data[0]->movement_id,

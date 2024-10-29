@@ -20,7 +20,7 @@
         <table class="" style="width: 100%;">
             <tr>
                 <td style="width: 0%;"><h2>MOVEMENT LOCATION</h2></td>
-                <td style="width: 10%; text-align: end;"><img src="{{ asset('img/logokonek.png') }}" style="width:100px;"></td>
+                <td style="width: 10%; text-align: end;"><img src="{{ asset('img/logo-nojorono-biru-2.png') }}" style="width:100px;"></td>
             </tr>
         </table>
 

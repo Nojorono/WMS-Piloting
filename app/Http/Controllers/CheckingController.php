@@ -377,7 +377,7 @@ class CheckingController extends Controller
 
         DB::beginTransaction();
         try {
-            $url = "https://static.rpx.co.id/";
+            $url = "http://10.0.29.49/";
             $path = "/wms_web_dev/checking";
             $arr_url_file = [];
             if(!empty($file_1)){

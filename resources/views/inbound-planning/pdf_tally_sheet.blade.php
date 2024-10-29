@@ -19,7 +19,7 @@
     <div style="padding-bottom: 1rem; ">
         <table class="" style="width: 100%;">
             <tr>
-                <td style="width: 20%;"><img src="{{ asset('img/logokonek.png') }}" style="width:100px;"></td>
+                <td style="width: 20%;"><img src="{{ asset('img/logo-nojorono-biru-2.png') }}" style="width:100px;"></td>
                 <td ><h2>INBOUND TALLY SHEET</h2></td>
             </tr>
         </table>

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InboundPlanningController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +30,7 @@ Route::post("reset-password", [App\Http\Controllers\Auth\PasswordController::cla
 Route::group(["middleware" => "auth"], function () {
 
     Route::get("/dashboard", [App\Http\Controllers\DashboardController::class, "index"])->name("dashboard");
-    
+
     Route::post("/dashboard_getInboundReport", [App\Http\Controllers\DashboardController::class, "dashboard_getInboundReport"])->name("dashboard_getInboundReport");
     Route::post("/dashboard_getOutboundReport", [App\Http\Controllers\DashboardController::class, "dashboard_getOutboundReport"])->name("dashboard_getOutboundReport");
 
@@ -53,6 +55,8 @@ Route::group(["middleware" => "auth"], function () {
     Route::post("/change_client_project_id", [App\Http\Controllers\DashboardController::class, "change_client_project_id"])->name("change_client_project_id");
 
     Route::post("/get_message", [App\Http\Controllers\DashboardController::class, "get_message"])->name("get_message");
+
+    Route::get('/get-last-client-project-id', [App\Http\Controllers\MasterProjectController::class, 'getLastClientProjectID']);
 
     Route::group([
         "prefix" => "/inbound_planning",
@@ -414,6 +418,21 @@ Route::group(["middleware" => "auth"], function () {
         Route::get("{id}/show", [App\Http\Controllers\UserManagementController::class, "show"])->name("show");
         Route::get("create", [App\Http\Controllers\UserManagementController::class, "create"])->name("create");
         Route::post("store", [App\Http\Controllers\UserManagementController::class, "store"])->name("store");
+        Route::get("{id}/edit", [App\Http\Controllers\UserManagementController::class, "edit"])->name("edit");
+        Route::post("{id}/update", [App\Http\Controllers\UserManagementController::class, "update"])->name("update");
+    });
+
+    Route::group([
+        "prefix" => "/user_group_management",
+        "as" => "user_group_management.",
+    ], function () {
+        Route::get("/", [App\Http\Controllers\UserGroupManagementController::class, "index"])->name("index");
+        Route::get("/datatables", [App\Http\Controllers\UserGroupManagementController::class, "datatables"])->name("datatables");
+        Route::get("{id}/show", [App\Http\Controllers\UserGroupManagementController::class, "show"])->name("show");
+        Route::get("create", [App\Http\Controllers\UserGroupManagementController::class, "create"])->name("create");
+        Route::post("store", [App\Http\Controllers\UserGroupManagementController::class, "store"])->name("store");
+        Route::get("{id}/edit", [App\Http\Controllers\UserGroupManagementController::class, "edit"])->name("edit");
+        Route::post("{id}/update", [App\Http\Controllers\UserGroupManagementController::class, "update"])->name("update");
     });
 
     Route::group([
@@ -438,6 +457,16 @@ Route::group(["middleware" => "auth"], function () {
         Route::post("/getReport", [App\Http\Controllers\ReportSummaryInboundController::class, "getReport"])->name("getReport");
         Route::get("/viewExcel", [App\Http\Controllers\ReportSummaryInboundController::class, "viewExcel"])->name("viewExcel");
         Route::get("/printPDF", [App\Http\Controllers\ReportSummaryInboundController::class, "printPDF"])->name("printPDF");
+    });
+
+    Route::group([
+        "prefix" => "/cogs_computation",
+        "as" => "cogs_computation.",
+    ], function () {
+        Route::get("/", [App\Http\Controllers\COGSComputationController::class, "index"])->name("index");
+        Route::post("/getReport", [App\Http\Controllers\COGSComputationController::class, "getReport"])->name("getReport");
+        Route::get("/viewExcel", [App\Http\Controllers\COGSComputationController::class, "viewExcel"])->name("viewExcel");
+        Route::get("/printPDF", [App\Http\Controllers\COGSComputationController::class, "printPDF"])->name("printPDF");
     });
 
     Route::group([
@@ -543,6 +572,64 @@ Route::group(["middleware" => "auth"], function () {
         Route::get("/movement_location/datatablesTargetUserAssign", [App\Http\Controllers\GRReturnController::class, "datatablesTargetUserAssign"])->name("datatablesTargetUserAssign");
         Route::post("/{id}/movement_location/processReceiveDetail", [App\Http\Controllers\GRReturnController::class, "processReceiveDetail"])->name("processReceiveDetail");
         Route::get("/{id}/movement_location/datatablesListSKUByGR", [App\Http\Controllers\GRReturnController::class, "datatablesListSKUByGR"])->name("datatablesListSKUByGR");
-        
+    });
+    Route::group([
+        "prefix" => "/shipping_load",
+        "as" => "shipping_load.",
+    ], function () {
+        Route::get("/", [App\Http\Controllers\ShippingLoadController::class, "index"])->name("index");
+        Route::get("/datatables", [App\Http\Controllers\ShippingLoadController::class, "datatables"])->name("datatables");
+        Route::get("/datatablesShippingLoadStatus", [App\Http\Controllers\ShippingLoadController::class, "datatablesShippingLoadStatus"])->name("datatablesShippingLoadStatus");
+        Route::get("{id}/show", [App\Http\Controllers\ShippingLoadController::class, "show"])->name("show");
+        Route::get("{id}/viewPDF", [App\Http\Controllers\ShippingLoadController::class, "viewPDF"])->name("viewPDF");
+
+        Route::get("/create", [App\Http\Controllers\ShippingLoadController::class, "create"])->name("create");
+        Route::post("/searchOutbound", [App\Http\Controllers\ShippingLoadController::class, "searchOutbound"])->name("searchOutbound");
+        Route::post("/store", [App\Http\Controllers\ShippingLoadController::class, "store"])->name("store");
+        Route::post("{id}/updateShippingLoad", [App\Http\Controllers\ShippingLoadController::class, "updateShippingLoad"])->name("updateShippingLoad");
+    });
+
+    Route::group([
+        "prefix" => "/transport",
+        "as" => "transport.",
+    ], function () {
+        Route::get("/", [App\Http\Controllers\TransportController::class, "index"])->name("index");
+        Route::get("/datatables", [App\Http\Controllers\TransportController::class, "datatables"])->name("datatables");
+        Route::get("/datatablesTransporter", [App\Http\Controllers\TransportController::class, "datatablesTransporter"])->name("datatablesTransporter");
+        Route::get("/datatablesServiceType", [App\Http\Controllers\TransportController::class, "datatablesServiceType"])->name("datatablesServiceType");
+    });
+
+    Route::group([
+        "prefix" => "/user_change_password",
+        "as" => "user_change_password.",
+    ], function () {
+        Route::get("/", [App\Http\Controllers\UserChangePasswordController::class, "index"])->name("index");
+        Route::post("{id}/update", [App\Http\Controllers\UserChangePasswordController::class, "update"])->name("update");
     });
 });
+
+
+// API FOR MOBILE APP - TRANSPORTATION
+Route::get('order-list/{checker}', [App\Http\Controllers\InboundPlanningController::class, 'getOrderListForMobileApp'])->name("getOrderListForMobileApp");
+Route::get('finish-inbound/{checker}', [App\Http\Controllers\InboundPlanningController::class, 'getFinishInboundDataForMobileApp'])->name("getFinishInboundDataForMobileApp");
+
+Route::post('save-partial-vehicle/{inboundPlanningNo}/{checker}', [App\Http\Controllers\InboundPlanningController::class, "processSavePartialVehicleMobileApp"])->name("processSavePartialVehicleMobileApp");
+Route::get('get-vehicle', [App\Http\Controllers\InboundPlanningController::class, 'getVehicleForMobileApp'])->name("getVehicleForMobileApp");
+Route::get('get-wh-trans/{inboundPlanningNo}', [App\Http\Controllers\InboundPlanningController::class, 'getWHTransportation'])->name("getWHTransportation");
+Route::post('save-finish-vehicle/{activityId}/{vehicleNo}', [App\Http\Controllers\InboundPlanningController::class, "processSaveFinishVehicleMobileApp"])->name("processSaveFinishVehicleMobileApp");
+
+
+// API FOR MOBILE APP - SCAN
+Route::get('/get-sku/{inbound_planning_no}', [App\Http\Controllers\InboundPlanningController::class, 'getSKUforMobileApp']);
+Route::get('/stock-type-scan/{stock_id?}', [App\Http\Controllers\InboundPlanningController::class, 'getStockTypeScanMobileApp']);
+Route::get('/check-qty-plan', [App\Http\Controllers\InboundPlanningController::class, 'checkQtyPlan']);
+Route::get('/check-outstanding/{inboundPlanningNo}/{sku}', [App\Http\Controllers\InboundPlanningController::class, 'checkOutstanding']);
+Route::post('/process-scan/{inboundPlanningNo}/{activtyId}/{cheker}', [App\Http\Controllers\InboundPlanningController::class, 'processScanMobileApp']);
+
+// API FOR MOBILE APP - PUT AWAY
+Route::get('order-putaway/{warehouseman}', [App\Http\Controllers\GoodsReceivingController::class, 'getOrderPutAway']);
+Route::post('update-putaway', [App\Http\Controllers\GoodsReceivingController::class, 'updateScanStatus']);
+
+Route::get('putaway-data/{warehouseman}', [App\Http\Controllers\GoodsReceivingController::class, 'getPutawayData']);
+
+

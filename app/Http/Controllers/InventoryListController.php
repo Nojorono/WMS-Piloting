@@ -79,7 +79,8 @@ class InventoryListController extends Controller
         ])
         ->from("t_wh_location_inventory as a")
         ->leftJoin("m_wh_client_project as b","a.client_project_id","=","b.client_project_id")
-        ->leftJoin("m_warehouse as c","b.wh_id","=","c.wh_id")
+        ->leftJoin("m_wh_location as e","e.location_id","=","a.location_id")
+        ->leftJoin("m_warehouse as c","e.wh_id","=","c.wh_id")
         ->leftJoin("m_item_classification as d","a.clasification_id","=","d.item_classification_id")
         ->where("d.process_id","12")
         ->where(function ($query) use($warehouse_id)
@@ -91,7 +92,7 @@ class InventoryListController extends Controller
         ->where(function ($query) use($client_id)
         {
             if(!empty($client_id)){
-                $query->where("b.client_project_id",$client_id);
+                $query->where("b.client_id",$client_id);
             }
         })
         ->where(function ($query) use($location_id)

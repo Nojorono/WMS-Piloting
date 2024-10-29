@@ -107,11 +107,12 @@ class MasterBufferController extends Controller
                 "a.sku",
                 "a.part_name",
             ])
+            ->leftJoin("m_warehouse as c","c.wh_id","=","a.wh_id")
             ->leftJoin("m_wh_client_project as b", function ($query) {
-                $query->on("b.wh_id", "=", "a.wh_id");
+                $query->on("b.client_project_id", "=", "c.client_project_id");
                 $query->on("b.client_id", "=", "a.client_id");
             })
-            ->where("b.wh_id", session("current_warehouse_id"))
+            ->where("a.wh_id", session("current_warehouse_id"))
             ->where("b.client_project_id", session("current_client_project_id"))
             ->where(function ($query) use ($sku) {
                 if ($sku !== null) {

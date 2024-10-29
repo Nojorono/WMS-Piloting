@@ -18,6 +18,9 @@ User Management
                         <a href="{{route('user_management.index')}}" class="text-decoration-none me-2">
                             <button type="button" class="btn btn-primary py-1 mb-0" >List</button>
                         </a>
+                        <a href="{{route('user_management.edit' , ['id' => @$data['current_data'][0]->username ])}}" class="text-decoration-none me-2">
+                            <button type="button" class="btn btn-primary py-1 mb-0" >Edit</button>
+                        </a>
                     </div>
                     <div class="col-sm-12 mb-2">
                         <div class="card">
@@ -94,7 +97,7 @@ User Management
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6 mb-2">
+                                    <div class="col-sm-4 mb-2">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <label for="user_level" class="form-label text-xs">User Level</label>
@@ -120,7 +123,31 @@ User Management
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 mb-2">
+
+                                    <!-- USER GROUP -->
+                                    <div class="col-sm-4 mb-2">
+                                        <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label for="user_group" class="form-label text-xs">User Group</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                <select class="form-select py-0" id="user_group" name="user_group" disabled>
+                                                    <option value="">Choose</option>
+                                                    @if (isset($data["arr_choice_user_group"]) && count($data["arr_choice_user_group"]) > 0)
+                                                        @foreach ($data["arr_choice_user_group"] as $key_choice_user_group => $value_choice_user_group)
+                                                            <option value="{{ $value_choice_user_group->id }}" {{ $value_choice_user_group->id == $data["current_data"][0]->user_group_id ? 'selected' : '' }}>
+                                                                {{ $value_choice_user_group->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 mb-2">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <label for="warehouse" class="form-label text-xs">Warehouse</label>
@@ -258,7 +285,8 @@ User Management
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 mb-2">
+
+                    <!-- <div class="col-sm-12 mb-2">
                         <div class="row justify-content-center">
                             <div class="col-sm-12">
                                 <div class="card">
@@ -311,14 +339,14 @@ User Management
                                                         @endif
                                                     @endforeach
                                                 @endif
-                                                
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

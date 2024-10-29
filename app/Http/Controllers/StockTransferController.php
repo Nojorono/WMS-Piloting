@@ -66,7 +66,7 @@ class StockTransferController extends Controller
         ])
         ->from("t_wh_stock_transfer as a")
         ->leftJoin("m_wh_client_project as b","a.client_project_id","=","b.client_project_id")
-        ->leftJoin("m_warehouse as c","b.wh_id","=","c.wh_id")
+        ->leftJoin("m_warehouse as c","a.wh_id","=","c.wh_id")
         ->leftJoin("m_wh_transaction_type as d","a.transaction_type","=","d.transaction_type")
         ->leftJoin("m_status as e","a.status_id","=","e.status_id")
         ->where(function ($query) use($stock_transfer_id)
@@ -201,6 +201,7 @@ class StockTransferController extends Controller
                 $query->where("a.sku",$sku);
             }
         })
+        ->where("a.client_project_id",session("current_client_project_id"))
         ->where("a.client_project_id",session("current_client_project_id"))
         ->groupBy("a.sku")
         ->orderBy("a.sku","ASC")
@@ -682,7 +683,7 @@ class StockTransferController extends Controller
 
         DB::beginTransaction();
         try {
-            $url = "https://static.rpx.co.id/";
+            $url = "http://10.0.29.49/";
             $path = "/wms_web_dev/stock-transfer";
 
             $url_file_1= "";
@@ -734,6 +735,7 @@ class StockTransferController extends Controller
             $data_t_wh_stock_transfer = [
                 "stock_transfer_id" => $stock_transfer_id,
                 "client_project_id" => session("current_client_project_id"),
+                "wh_id" => session("current_warehouse_id"),
                 "transaction_type" => $validated["transaction_type"],
                 "remark" => $validated["remark"],
                 "status_id" => $status_id,

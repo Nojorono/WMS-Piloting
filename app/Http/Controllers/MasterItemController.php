@@ -58,10 +58,11 @@ class MasterItemController extends Controller
         ->leftJoin("m_warehouse as b","b.wh_id","=","a.wh_id")
         ->leftJoin("m_wh_client_project as c",function ($query)
         {
-            $query->on("c.wh_id","=","a.wh_id");
+            $query->on("c.client_project_id","=","B.client_project_id");
             $query->on("c.client_id","=","a.client_id");
         })
         ->where("c.client_project_id",session("current_client_project_id"))
+        ->where("a.is_active", "Y")
         ->orderBy("a.sku","ASC")
         ->get();
 
@@ -108,7 +109,7 @@ class MasterItemController extends Controller
     {
         $data = DB::select("SELECT a.wh_id, a.wh_name
         FROM m_warehouse a
-        LEFT JOIN m_wh_client_project b ON a.wh_id=b.wh_id
+        LEFT JOIN m_wh_client_project b ON a.client_project_id=b.client_project_id
         WHERE b.client_project_id = ?
         ",[session('current_client_project_id')]);
 
@@ -311,6 +312,7 @@ class MasterItemController extends Controller
         LEFT JOIN m_warehouse b ON a.wh_id=b.wh_id
         LEFT JOIN m_wh_client c ON a.client_id=c.client_id
         WHERE a.sku = ?
+        and a.is_active = 'Y'
         
         ",[
             $sku,

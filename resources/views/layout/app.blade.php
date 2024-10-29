@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset("/img/apple-icon.png") }}">
-    <link rel="icon" type="image/png" href="{{ asset("/img/favicon.png") }}">
+    <link rel="icon" type="image/png" href="{{ asset('/img/logo-nojorono.png') }}">
     <title>
         @yield('title')
     </title>
@@ -28,6 +28,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("DataTables/custom_with_softui_datatables.css") }}"/>
     <!-- CSS Files End-->
     @yield('custom-style')
+    <base href="{{ url('/') }}/">
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

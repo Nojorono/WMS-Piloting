@@ -2,8 +2,8 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="{{ url('/') }}">
-        <img src="{{ asset("/img/logo-ct-dark.png") }}" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">Warehouse Management</span>
+        <img src="{{ asset ('/img/logo-nojorono.png') }}" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold">Nojorono</span>
         </a>
     </div>
     <hr class="horizontal dark mt-0 ">
@@ -14,7 +14,7 @@
             {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard') }}" id="dashboard">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center">
-                        <img src="{{asset("img/logokonek.png")}}" width='21px' height='21px' alt="Logo">
+                        <img src="{{ asset ('/img/logo-nojorono.png')}}" width='21px' height='21px' alt="Logo">
                     </div>
                     <span class="nav-link-text ms-1">Dashboards</span>
                 </a>
@@ -25,7 +25,7 @@
             {{-- <li class="nav-item">
                 <a class="nav-link active" href="{{ route('dashboard') }}" id="dashboard">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center">
-                        <img src="{{asset("img/logokonek.png")}}" width='21px' height='21px' alt="Logo">
+                        <img src="{{ asset ('/img/logo-nojorono.png')}}" width='21px' height='21px' alt="Logo">
                     </div>
                     <span class="nav-link-text ms-1">Dashboards</span>
                 </a>
@@ -36,7 +36,7 @@
              {{-- <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#dropdown_Inbound" class="nav-link" id="dropdown_toggle_Inbound" aria-controls="dropdown_Inbound" role="button" aria-expanded="false">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center ">
-                        <img src="{{asset("img/logokonek.png")}}" width='21px' height='21px' alt="Logo">
+                        <img src="{{ asset ('/img/logo-nojorono.png')}}" width='21px' height='21px' alt="Logo">
                     </div>
                     <span class="nav-link-text ms-1">Inbound</span>
                 </a>
@@ -63,7 +63,7 @@
             {{-- <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#dropdown_Inbound" class="nav-link active" id="dropdown_toggle_Inbound" aria-controls="dropdown_Inbound" role="button" aria-expanded="true">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center ">
-                        <img src="{{asset("img/logokonek.png")}}" width='21px' height='21px' alt="Logo">
+                        <img src="{{ asset ('/img/logo-nojorono.png')}}" width='21px' height='21px' alt="Logo">
                     </div>
                     <span class="nav-link-text ms-1">Inbound</span>
                 </a>
@@ -90,7 +90,7 @@
             {{-- <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#dropdown_Inbound" class="nav-link active" id="dropdown_toggle_Inbound" aria-controls="dropdown_Inbound" role="button" aria-expanded="true">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center ">
-                        <img src="{{asset("img/logokonek.png")}}" width='21px' height='21px' alt="Logo">
+                        <img src="{{ asset ('/img/logo-nojorono.png')}}" width='21px' height='21px' alt="Logo">
                     </div>
                     <span class="nav-link-text ms-1">Inbound</span>
                 </a>

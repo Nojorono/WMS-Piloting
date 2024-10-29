@@ -13,5 +13,10 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
+        'insert-transportation',
+        'save-partial-vehicle/*',
+        'save-finish-vehicle/*/*',
+        '/process-scan/*/*/*',
+        'update-putaway'
     ];
 }

@@ -60,7 +60,7 @@ class InventoryAdjustmentController extends Controller
         ])
         ->from("t_wh_adjustment as a")
         ->leftJoin("m_wh_client_project as b","a.client_project_id","=","b.client_project_id")
-        ->leftJoin("m_warehouse as c","b.wh_id","=","c.wh_id")
+        ->leftJoin("m_warehouse as c","a.wh_id","=","c.wh_id")
         ->leftJoin("m_wh_adjustment_type as d","a.adjustment_code","=","d.adjustment_code")
         ->leftJoin("m_status as e","a.status_id","=","e.status_id")
         ->where("a.client_project_id",session("current_client_project_id"))
@@ -499,6 +499,7 @@ class InventoryAdjustmentController extends Controller
             ->insert([
                 "adjustment_id" => $adjustment_id,
                 "client_project_id" => session("current_client_project_id"),
+                "wh_id" => session("current_warehouse_id"),
                 "adjustment_code" => $process_code,
                 "reason" => $validated["reason"],
                 "status_id" => $status_id,

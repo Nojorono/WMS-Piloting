@@ -60,7 +60,7 @@ class LoginController extends Controller
         }
 
         $result_query_Get_user = $this->query_Get_User($user->username);
-
+        // echo($result_query_Get_user);die();
         if(empty($result_query_Get_user)){
             $this->displayError();
             exit();
@@ -69,7 +69,10 @@ class LoginController extends Controller
         $username = $result_query_Get_user->username;
         $fullname = $result_query_Get_user->fullname;
         $user_level_id = $result_query_Get_user->user_level_id;
+        $user_group_id = $result_query_Get_user->user_group_id;
         $level_desc = $result_query_Get_user->level_desc;
+        $wh_id = $result_query_Get_user->wh_id;
+        $wh_name = $result_query_Get_user->wh_name;
         $user_view = $result_query_Get_user->user_view;
         $user_edit = $result_query_Get_user->user_edit;
         $user_delete = $result_query_Get_user->user_delete;
@@ -103,6 +106,7 @@ class LoginController extends Controller
         $request->session()->put('username', $username);
         $request->session()->put('fullname', $fullname);
         $request->session()->put('user_level_id', $user_level_id);
+        $request->session()->put('user_group_id', $user_group_id);
         $request->session()->put('level_desc', $level_desc);
         $request->session()->put('user_view', $user_view);
         $request->session()->put('user_edit', $user_edit);
@@ -113,10 +117,10 @@ class LoginController extends Controller
         $request->session()->put('arr_client_project', $result_get_Client_Project);
         $request->session()->put('current_client_project_id', @$result_get_Client_Project[0]->client_project_id);
         $request->session()->put('current_client_id', @$result_get_Client_Project[0]->client_id);
-        $request->session()->put('current_warehouse_id', @$result_get_Client_Project[0]->wh_id);
+        $request->session()->put('current_warehouse_id', $wh_id);
         $request->session()->put('current_client_project_name', @$result_get_Client_Project[0]->client_project_name);
         $request->session()->put('current_client_name', @$result_get_Client_Project[0]->client_name);
-        $request->session()->put('current_warehouse_name', @$result_get_Client_Project[0]->wh_name);
+        $request->session()->put('current_warehouse_name', $wh_name);
     }
 
     private function query_Get_User($username)
@@ -126,14 +130,18 @@ class LoginController extends Controller
             "t_wh_user.username",
             "t_wh_user.fullname",
             "t_wh_user.user_level_id",
+            "t_wh_user.user_group_id",
+            "t_wh_user.wh_id",
             "m_wh_user_level.level_desc",
             "m_wh_user_level.user_view",
             "m_wh_user_level.user_edit",
             "m_wh_user_level.user_delete",
             "m_wh_user_level.user_create",
+            "m_warehouse.wh_name"
         ])
         ->from("t_wh_user")
         ->leftJoin("m_wh_user_level","m_wh_user_level.user_level_id","=","t_wh_user.user_level_id")
+        ->leftJoin("m_warehouse","m_warehouse.wh_id","=","t_wh_user.wh_id")
         ->where("t_wh_user.username",$username)
         ->limit(1)
         ->get()
@@ -158,8 +166,8 @@ class LoginController extends Controller
             foreach ($parrent_menu as $key_parrent_menu => $value_parrent_menu) {
                 $child_menu = $this->query_Get_Menu_by_parent_id_and_username($value_parrent_menu->menu_id,$username);
                 if(!empty($value_parrent_menu->menu_link) && count($child_menu) == 0){
-                    $menu_icon = (isset($value_parrent_menu->menu_icon)  && !empty($value_parrent_menu->menu_icon)) ? $value_parrent_menu->menu_icon : asset("img/logokonek.png");
-                    $menu_icon_white = (isset($value_parrent_menu->menu_icon_white)  && !empty($value_parrent_menu->menu_icon_white)) ? $value_parrent_menu->menu_icon_white : asset("img/logokonek.png");
+                    $menu_icon = (isset($value_parrent_menu->menu_icon)  && !empty($value_parrent_menu->menu_icon)) ? $value_parrent_menu->menu_icon : asset("img/logo-nojorono-biru-2.png");
+                    $menu_icon_white = (isset($value_parrent_menu->menu_icon_white)  && !empty($value_parrent_menu->menu_icon_white)) ? $value_parrent_menu->menu_icon_white : asset("img/logo-nojorono-biru-2.png");
                     $html .= "
                     <li class='nav-item' id='li_".$value_parrent_menu->id_dom."'>
                         <a class='nav-link text-xs' href='".url("".$value_parrent_menu->menu_link."")."' id='a_".$value_parrent_menu->id_dom."'>
@@ -171,8 +179,8 @@ class LoginController extends Controller
                         </a>
                     </li>";
                 }else if (empty($value_parrent_menu->menu_link) && count($child_menu) > 0) {
-                    $menu_icon = (isset($value_parrent_menu->menu_icon)  && !empty($value_parrent_menu->menu_icon)) ? $value_parrent_menu->menu_icon : asset("img/logokonek.png");
-                    $menu_icon_white = (isset($value_parrent_menu->menu_icon_white)  && !empty($value_parrent_menu->menu_icon_white)) ? $value_parrent_menu->menu_icon_white : asset("img/logokonek.png");
+                    $menu_icon = (isset($value_parrent_menu->menu_icon)  && !empty($value_parrent_menu->menu_icon)) ? $value_parrent_menu->menu_icon : asset("img/logo-nojorono-biru-2.png");
+                    $menu_icon_white = (isset($value_parrent_menu->menu_icon_white)  && !empty($value_parrent_menu->menu_icon_white)) ? $value_parrent_menu->menu_icon_white : asset("img/logo-nojorono-biru-2.png");
                     $html .= "
                     <li class='nav-item' id='li_".$value_parrent_menu->id_dom."'>
                         <a data-bs-toggle='collapse' href='#dropdown_".$value_parrent_menu->id_dom."' class='nav-link text-xs' id='dropdown_toggle_".$value_parrent_menu->id_dom."' aria-controls='dropdown_".$value_parrent_menu->id_dom."' role='button' aria-expanded='false'>
@@ -223,9 +231,13 @@ class LoginController extends Controller
             "m_menu.menu_icon_white",
             "m_menu.id_dom",
         ])
-        ->from("m_user_menu_access")
-        ->leftJoin("m_menu","m_menu.menu_id","=","m_user_menu_access.menu_id")
-        ->where("m_user_menu_access.username",$username)
+        // ->from("m_user_menu_access")
+        // ->leftJoin("m_menu","m_menu.menu_id","=","m_user_menu_access.menu_id")
+        ->from("m_user_group_menu_access")
+        ->leftJoin("m_menu","m_menu.menu_id","=","m_user_group_menu_access.menu_id")
+        ->leftJoin("t_wh_user","t_wh_user.user_group_id","=","m_user_group_menu_access.usergroup_id")
+        ->where("t_wh_user.username",$username)
+        // ->where("m_user_menu_access.username",$username)
         ->where("m_menu.parent_id",$parent_id)
         ->where("m_menu.is_active","Y")
         ->where("m_menu.platform_id",2)
@@ -244,10 +256,12 @@ class LoginController extends Controller
     {
         $query = DB::query()
         ->select([
-            "m_user_menu_access.menu_id",
+            "a.menu_id",
         ])
-        ->from("m_user_menu_access")
-        ->where("m_user_menu_access.username",$username)
+        ->from("m_user_group_menu_access as a")
+        ->leftJoin("m_user_group as b","a.usergroup_id","=","b.id")
+        ->leftJoin("t_wh_user as c","c.user_group_id","=","b.id")
+        ->where("c.username",$username)
         ->get()
         ;
 
@@ -266,7 +280,7 @@ class LoginController extends Controller
     private function displayError()
     {
         echo "<script>
-            alert('Current User data is not complete, Please Contanct Administator.');
+            alert('Current User data is not complete, Please Contact Administator.');
             window.location.href = '".route('getLogout')."'
             </script>";
         exit();
@@ -278,8 +292,8 @@ class LoginController extends Controller
         ->select([
             "m_wh_client_project.client_project_id",
             "m_wh_client_project.client_project_name",
-            "m_wh_client_project.wh_id",
-            "m_warehouse.wh_name",
+            // "m_warehouse.wh_id",
+            // "m_warehouse.wh_name",
             "m_wh_client.client_id",
             "m_wh_client.client_name",
             "t_wh_user.username",
@@ -288,7 +302,7 @@ class LoginController extends Controller
         ->leftJoin("m_wh_user_client_project","m_wh_user_client_project.username","=","t_wh_user.username")
         ->leftJoin("m_wh_client_project","m_wh_client_project.client_project_id","=","m_wh_user_client_project.client_project_id")
         ->leftJoin("m_wh_client","m_wh_client.client_id","=","m_wh_client_project.client_id")
-        ->leftJoin("m_warehouse","m_warehouse.wh_id","=","m_wh_client_project.wh_id")
+        // ->leftJoin("m_warehouse","m_warehouse.client_project_id","=","m_wh_client_project.client_project_id")
         ->whereRaw("m_wh_user_client_project.username IS NOT NULL")
         ->where("t_wh_user.username",$username)
         ->get()

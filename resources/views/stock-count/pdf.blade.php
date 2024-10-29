@@ -20,7 +20,7 @@
         <table style='width:100%;'>
             <tr>
                 <td style="width: 85%;"><h1>Stock Count List</h1></td>
-                <td style="width: 15%;"><img src="{{ asset("img/logokonek.png") }}" style="width: 100%;" alt="Logo"></td>
+                <td style="width: 15%;"><img src="{{ asset("img/logo-nojorono-biru-2.png") }}" style="width: 100%;" alt="Logo"></td>
             </tr>
         </table>
     </div>

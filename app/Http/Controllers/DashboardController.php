@@ -102,13 +102,13 @@ class DashboardController extends Controller
         }
         $new_client_id = $check_Client_Project[0]->client_id;
         $new_client_project_id = $check_Client_Project[0]->client_project_id;
-        $new_wh_id = $check_Client_Project[0]->wh_id;
+        // $new_wh_id = $check_Client_Project[0]->wh_id;
 
 
         session([
             "current_client_id" => $new_client_id,
             "current_client_project_id" => $new_client_project_id,
-            "current_warehouse_id" => $new_wh_id,
+            // "current_warehouse_id" => $new_wh_id,
         ]);
 
         return response()->json([
@@ -123,7 +123,7 @@ class DashboardController extends Controller
             ->select([
                 "m_wh_client_project.client_project_id",
                 "m_wh_client_project.client_project_name",
-                "m_wh_client_project.wh_id",
+                // "m_wh_client_project.wh_id",
                 "m_wh_client.client_id",
                 "m_wh_client.client_name",
                 "t_wh_user.username",

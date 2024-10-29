@@ -80,13 +80,14 @@
                 </select>
             </li>
             <li class="nav-item px-3 d-flex align-items-center">
-                <a href="{{ route("getLogout") }}" class="nav-link text-body p-0 ">
+                <a href="{{ route('getLogout') }}" class="nav-link text-body p-0 ">
                     <span class="text-xs">
                         Logout
                     </span>
                 </a>
             </li>
             </ul>
+            
         </div>
     </div>
 </nav>

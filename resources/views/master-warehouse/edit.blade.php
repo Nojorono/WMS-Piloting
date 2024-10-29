@@ -171,34 +171,7 @@ Master Warehouse
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-6 mb-2">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <label for="is_rpx_warehouse" class="form-label">is RPX Warehouse ?</label>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <select class="form-select py-0" id="is_rpx_warehouse" name="is_rpx_warehouse" disabled>
-                                                        <option value="">Choose</option>
-                                                        @if (isset($data["arr_choice_is_rpx_warehouse"]) && count($data["arr_choice_is_rpx_warehouse"]) > 0)
-                                                        @foreach ( $data["arr_choice_is_rpx_warehouse"] as $key_choice_is_rpx_warehouse => $value_choice_is_rpx_warehouse )
-                                                        @php
-                                                            $selected = "";
-                                                            if($key_choice_is_rpx_warehouse == @$data["current_data"][0]->is_rpx_wh ){
-                                                                $selected = " selected ";
-                                                            }
-                                                        @endphp
-                                                        <option value="{{ $key_choice_is_rpx_warehouse }}" {{ $selected }}> {{ $value_choice_is_rpx_warehouse }}</option>
-                                                        @endforeach
-                                                        @endif
-                                                    </select>
-                                                    <div id="validation_is_rpx_warehouse" class="invalid-feedback"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-sm-12 mb-2">
                                         <button type="submit" class="btn btn-primary mb-0 py-1">Update</button>
                                     </div>

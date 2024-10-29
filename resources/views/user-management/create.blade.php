@@ -14,7 +14,7 @@ User Management
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 d-flex mb-2">
-                        <h5 class="me-auto">User Management - Create</h5>
+                        <h5 class="me-auto">User Management Create</h5>
                         <a href="{{route('user_management.index')}}" class="text-decoration-none me-2">
                             <button type="button" class="btn btn-primary py-1 mb-0" >List</button>
                         </a>
@@ -94,8 +94,9 @@ User Management
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row">
-                                        <div class="col-sm-6 mb-2">
+                                        <div class="col-sm-4 mb-2">
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <label for="user_level" class="form-label text-xs">User Level</label>
@@ -115,7 +116,30 @@ User Management
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 mb-2">
+
+                                        <!-- USER GROUP -->
+                                        <div class="col-sm-4 mb-2">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label for="user_group" class="form-label text-xs">User Group</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select py-0" id="user_group" name="user_group">
+                                                        <option value="">Choose</option>
+                                                        @if (isset($data["arr_choice_user_group"]) && count($data["arr_choice_user_group"]) > 0)
+                                                        @foreach ( $data["arr_choice_user_group"] as $key_choice_user_group => $value_choice_user_group )
+                                                        <option value="{{ $value_choice_user_group->id }}"> {{ $value_choice_user_group->name }}</option>
+                                                        @endforeach
+                                                        @endif
+                                                    </select>
+                                                    <!-- <div id="validation_user_level" class="invalid-feedback"></div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 mb-2">
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <label for="warehouse" class="form-label text-xs">Warehouse</label>
@@ -136,6 +160,7 @@ User Management
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-sm-6 mb-2">
                                             <div class="row">
@@ -223,7 +248,8 @@ User Management
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 mb-2">
+
+                        <!-- <div class="col-sm-12 mb-2">
                             <div class="row justify-content-center">
                                 <div class="col-sm-12">
                                     <div class="card">
@@ -264,14 +290,14 @@ User Management
                                                             @endif
                                                         @endforeach
                                                     @endif
-                                                    
+
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-sm-12 mb-2">
                             <button type="submit" class="btn btn-primary py-1 mb-0">Save</button>
                         </div>
@@ -305,29 +331,32 @@ $(document).ready(function () {
         const url = $(this).prop('action');
         const _token = $("meta[name='csrf-token']").prop('content');
         const _method = "POST";
-        
-        
+
+
         const user_id = $("#user_id").val();
         const fullname = $("#fullname").val();
         const password = $("#password").val();
         const email = $("#email").val();
         const phone = $("#phone").val();
+
         const user_level = $("#user_level").val();
+        const user_group = $("#user_group").val();
+
         const warehouse = $("#warehouse").val();
         const send_email = $("#send_email").val();
         const temp_project = $("#project").val();
         const web_user = $("#web_user").val();
         const android_user = $("#android_user").val();
-        const arr_menu_id = [];
+        // const arr_menu_id = [];
         const arr_project = [];
-        
-        $("input[name*='menu_id']").each(function () {
-            const checked = $(this).is(":checked");
-            const menu_id = $(this).val();
-            if(checked){
-                arr_menu_id.push(menu_id)
-            }
-        });
+
+        // $("input[name*='menu_id']").each(function () {
+        //     const checked = $(this).is(":checked");
+        //     const menu_id = $(this).val();
+        //     if(checked){
+        //         arr_menu_id.push(menu_id)
+        //     }
+        // });
 
         temp_project.forEach(element => {
             arr_project.push(element);
@@ -343,12 +372,20 @@ $(document).ready(function () {
         formData.append("email",email);
         formData.append("phone",phone);
         formData.append("user_level",user_level);
+        formData.append("user_group",user_group);
+
         formData.append("warehouse",warehouse);
         formData.append("send_email",send_email);
         formData.append("web_user",web_user);
         formData.append("android_user",android_user);
-        formData.append("arr_menu_id",JSON.stringify(arr_menu_id));
+        // formData.append("arr_menu_id",JSON.stringify(arr_menu_id));
         formData.append("arr_project",JSON.stringify(arr_project));
+
+
+        formData.forEach((value, key) => {
+            console.log(`${key}: ${value}`);
+        });
+
 
         $.ajax({
             url:url,
@@ -383,7 +420,10 @@ $(document).ready(function () {
                 $("#android_user").removeClass('is-invalid');
                 $("#validation_android_user").html('');
             },
+
             error: function (error) {
+            console.log('error', error);
+
                 Swal
                 .mixin({
                     customClass: {
@@ -393,7 +433,7 @@ $(document).ready(function () {
                 })
                 .fire({
                     text: 'Something Wrong',
-                    type: 'error',
+                    // type: 'error',
                     icon: 'error',
                 });
             },
@@ -401,6 +441,8 @@ $(document).ready(function () {
 
             },
             success: function (response) {
+            console.log('success', response);
+
                 if(typeof response !== 'object'){
                     Swal
                     .mixin({
@@ -411,7 +453,7 @@ $(document).ready(function () {
                     })
                     .fire({
                         text: 'Something Wrong',
-                        type: 'error',
+                        // type: 'error',
                         icon: 'error',
                     });
                     return;
@@ -438,7 +480,7 @@ $(document).ready(function () {
                     })
                     .fire({
                         text: `${response.message}`,
-                        type: 'error',
+                        // type: 'error',
                         icon: 'error',
                     });
                     return;
@@ -453,7 +495,7 @@ $(document).ready(function () {
                 })
                 .fire({
                     text: `${response.message}`,
-                    type: 'success',
+                    // type: 'success',
                     icon: 'success',
                 });
                 window.location = "{{ route('user_management.index') }}";
@@ -461,7 +503,7 @@ $(document).ready(function () {
 
             },
         });
-        
+
     });
 });
 </script>

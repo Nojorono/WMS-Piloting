@@ -116,7 +116,7 @@ class StockCountController extends Controller
         ])
         ->from("t_wh_stock_count as a")
         ->leftJoin("m_wh_client_project as b","a.client_project_id","=","b.client_project_id")
-        ->leftJoin("m_warehouse as c","b.wh_id","=","c.wh_id")
+        ->leftJoin("m_warehouse as c","a.wh_id","=","c.wh_id")
         ->leftJoin("m_status as d","a.status_id","=","d.status_id")
         ->where("a.client_project_id",session("current_client_project_id"))
         ->where(function ($query) use($stock_count_id)
@@ -193,7 +193,7 @@ class StockCountController extends Controller
         d.status_name
         FROM t_wh_stock_count AS a
         LEFT JOIN m_wh_client_project AS b ON a.client_project_id = b.client_project_id
-        LEFT JOIN m_warehouse AS c ON b.wh_id = c.wh_id
+        LEFT JOIN m_warehouse AS c ON a.wh_id = c.wh_id
         LEFT JOIN m_status AS d ON a.status_id = d.status_id
         LEFT JOIN t_wh_stock_count_detail e ON a.stock_count_id=e.stock_count_id AND a.count_no=e.count_no
         WHERE a.client_project_id = ?
@@ -304,7 +304,7 @@ class StockCountController extends Controller
         ])
         ->from("t_wh_stock_count as a")
         ->leftJoin("m_wh_client_project as b","a.client_project_id","=","b.client_project_id")
-        ->leftJoin("m_warehouse as c","b.wh_id","=","c.wh_id")
+        ->leftJoin("m_warehouse as c","a.wh_id","=","c.wh_id")
         ->leftJoin("m_status as d","a.status_id","=","d.status_id")
         ->leftJoin("m_wh_stock_count_type as e","a.stock_count_type","=","e.type_code")
         ->where("a.client_project_id",session("current_client_project_id"))
@@ -624,6 +624,7 @@ class StockCountController extends Controller
         $arr_stock_id = json_decode($request->input("arr_stock_id"),true);
         $arr_gr_id = json_decode($request->input("arr_gr_id"),true);
         $count_no = "Count 1";
+        $wh_id = session("current_warehouse_id");
 
         $data_error = [];
 
@@ -740,6 +741,7 @@ class StockCountController extends Controller
             ->insert([
                 "stock_count_id" => $stock_count_id,
                 "client_project_id" => session("current_client_project_id"),
+                "wh_id"=> $wh_id,
                 "count_date" => $count_date,
                 "count_no" => $count_no,
                 "stock_count_type" => $remark,

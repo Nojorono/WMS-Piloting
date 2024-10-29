@@ -50,12 +50,12 @@ class MasterProjectController extends Controller
         ->select([
             DB::raw("a.client_project_name AS project_name"),
             "b.client_name",
-            "c.wh_name",
+            // "c.wh_name",
             "a.client_project_id",
         ])
         ->from("m_wh_client_project as a")
         ->leftJoin("m_wh_client as b","b.client_id","=","a.client_id")
-        ->leftJoin("m_warehouse as c","c.wh_id","=","a.wh_id")
+        // ->leftJoin("m_warehouse as c","c.client_project_id","=","a.client_project_id")
         ->where("a.client_project_id",session('current_client_project_id'))
         ->orderBy("a.client_project_name","ASC")
         ->get();
@@ -130,13 +130,13 @@ class MasterProjectController extends Controller
         a.country,
         a.postal_code AS zip_code,
         a.phone,
-        b.wh_name,
+        -- b.wh_name,
         c.project_type_name,
         d.client_name,
-        a.wh_id,
+        -- b.wh_id,
         a.project_type_id
         FROM m_wh_client_project a
-        LEFT JOIN m_warehouse b ON a.wh_id=b.wh_id
+        -- LEFT JOIN m_warehouse b ON a.client_project_id=b.client_project_id
         LEFT JOIN m_wh_project_type c ON a.project_type_id=c.project_type_id
         LEFT JOIN m_wh_client d ON a.client_id=d.client_id
         WHERE a.client_project_id= ?
@@ -181,6 +181,17 @@ class MasterProjectController extends Controller
         ->make(true);
     }
 
+    public function getLastClientProjectID()
+    {
+        $data = DB::select("SELECT 
+            client_project_id
+            FROM m_wh_client_project
+            ORDER BY client_project_id DESC
+            LIMIT 1");
+        
+        return $data;
+    }
+
     public function create()
     {
         if (!in_array(session('user_level_id'),[1,2,5])) {
@@ -188,7 +199,7 @@ class MasterProjectController extends Controller
         }
 
         $data = [];
-        $data['arr_warehouse'] = $this->get_List_Warehouse();
+        // $data['arr_warehouse'] = $this->get_List_Warehouse();
         $data['arr_project_type'] = $this->get_List_Project_Type();
         return view("master-project.create",compact("data"));
     }
@@ -212,20 +223,36 @@ class MasterProjectController extends Controller
         $country = $request->input("country");
         $zip_code = $request->input("zip_code");
         $phone = $request->input("phone");
-        $warehouse = $request->input("warehouse");
+        // $warehouse = $request->input("warehouse");
+        // $arr_warehouse = json_decode($request->input("arr_warehouse"), true);
         $project_type = $request->input("project_type");
         $client_id = $request->input("client_id");
         $client_name = $request->input("client_name");
-
+        // // Fetch the last client project ID and add 11 to it
+        // $last_client_project = $this->getLastClientProjectID();
+        // // var_dump($last_client_project);
+        // // Assuming the method returns an array with the 'client_project_id' key:
+        // $last_client_project_id = $last_client_project[0]->client_project_id;
+        // // var_dump($last_client_project_id);
+        // // Add 11 to the last client project ID
+        // $new_client_project_id = $last_client_project_id + 1;
         $data_error = [];
 
         if(empty($project_name)){
             $data_error["project_name"][] = "Project Name is Required";
         }
 
-        if(empty($warehouse)){
-            $data_error["warehouse"][] = "Warehouse is Required";
-        }
+        // if(empty($warehouse)){
+        //     $data_error["warehouse"][] = "Warehouse is Required";
+        // }
+
+        // if (empty($arr_warehouse)) {
+        //     return response()->json([
+        //         "err" => true,
+        //         "message" => "Validation Failed, Project Required",
+        //         "data" => $data_error,
+        //     ], 200);
+        // }
 
         if(empty($project_type)){
             $data_error["project_type"][] = "Project Type is Required";
@@ -245,9 +272,19 @@ class MasterProjectController extends Controller
         
         DB::beginTransaction();
         try {
+            // $data_warehouse = [];
+            // for ($i = 0; $i < count($arr_warehouse); $i++) {
+            //     $data_warehouse[] = [
+            //         "client_project_id" => $new_client_project_id,
+            //         "client_id" => $client_id,
+            //         "wh_id" => $arr_warehouse[$i],
+            //         "created_by" => session("username"),
+            //         "created_on" => $this->datetime_now,
+            //     ];
+            // }
+
             DB::table("m_wh_client_project")->insert([
                 "client_id" => $client_id,
-                "wh_id" => $warehouse,
                 "client_project_name" => $project_name,
                 "project_type_id" => $project_type,
                 "address1" => $project_address_1,
@@ -260,6 +297,10 @@ class MasterProjectController extends Controller
                 "created_by" => session("username"),
                 "created_on" => $this->datetime_now,
             ]);
+
+            
+            
+            // DB::table("m_wh_client_project_whs")->insert($data_warehouse);
             DB::commit();
 
         } catch (\Illuminate\Database\QueryException $error) {
@@ -299,7 +340,7 @@ class MasterProjectController extends Controller
             exit();
         }
         $data = [];
-        $data['arr_warehouse'] = $this->get_List_Warehouse();
+        // $data['arr_warehouse'] = $this->get_List_Warehouse();
         $data['arr_project_type'] = $this->get_List_Project_Type();
         $data["current_data"] = $current_data;
         return view("master-project.edit",compact("data"));

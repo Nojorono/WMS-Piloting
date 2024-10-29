@@ -71,8 +71,6 @@ Master Project
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-sm-6 mb-2">
                                             <div class="row">
                                                 <div class="col-sm-12">
@@ -101,8 +99,6 @@ Master Project
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-sm-6 mb-2">
                                             <div class="row">
                                                 <div class="col-sm-12">
@@ -164,26 +160,6 @@ Master Project
                                         <div class="col-sm-6 mb-2">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <label for="warehouse" class="form-label text-xs">Warehouse Name</label>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <select class="form-select py-0" id="warehouse" name="warehouse">
-                                                        <option value="">Select Warehouse</option>
-                                                        @if (isset($data['arr_warehouse']) && count($data['arr_warehouse']) > 0)
-                                                        @foreach ( $data['arr_warehouse'] as $warehouse )
-                                                        <option value="{{ $warehouse->wh_id }}">{{ $warehouse->wh_name }}</option>
-                                                        @endforeach
-                                                        @endif
-                                                    </select>
-                                                    <div id="validation_warehouse" class="invalid-feedback"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 mb-2">
-                                            <div class="row">
-                                                <div class="col-sm-12">
                                                     <label for="project_type" class="form-label text-xs">Project Type</label>
                                                 </div>
                                             </div>
@@ -201,8 +177,6 @@ Master Project
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-sm-6 mb-2">
                                             <div class="row">
                                                 <div class="col-sm-12">
@@ -263,6 +237,7 @@ Master Project
 @endsection
 
 @section("javascript")
+<script src="{{ asset('js/plugins/choices.min.js') }}"></script>
 <script type="text/javascript">
 
 $(document).ready(function () {
@@ -274,6 +249,10 @@ $(document).ready(function () {
     $("#li_master_project").addClass("active");
     $("#a_master_project").addClass("active");
     
+    const select_warehouse = new Choices( document.getElementById('warehouse'), {
+        removeItemButton: true
+    });
+
     $("#btn_search_client").on("click",function () {
         $("#modal-ClientName").modal('show');
         $("#list-datatable-modal-ClientName").DataTable().destroy();
@@ -303,7 +282,9 @@ $(document).ready(function () {
 
         $("#modal-ClientName").modal('hide');
     });
-
+    
+    
+    
     $("#form-save-project").on("submit",function (e) {
         e.preventDefault();
         const url = $(this).prop('action');
@@ -318,12 +299,9 @@ $(document).ready(function () {
         const country = $("#country").val();
         const zip_code = $("#zip_code").val();
         const phone = $("#phone").val();
-        const warehouse = $("#warehouse").val();
         const project_type = $("#project_type").val();
         const client_id = $("#client_id").val();
         const client_name = $("#client_name").val();
-
-
         const formData = new FormData();
         formData.append("_token",_token);
         formData.append("_method",_method);
@@ -335,7 +313,6 @@ $(document).ready(function () {
         formData.append("country",country);
         formData.append("zip_code",zip_code);
         formData.append("phone",phone);
-        formData.append("warehouse",warehouse);
         formData.append("project_type",project_type);
         formData.append("client_id",client_id);
         formData.append("client_name",client_name);
@@ -366,13 +343,13 @@ $(document).ready(function () {
                 $("#validation_zip_code").html('');
                 $("#phone").removeClass('is-invalid');
                 $("#validation_phone").html('');
-                $("#warehouse").removeClass('is-invalid');
-                $("#validation_warehouse").html('');
+               
                 $("#project_type").removeClass('is-invalid');
                 $("#validation_project_type").html('');
                 $("#client_name").removeClass('is-invalid');
                 $("#validation_client_name").html('');
             },
+
             error: function (error) {
                 Swal
                 .mixin({
@@ -383,7 +360,7 @@ $(document).ready(function () {
                 })
                 .fire({
                     text: 'Something Wrong',
-                    type: 'error',
+                    // type: 'error',
                     icon: 'error',
                 });
             },
@@ -401,7 +378,7 @@ $(document).ready(function () {
                     })
                     .fire({
                         text: 'Something Wrong',
-                        type: 'error',
+                        // type: 'error',
                         icon: 'error',
                     });
                     return;
@@ -428,7 +405,7 @@ $(document).ready(function () {
                     })
                     .fire({
                         text: `${response.message}`,
-                        type: 'error',
+                        // type: 'error',
                         icon: 'error',
                     });
                     return;
@@ -443,7 +420,7 @@ $(document).ready(function () {
                 })
                 .fire({
                     text: `${response.message}`,
-                    type: 'success',
+                    // type: 'success',
                     icon: 'success',
                 });
                 window.location = "{{ route('master_project.index') }}";

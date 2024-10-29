@@ -54,10 +54,10 @@ $(document).ready(function () {
             id: "client_name",
             desc: "Client Name",
         },
-        {
-            id: "wh_name",
-            desc: "Warehouse Name",
-        },
+        // {
+        //     id: "wh_name",
+        //     desc: "Warehouse Name",
+        // },
     ];
 
     

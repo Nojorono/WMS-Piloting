@@ -20,7 +20,7 @@
         <table style='width:100%;'>
             <tr>
                 <td style="width: 50%; text-align:left;">{{ date("d/m/Y") }}</td>
-                <td style="width: 50%; text-align:right;"><img src="{{ asset("img/logokonek.png") }}" style="width: 100px;" alt="Logo"></td>
+                <td style="width: 50%; text-align:right;"><img src="{{ asset('img/logo-nojorono-biru-2.png') }}" style="width: 100px;" alt="Logo"></td>
             </tr>
         </table>
     </div>

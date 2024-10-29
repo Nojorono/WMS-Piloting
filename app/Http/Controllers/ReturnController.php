@@ -69,7 +69,7 @@ class ReturnController extends Controller
             ])
             ->from("t_wh_return as a")
             ->leftJoin("m_wh_client_project as b", "b.client_project_id", "=", "a.client_project_id")
-            ->leftJoin("m_warehouse as c", "c.wh_id", "=", "b.wh_id")
+            ->leftJoin("m_warehouse as c", "c.wh_id", "=", "a.wh_id")
             ->leftJoin("m_status as d", "d.status_id", "=", "a.status_id")
             ->leftJoin("m_wh_client as e", "e.client_id", "=", "b.client_id")
             ->where("a.client_project_id", session('current_client_project_id'))
@@ -183,11 +183,12 @@ class ReturnController extends Controller
                 "a.part_name",
             ])
             ->from("m_wh_item as a")
+            ->leftJoin("m_warehouse as c","c.wh_id","=","a.wh_id")
             ->leftJoin("m_wh_client_project as b", function ($query) {
                 $query->on("b.client_id", "=", "a.client_id");
-                $query->on("b.wh_id", "=", "a.wh_id");
+                $query->on("b.client_project_id", "=", "c.client_project_id");
             })
-            ->where("b.wh_id", session('current_warehouse_id'))
+            ->where("a.wh_id", session('current_warehouse_id'))
             ->where("b.client_id", session('current_client_id'))
             ->where("b.client_project_id", session('current_client_project_id'))
             ->where(function ($query) use ($sku) {
@@ -547,6 +548,7 @@ class ReturnController extends Controller
                 "return_from" =>  $return_from,
                 "status_id" =>  $status_id,
                 "reason" =>  $reason,
+                "wh_id" => session("current_warehouse_id"),
                 "user_created" =>  session("username"),
                 "datetime_created" => $this->datetime_now,
             ]);

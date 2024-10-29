@@ -49,12 +49,19 @@ class MasterLocationIndexController extends Controller
         ->select([
             "a.index_code",
             "a.index_name",
+            "a.is_active",
         ])
         ->from("m_wh_location_index as a")
+        ->where("a.is_active","Y")
         ->orderBy("a.index_code","ASC")
         ->get();
 
         return $data;
+    }
+
+    private function get_List_Is_Active()
+    {
+        return ["Y", "N"];
     }
 
     public function datatables(Request $request)
@@ -146,6 +153,7 @@ class MasterLocationIndexController extends Controller
                 "width" => $width,
                 "height" => $height,
                 "capacity" => $capacity,
+                "is_active" => "Y",
                 "user_created" => session("username"),
                 "datetime_created" => $this->datetime_now,
             ]);
@@ -185,9 +193,11 @@ class MasterLocationIndexController extends Controller
         `length`,
         width,
         height,
-        capacity
+        capacity,
+        is_active
         FROM m_wh_location_index
         WHERE index_code = ?
+        and is_active='Y'
         
         ",[
             $index_code,
@@ -210,6 +220,7 @@ class MasterLocationIndexController extends Controller
 
         $data = [];
         $data["current_data"] = $current_data;
+        $data["arr_choice_is_active"] = $this->get_List_Is_Active();
         
         return view("master-location-index.show",compact("data"));
     }
@@ -227,6 +238,7 @@ class MasterLocationIndexController extends Controller
 
         $data = [];
         $data["current_data"] = $current_data;
+        $data["arr_choice_is_active"] = $this->get_List_Is_Active();
 
         return view("master-location-index.edit",compact("data"));
     }
@@ -247,6 +259,7 @@ class MasterLocationIndexController extends Controller
         $width = $request->input("width");
         $height = $request->input("height");
         $capacity = $request->input("capacity");
+        $is_active = $request->input("is_active");
 
         $data_error = [];
 
@@ -269,6 +282,10 @@ class MasterLocationIndexController extends Controller
         if(empty($capacity)){
             $data_error["capacity"][] = "Capacity is Required";
         }
+        
+        if(empty($is_active)){
+            $data_error["capacity"][] = "is_active is Required";
+        }
 
         if(count($data_error) > 0){
             return response()->json([
@@ -288,6 +305,7 @@ class MasterLocationIndexController extends Controller
                 "width" => $width,
                 "height" => $height,
                 "capacity" => $capacity,
+                "is_active" => $is_active,
                 "user_updated" => session("username"),
                 "datetime_updated" => $this->datetime_now,
             ]);

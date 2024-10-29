@@ -47,21 +47,21 @@ $(document).ready(function () {
 
     const mapping_filter = [
         {
-            id: "location_code",
-            desc: "Location Code",
+            id: "index_code",
+            desc: "Index Code",
         },
         {
-            id: "location_index",
-            desc: "Location Index",
+            id: "index_name",
+            desc: "Index Name",
         },
-        {
-            id: "location_type",
-            desc: "Location Type",
-        },
-        {
-            id: "wh_name",
-            desc: "Warehouse Name",
-        },
+        // {
+        //     id: "location_type",
+        //     desc: "Location Type",
+        // },
+        // {
+        //     id: "wh_name",
+        //     desc: "Warehouse Name",
+        // },
     ];
 
     
@@ -111,7 +111,7 @@ $(document).ready(function () {
             searching: true,
             ordering: false,
             ajax: {
-                url: "{{route('master_location.datatables')}}",
+                url: "{{route('master_location_index.datatables')}}",
                 
             },
             columns: column_data_server,

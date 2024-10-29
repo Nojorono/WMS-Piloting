@@ -168,7 +168,7 @@ class MasterLocationController extends Controller
     {
         $data = DB::select("SELECT a.wh_id, a.wh_name
         FROM m_warehouse a
-        LEFT JOIN m_wh_client_project b ON a.wh_id=b.wh_id
+        LEFT JOIN m_wh_client_project b ON a.client_project_id=b.client_project_id
         WHERE b.client_project_id = ?
         ",[session('current_client_project_id')]);
 

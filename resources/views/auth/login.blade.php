@@ -39,15 +39,15 @@ Login
 <div class="container-fluid">
 
     <div class="row justify-content-center">
-        <div class="d-none d-md-block col-md-12 text-center">
+        <div class="d-none d-md-block col-md-12 text-center mt-5">
             <a href="{{ route('dashboard') }}">
-                <img src="{{asset('img/logokonek.png')}}" alt="Logo" style="width: 15rem;">
+                <img src="{{asset('img/logo-nojorono-biru-2.png')}}" alt="Logo" style="width: 15rem;">
             </a>
         </div>
         <div class="col-md-12 text-center  " >
-            <h2 class="my-4 my-md-0 custom-text-color--dark-blue"><b>WMS</b></h2>
+            <h4 class="my-4 my-md-0 custom-text-color--dark-blue"><b>Warehouse Management System</b></h4>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mt-4">
             <div class="card custom-border">
                 <div class="card-body">
                     <form method="POST" action="{{ route('doLogin') }}" id="form-login">
@@ -91,9 +91,9 @@ Login
                 </div>
             </div>
         </div>
-        <div class="col-md-12 text-center" >
+        <!-- <div class="col-md-12 text-center" >
             <p>Forgot your password? <a href="{{ route('showFormResetPassword') }}">Click Here</a> </p>
-        </div>
+        </div> -->
     </div>
 </div>
 @endsection

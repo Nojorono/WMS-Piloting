@@ -63,26 +63,11 @@ Master Item
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <input type="text" autocomplete="off" class="form-control py-0" id="imei" name="imei" value="">
+                                                    <input type="text" autocomplete="off" class="form-control py-0" id="imei" name="imei" value="{{ @$data["current_data"][0]->imei }}">
                                                     <div id="validation_imei" class="invalid-feedback"></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 mb-2">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <label for="length" class="form-label text-xs">Length</label>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" autocomplete="off" class="form-control py-0" id="length" name="length" value="">
-                                                    <div id="validation_length" class="invalid-feedback"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-sm-6 mb-2">
                                             <div class="row">
                                                 <div class="col-sm-12">
@@ -91,8 +76,52 @@ Master Item
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <input type="text" autocomplete="off" class="form-control py-0" id="part_no" name="part_no" value="">
+                                                    <input type="text" autocomplete="off" class="form-control py-0" id="part_no" name="part_no" value="{{ @$data["current_data"][0]->part_no }}">
                                                     <div id="validation_part_no" class="invalid-feedback"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-2">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label for="color" class="form-label text-xs">Color</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" autocomplete="off" class="form-control py-0" id="color" name="color" value="{{ @$data["current_data"][0]->color }}">
+                                                    <div id="validation_color" class="invalid-feedback"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 mb-2">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label for="size" class="form-label text-xs">Size</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" autocomplete="off" class="form-control py-0" id="size" name="size" value="{{ @$data["current_data"][0]->size }}">
+                                                    <div id="validation_size" class="invalid-feedback"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-2">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label for="length" class="form-label text-xs">Length</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" autocomplete="off" class="form-control py-0" id="length" name="length" value="{{ @$data["current_data"][0]->length }}">
+                                                    <div id="validation_length" class="invalid-feedback"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -104,7 +133,7 @@ Master Item
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <input type="text" autocomplete="off" class="form-control py-0" id="width" name="width" value="">
+                                                    <input type="text" autocomplete="off" class="form-control py-0" id="width" name="width" value="{{ @$data["current_data"][0]->width }}">
                                                     <div id="validation_width" class="invalid-feedback"></div>
                                                 </div>
                                             </div>
@@ -114,41 +143,13 @@ Master Item
                                         <div class="col-sm-6 mb-2">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <label for="color" class="form-label text-xs">Color</label>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" autocomplete="off" class="form-control py-0" id="color" name="color" value="">
-                                                    <div id="validation_color" class="invalid-feedback"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 mb-2">
-                                            <div class="row">
-                                                <div class="col-sm-12">
                                                     <label for="height" class="form-label text-xs">Height</label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <input type="text" autocomplete="off" class="form-control py-0" id="height" name="height" value="">
+                                                    <input type="text" autocomplete="off" class="form-control py-0" id="height" name="height" value="{{ @$data["current_data"][0]->height }}">
                                                     <div id="validation_height" class="invalid-feedback"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6 mb-2">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <label for="size" class="form-label text-xs">Size</label>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" autocomplete="off" class="form-control py-0" id="size" name="size" value="">
-                                                    <div id="validation_size" class="invalid-feedback"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -160,7 +161,7 @@ Master Item
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <input type="text" autocomplete="off" class="form-control py-0" id="volume" name="volume" value="">
+                                                    <input type="text" autocomplete="off" class="form-control py-0" id="volume" name="volume" value="{{ @$data["current_data"][0]->volume }}">
                                                     <div id="validation_volume" class="invalid-feedback"></div>
                                                 </div>
                                             </div>

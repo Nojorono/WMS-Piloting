@@ -82,7 +82,8 @@ class MasterContactController extends Controller
                 "a.supplier_name",
             ])
             ->leftJoin("m_wh_client_project as b", "b.client_id", "=", "a.client_id")
-            ->where("b.wh_id", session("current_warehouse_id"))
+            ->leftJoin("m_warehouse as c","c.client_project_id","=","b.client_project_id")
+            ->where("c.wh_id", session("current_warehouse_id"))
             ->where("b.client_project_id", session("current_client_project_id"))
             ->where(function ($query) use ($supplier_id) {
                 if ($supplier_id !== null) {
@@ -106,14 +107,15 @@ class MasterContactController extends Controller
             $client_project_id = session("current_client_project_id");
         }
 
-        return DB::table("m_wh_client_project")
+        return DB::table("m_wh_client_project as a")
             ->select([
-                "client_project_id",
-                "client_project_name",
+                "a.client_project_id",
+                "a.client_project_name",
             ])
-            ->where("wh_id", session("current_warehouse_id"))
-            ->where("client_project_id", $client_project_id)
-            ->orderBy("client_project_id", "asc")
+            ->leftJoin("m_warehouse as b","b.client_project_id","=","a.client_project_id")
+            ->where("b.wh_id", session("current_warehouse_id"))
+            ->where("a.client_project_id", $client_project_id)
+            ->orderBy("a.client_project_id", "asc")
             ->get();
     }
 

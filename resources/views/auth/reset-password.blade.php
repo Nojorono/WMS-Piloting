@@ -41,7 +41,7 @@ Login
     <div class="row justify-content-center">
         <div class="d-none d-md-block col-md-12 text-center">
             <a href="{{ route('dashboard') }}">
-                <img src="{{asset('img/logokonek.png')}}" alt="Logo" style="width: 15rem;">
+                <img src="{{asset('img/logo-nojorono-biru-2.png')}}" alt="Logo" style="width: 15rem;">
             </a>
         </div>
         <div class="col-md-12 text-center custom-text-color--dark-blue " >

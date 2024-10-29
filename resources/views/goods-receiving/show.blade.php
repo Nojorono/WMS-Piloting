@@ -71,7 +71,7 @@ Goods Receiving
                                     </div>
                                     <div class="col-sm-3 mb-2">
                                         <label for="order_type" class="form-label text-xs">Order Type</label>
-                                        <input type="hidden" id="order_id" name="order_id" value="{{ $data["current_data"]->order_id }}" >
+                                        <input type="hidden" id="order_id" name="order_id" value="{{ $data["current_data"]->order_id }}">
                                         <input type="text" autocomplete="off" class="form-control py-0" id="order_type" name="order_type" value="{{ $data["current_data"]->order_type }}" readonly>
                                         <div id="validation_order_type" class="invalid-feedback text-xs"></div>
                                     </div>
@@ -99,9 +99,10 @@ Goods Receiving
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-xs" data-bs-toggle="tab" href="#page-tab--attachment">Attachment</a>
-                                    </li> 
+                                    </li>
                                 </ul>
                             </div>
+
                             <div class="card-body tab-content py-0">
                                 <div class="tab-pane active" id="page-tab--item-detail">
                                     <div class="row mb-2">
@@ -110,6 +111,7 @@ Goods Receiving
                                                 <table class="table " id="tabel-item-detail" style="min-width: calc(1.5 * 100%);">
                                                     <thead>
                                                         <tr>
+                                                            <th class="text-xs text-center">Movement Id</th>
                                                             <th class="text-xs text-center">SKU No</th>
                                                             <th class="text-xs text-center">Item Name</th>
                                                             <th class="text-xs text-center">Batch No</th>
@@ -119,18 +121,23 @@ Goods Receiving
                                                             <th class="text-xs text-center">Qty Plan</th>
                                                             <th class="text-xs text-center">Classification ID</th>
                                                             <th class="text-xs text-center">Classification</th>
+                                                            <th class="text-xs text-center">Is Scanned</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @php
-                                                            $current_row = 0;
+                                                        $current_row = 0;
                                                         @endphp
                                                         @if (count($data["current_data_detail"]) > 0)
                                                         @foreach ($data["current_data_detail"] as $current_data_detail )
                                                         @php
-                                                            $current_row ++;
+                                                        $current_row ++;
                                                         @endphp
                                                         <tr id='table_item_detail_{{ $current_row }}'>
+                                                            <td>
+                                                                <input style="font-size: 12px;" type='text' class='form-control py-0' name='movement_id[]' id='movement_id_{{ $current_row }}' value="{{ $current_data_detail->movement_id }}" readonly>
+                                                                <div id="validation_movement_id_{{ $current_row }}" class="invalid-feedback text-xs"></div>
+                                                            </td>
                                                             <td>
                                                                 <input type='text' class='form-control py-0' name='sku_no[]' id='sku_no_{{ $current_row }}' value="{{ $current_data_detail->sku }}" readonly>
                                                                 <div id="validation_sku_no_{{ $current_row }}" class="invalid-feedback text-xs"></div>
@@ -151,7 +158,7 @@ Goods Receiving
                                                                 <input type='text' class='form-control py-0' name='qty_received[]' id='qty_received_{{ $current_row }}' value="{{ $current_data_detail->qty_receive }}" readonly>
                                                                 <div id="validation_qty_received_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
-                                                            <td>  
+                                                            <td>
                                                                 <input type='text' class='form-control py-0 rounded-start' name='uom[]' id='uom_{{ $current_row }}' value="{{ $current_data_detail->uom_name }}" readonly>
                                                                 <div id="validation_uom_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
@@ -163,12 +170,16 @@ Goods Receiving
                                                                 <input type='text' class='form-control py-0' name='id_classification[]' id='id_classification_{{ $current_row }}' value="{{ $current_data_detail->clasification_id }}" readonly>
                                                                 <div id="validation_id_classification_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
-                                                            <td>  
+                                                            <td>
                                                                 <input type='text' class='form-control py-0 rounded-start' name='classification[]' id='classification_{{ $current_row }}' value="{{ $current_data_detail->classification_name }}" readonly>
                                                                 <div id="validation_classification_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
+                                                            <td>
+                                                                <input type='text' class='form-control py-0 rounded-start' name='is_scanned[]' id='is_scanned_{{ $current_row }}' value="{{ $current_data_detail->is_scanned }}" readonly>
+                                                                <div id="validation_is_scanned_{{ $current_row }}" class="invalid-feedback text-xs"></div>
+                                                            </td>
                                                         </tr>
-                                                        @endforeach    
+                                                        @endforeach
                                                         @endif
                                                     </tbody>
                                                 </table>
@@ -230,42 +241,46 @@ Goods Receiving
                                 <div class="tab-pane" id="page-tab--attachment">
                                     <div class="row ">
                                         <div class="col-sm-12 mb-2">
-                                            <input type="file" class="form-control py-0"name="file_1" id="file_1" disabled>
+                                            <input type="file" class="form-control py-0" name="file_1" id="file_1" disabled>
                                             <div id="validation_file_1" class="invalid-feedback text-xs"></div>
                                         </div>
                                         <div class="col-sm-12 mb-2">
-                                            <input type="file" class="form-control py-0"name="file_2" id="file_2" disabled>
+                                            <input type="file" class="form-control py-0" name="file_2" id="file_2" disabled>
                                             <div id="validation_file_2" class="invalid-feedback text-xs"></div>
                                         </div>
                                         <div class="col-sm-12 mb-2">
-                                            <input type="file" class="form-control py-0"name="file_3" id="file_3" disabled>
+                                            <input type="file" class="form-control py-0" name="file_3" id="file_3" disabled>
                                             <div id="validation_file_3" class="invalid-feedback text-xs"></div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                     </div>
                     @if (session('user_edit') == 1)
-                    <div class="col-sm-12 mb-2">      
+                    <div class="col-sm-12 mb-2">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-12 mb-2">
                                         <div class="d-flex">
                                             @if ($data["current_data"]->status_id == "OGR")
-                                                <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_good_receive" name="btn_good_receive"> Good Receive</button>
+                                            <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_good_receive" name="btn_good_receive"> Good Receive</button>
                                             @endif
+
                                             @if ($data["current_data"]->status_id == "RGR")
-                                                <a href="{{ route('goods_receiving.showMovementLocation',[ "id" => $data["current_data"]->gr_id ]) }}" class="text-decoration-none ms-2">
-                                                    <button type="button" class="btn btn-primary mb-0 py-1">Movement Location</button>
-                                                </a>
-                                                <button type="button" class="btn btn-primary mb-0 py-1 ms-2" id="btn_confirm_putaway" name="btn_confirm_putaway">Confirm Putaway</button>
+                                            <a href="{{ route('goods_receiving.showMovementLocation',[ "id" => $data["current_data"]->gr_id ]) }}" class="text-decoration-none ms-2">
+                                                <button type="button" class="btn btn-primary mb-0 py-1">Movement Location</button>
+                                            </a>
+
+                                            @if ($data["current_data"]->scan_status == "fully_scan")
+                                            <button type="button" class="btn btn-primary mb-0 py-1 ms-2" id="btn_confirm_putaway" name="btn_confirm_putaway">Confirm Putaway</button>
+                                            @endif
 
                                             @endif
                                             @if ($data["current_data"]->status_id == "PGR")
                                             @endif
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -283,196 +298,195 @@ Goods Receiving
 
 @section("javascript")
 <script type="text/javascript">
-$(document).ready(function () {
-    $("#dropdown_toggle_inbound").prop('aria-expanded',true);
-    $("#dropdown_toggle_inbound").addClass('active');
-    $("#dropdown_inbound").addClass('show');
-    $("#logo_inbound").addClass("d-none");
-    $("#logo_white_inbound").removeClass("d-none");
-    $("#li_goods_receiving").addClass("active");
-    $("#a_goods_receiving").addClass("active");
-    
-    $("#btn_confirm_putaway").on("click",function () {
-        const confirmed = confirm("Are you sure this data is already correct ?");
-        
-        if(!confirmed){
-            return;
-        }
+    $(document).ready(function() {
+        $("#dropdown_toggle_inbound").prop('aria-expanded', true);
+        $("#dropdown_toggle_inbound").addClass('active');
+        $("#dropdown_inbound").addClass('show');
+        $("#logo_inbound").addClass("d-none");
+        $("#logo_white_inbound").removeClass("d-none");
+        $("#li_goods_receiving").addClass("active");
+        $("#a_goods_receiving").addClass("active");
 
-        const url = "{{ route('goods_receiving.confirmPutaway', [ 'id'=> $data['current_data']->gr_id ]) }}";
-        const _token = $("meta[name='csrf-token']").prop('content');
-        const _method = "POST";
+        $("#btn_confirm_putaway").on("click", function() {
+            const confirmed = confirm("Are you sure this data is already correct ?");
 
-        const formData = new FormData();
-        formData.append("_token",_token);
-        formData.append("_method",_method);
-
-        $.ajax({
-            url:url,
-            method: _method,
-            data: formData,
-            contentType: false,
-            processData: false,
-            cache: false,
-            beforeSend: function () {
-                
-            },
-            error: function (error) {
-                Swal
-                .mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-primary me-2',
-                    },
-                    buttonsStyling: false,
-                })
-                .fire({
-                    text: 'Something Wrong',
-                    type: 'error',
-                    icon: 'error',
-                });
-            },
-            complete: function () {
-
-            },
-            success: function (response) {
-                if(typeof response !== 'object'){
-                    Swal
-                    .mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-primary me-2',
-                        },
-                        buttonsStyling: false,
-                    })
-                    .fire({
-                        text: 'Something Wrong',
-                        type: 'error',
-                        icon: 'error',
-                    });
-                    return;
-                }
-
-                if(response.err){
-                    Swal
-                    .mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-primary me-2',
-                        },
-                        buttonsStyling: false,
-                    })
-                    .fire({
-                        text: `${response.message}`,
-                        type: 'error',
-                        icon: 'error',
-                    });
-                    return;
-                }
-
-                Swal
-                .mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-primary me-2',
-                    },
-                    buttonsStyling: false,
-                })
-                .fire({
-                    text: `${response.message}`,
-                    type: 'success',
-                    icon: 'success',
-                });
-                window.location = "{{ route('goods_receiving.index') }}";
+            if (!confirmed) {
                 return;
+            }
 
-            },
+            const url = "{{ route('goods_receiving.confirmPutaway', [ 'id'=> $data['current_data']->gr_id ]) }}";
+            const _token = $("meta[name='csrf-token']").prop('content');
+            const _method = "POST";
+
+            const formData = new FormData();
+            formData.append("_token", _token);
+            formData.append("_method", _method);
+
+            $.ajax({
+                url: url,
+                method: _method,
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                beforeSend: function() {
+
+                },
+                error: function(error) {
+                    Swal
+                        .mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-primary me-2',
+                            },
+                            buttonsStyling: false,
+                        })
+                        .fire({
+                            text: 'Something Wrong',
+                            type: 'error',
+                            icon: 'error',
+                        });
+                },
+                complete: function() {
+
+                },
+                success: function(response) {
+                    if (typeof response !== 'object') {
+                        Swal
+                            .mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-primary me-2',
+                                },
+                                buttonsStyling: false,
+                            })
+                            .fire({
+                                text: 'Something Wrong',
+                                type: 'error',
+                                icon: 'error',
+                            });
+                        return;
+                    }
+
+                    if (response.err) {
+                        Swal
+                            .mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-primary me-2',
+                                },
+                                buttonsStyling: false,
+                            })
+                            .fire({
+                                text: `${response.message}`,
+                                type: 'error',
+                                icon: 'error',
+                            });
+                        return;
+                    }
+
+                    Swal
+                        .mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-primary me-2',
+                            },
+                            buttonsStyling: false,
+                        })
+                        .fire({
+                            text: `${response.message}`,
+                            type: 'success',
+                            icon: 'success',
+                        });
+                    window.location = "{{ route('goods_receiving.index') }}";
+                    return;
+
+                },
+            });
+        });
+        $("#btn_good_receive").on("click", function() {
+            $("#btn_good_receive").prop("disabled", true);
+
+            const url = "{{ route('goods_receiving.processGoodReceive', [ 'id'=> $data['current_data']->gr_id ]) }}";
+            const _token = $("meta[name='csrf-token']").prop('content');
+            const _method = "POST";
+
+            const formData = new FormData();
+            formData.append("_token", _token);
+            formData.append("_method", _method);
+
+            $.ajax({
+                url: url,
+                method: _method,
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                beforeSend: function() {},
+                error: function(error) {
+                    Swal
+                        .mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-primary me-2',
+                            },
+                            buttonsStyling: false,
+                        })
+                        .fire({
+                            text: 'Something Wrong',
+                            type: 'error',
+                            icon: 'error',
+                        });
+                },
+                complete: function() {
+
+                },
+                success: function(response) {
+                    if (typeof response !== 'object') {
+                        Swal
+                            .mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-primary me-2',
+                                },
+                                buttonsStyling: false,
+                            })
+                            .fire({
+                                text: 'Something Wrong',
+                                type: 'error',
+                                icon: 'error',
+                            });
+                        return;
+                    }
+
+                    if (response.err) {
+                        $("#btn_good_receive").prop("disabled", false);
+                        Swal
+                            .mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-primary me-2',
+                                },
+                                buttonsStyling: false,
+                            })
+                            .fire({
+                                text: `${response.message}`,
+                                type: 'error',
+                                icon: 'error',
+                            });
+                        return;
+                    }
+                    Swal
+                        .mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-primary me-2',
+                            },
+                            buttonsStyling: false,
+                        })
+                        .fire({
+                            text: `${response.message}`,
+                            type: 'success',
+                            icon: 'success',
+                        });
+                    window.location.reload();
+                    return;
+
+                },
+            });
         });
     });
-    $("#btn_good_receive").on("click",function () {
-        $("#btn_good_receive").prop("disabled",true);
-
-        const url = "{{ route('goods_receiving.processGoodReceive', [ 'id'=> $data['current_data']->gr_id ]) }}";
-        const _token = $("meta[name='csrf-token']").prop('content');
-        const _method = "POST";
-
-        const formData = new FormData();
-        formData.append("_token",_token);
-        formData.append("_method",_method);
-
-        $.ajax({
-            url:url,
-            method: _method,
-            data: formData,
-            contentType: false,
-            processData: false,
-            cache: false,
-            beforeSend: function () {
-            },
-            error: function (error) {
-                Swal
-                .mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-primary me-2',
-                    },
-                    buttonsStyling: false,
-                })
-                .fire({
-                    text: 'Something Wrong',
-                    type: 'error',
-                    icon: 'error',
-                });
-            },
-            complete: function () {
-
-            },
-            success: function (response) {
-                if(typeof response !== 'object'){
-                    Swal
-                    .mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-primary me-2',
-                        },
-                        buttonsStyling: false,
-                    })
-                    .fire({
-                        text: 'Something Wrong',
-                        type: 'error',
-                        icon: 'error',
-                    });
-                    return;
-                }
-
-                if(response.err){
-                    $("#btn_good_receive").prop("disabled",false);
-                    Swal
-                    .mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-primary me-2',
-                        },
-                        buttonsStyling: false,
-                    })
-                    .fire({
-                        text: `${response.message}`,
-                        type: 'error',
-                        icon: 'error',
-                    });
-                    return;
-                }
-                Swal
-                .mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-primary me-2',
-                    },
-                    buttonsStyling: false,
-                })
-                .fire({
-                    text: `${response.message}`,
-                    type: 'success',
-                    icon: 'success',
-                });
-                window.location.reload();
-                return;
-
-            },
-        }); 
-    });
-});
 </script>
 @endsection

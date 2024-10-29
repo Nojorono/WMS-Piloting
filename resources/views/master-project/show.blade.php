@@ -70,8 +70,6 @@ Master Project
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-sm-6 mb-2">
                                         <div class="row">
                                             <div class="col-sm-12">
@@ -86,6 +84,7 @@ Master Project
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="row">
                                     <div class="col-sm-6 mb-2">
                                         <div class="row">
@@ -100,8 +99,6 @@ Master Project
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-sm-6 mb-2">
                                         <div class="row">
                                             <div class="col-sm-12">
@@ -116,6 +113,7 @@ Master Project
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="row">
                                     <div class="col-sm-6 mb-2">
                                         <div class="row">
@@ -157,37 +155,11 @@ Master Project
                                                 <div id="validation_phone" class="invalid-feedback"></div>
                                             </div>
                                         </div>
-                                    </div>
+                                    
                                 </div>
+                                
                                 <div class="row">
-                                    <div class="col-sm-6 mb-2">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <label for="warehouse" class="form-label text-xs">Warehouse Name</label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <select class="form-select py-0" id="warehouse" name="warehouse" disabled>
-                                                    <option value="">Select Warehouse</option>
-                                                    @if (isset($data['arr_warehouse']) && count($data['arr_warehouse']) > 0)
-                                                    
-                                                    @foreach ( $data['arr_warehouse'] as $warehouse )
-                                                    @php
-                                                        $selected = "";
-                                                        if($warehouse->wh_id == @$data["current_data"][0]->wh_id){
-                                                            $selected = " selected ";
-                                                        }
-                                                    @endphp
-                                                    <option value="{{ $warehouse->wh_id }}" {{$selected}}>{{ $warehouse->wh_name }}</option>
-                                                    @endforeach
-                                                    @endif
-                                                </select>
-                                                <div id="validation_warehouse" class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 mb-2">
+                                    </div><div class="col-sm-6 mb-2">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <label for="project_type" class="form-label text-xs">Project Type</label>
@@ -213,8 +185,6 @@ Master Project
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-sm-6 mb-2">
                                         <div class="row">
                                             <div class="col-sm-12">
