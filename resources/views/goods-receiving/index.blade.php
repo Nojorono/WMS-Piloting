@@ -18,7 +18,6 @@ Goods Receiving
                         <a href="{{ route('goods_receiving.viewExcel') }}" class="text-decoration-none">
                             <button type="button" class="btn btn-primary mb-0 py-1">Print List Data</button>
                         </a>
-                        <h1>{{ session('current_client_project_id') }}</h1>
                     </div>
                     <hr>
                     <div class="col-sm-12">
