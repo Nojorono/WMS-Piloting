@@ -12,6 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Validation\ValidationException;
 
 
+
 class GoodsReceivingController extends Controller
 {
     private $menu_id = 12;
