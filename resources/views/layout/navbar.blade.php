@@ -28,7 +28,7 @@
                 </a>
             </li>
             <li class="nav-item px-3">
-                <div class="dropdown-center">
+                <!-- <div class="dropdown-center">
                     <div data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" role="button" style="font-size: 1.5rem;" id="btn_dropdown_message">
                         <i class="bi bi-chat-right-dots-fill"></i>
                     </div>
@@ -61,10 +61,10 @@
                         </li>
                         @endfor --}}
                     </ul>
-                </div>
+                </div> -->
             </li>
             <li class="nav-item px-3 d-flex align-items-center">
-                <select name="client_project_id" id="client_project_id" class="form-select py-0">
+                <!-- <select name="client_project_id" id="client_project_id" class="form-select py-0">
                     @if (count(session('arr_client_project')) > 0 && !empty(session('current_client_project_id')))
                     @foreach ( session('arr_client_project') as $client_project )
                     @php
@@ -77,7 +77,7 @@
                     @endforeach
                     @endif
                     
-                </select>
+                </select> -->
             </li>
             <li class="nav-item px-3 d-flex align-items-center">
                 <a href="{{ route('getLogout') }}" class="nav-link text-body p-0 ">

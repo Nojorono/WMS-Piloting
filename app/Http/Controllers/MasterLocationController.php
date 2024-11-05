@@ -244,11 +244,11 @@ class MasterLocationController extends Controller
             ],200);
         }
         
-        return response()->json([
-            "err" => true,
-            "message" => "Bablas",
-            "data" => $data_error,
-        ],200);
+        // return response()->json([
+        //     "err" => true,
+        //     "message" => "Bablas",
+        //     "data" => $data_error,
+        // ],200);
 
         DB::beginTransaction();
         try {

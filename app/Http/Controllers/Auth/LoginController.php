@@ -178,7 +178,7 @@ class LoginController extends Controller
                             <span class='nav-link-text ms-1'>".$value_parrent_menu->description."</span>
                         </a>
                     </li>";
-                }else if (empty($value_parrent_menu->menu_link) && count($child_menu) > 0) {
+                } else if (empty($value_parrent_menu->menu_link) && count($child_menu) > 0) {
                     $menu_icon = (isset($value_parrent_menu->menu_icon)  && !empty($value_parrent_menu->menu_icon)) ? $value_parrent_menu->menu_icon : asset("img/logo-nojorono-biru-2.png");
                     $menu_icon_white = (isset($value_parrent_menu->menu_icon_white)  && !empty($value_parrent_menu->menu_icon_white)) ? $value_parrent_menu->menu_icon_white : asset("img/logo-nojorono-biru-2.png");
                     $html .= "

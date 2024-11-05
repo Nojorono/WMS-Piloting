@@ -117,8 +117,10 @@ Goods Receiving
                                                             <th class="text-xs text-center">Batch No</th>
                                                             <th class="text-xs text-center">Expired Date</th>
                                                             <th class="text-xs text-center">Qty Received</th>
-                                                            <th class="text-xs text-center">UOM</th>
                                                             <th class="text-xs text-center">Qty Plan</th>
+                                                            <!-- <th class="text-xs text-center">Qty Putaway</th>
+                                                            <th class="text-xs text-center">Location Putaway</th> -->
+                                                            <th class="text-xs text-center">UOM</th>
                                                             <th class="text-xs text-center">Classification ID</th>
                                                             <th class="text-xs text-center">Classification</th>
                                                             <th class="text-xs text-center">Is Scanned</th>
@@ -159,12 +161,20 @@ Goods Receiving
                                                                 <div id="validation_qty_received_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
                                                             <td>
-                                                                <input type='text' class='form-control py-0 rounded-start' name='uom[]' id='uom_{{ $current_row }}' value="{{ $current_data_detail->uom_name }}" readonly>
-                                                                <div id="validation_uom_{{ $current_row }}" class="invalid-feedback text-xs"></div>
-                                                            </td>
-                                                            <td>
                                                                 <input type='text' class='form-control py-0' name='qty_plan[]' id='qty_plan_{{ $current_row }}' value="{{ $current_data_detail->qty_plan }}" readonly>
                                                                 <div id="validation_qty_plan_{{ $current_row }}" class="invalid-feedback text-xs"></div>
+                                                            </td>
+                                                            <!-- <td>
+                                                                <input type='text' class='form-control py-0 rounded-start' name='qty_putaway[]' id='qty_putaway_{{ $current_row }}' value="{{ $current_data_detail->qty_putaway }}" readonly>
+                                                                <div id="validation_qty_putaway_{{ $current_row }}" class="invalid-feedback text-xs"></div>
+                                                            </td>
+                                                            <td>
+                                                                <input type='text' class='form-control py-0 rounded-start' name='location_to[]' id='location_to_{{ $current_row }}' value="{{ $current_data_detail->location_to }}" readonly>
+                                                                <div id="validation_location_to_{{ $current_row }}" class="invalid-feedback text-xs"></div>
+                                                            </td> -->
+                                                            <td>
+                                                                <input type='text' class='form-control py-0 rounded-start' name='uom[]' id='uom_{{ $current_row }}' value="{{ $current_data_detail->uom_name }}" readonly>
+                                                                <div id="validation_uom_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
                                                             <td>
                                                                 <input type='text' class='form-control py-0' name='id_classification[]' id='id_classification_{{ $current_row }}' value="{{ $current_data_detail->clasification_id }}" readonly>
@@ -178,6 +188,7 @@ Goods Receiving
                                                                 <input type='text' class='form-control py-0 rounded-start' name='is_scanned[]' id='is_scanned_{{ $current_row }}' value="{{ $current_data_detail->is_scanned }}" readonly>
                                                                 <div id="validation_is_scanned_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
+
                                                         </tr>
                                                         @endforeach
                                                         @endif

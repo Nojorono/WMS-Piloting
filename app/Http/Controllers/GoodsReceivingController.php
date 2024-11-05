@@ -244,7 +244,9 @@ class GoodsReceivingController extends Controller
                 "a.uom_name",
                 "a.clasification_id",
                 "c.classification_name",
-                "tm.is_scanned"
+                "tm.is_scanned",
+                "tm.qty AS qty_putaway",
+                "tm.location_to"
             ])
             ->leftJoin("t_wh_inbound_detail as b", function ($join) {
                 $join->on("b.inbound_planning_no", "=", "a.inbound_planning_no")
@@ -262,22 +264,7 @@ class GoodsReceivingController extends Controller
                 return $query->where("e.gr_id", $gr_id);
             })
             ->groupBy([
-                "tm.movement_id",
-                "a.sku",
-                "a.item_name",
-                "a.batch_no",
-                "a.serial_no",
-                "a.imei",
-                "a.part_no",
-                "a.color",
-                "a.size",
-                DB::raw("CAST(a.expired_date AS DATE)"),
-                "b.qty",
-                "a.qty",
-                "a.uom_name",
-                "a.clasification_id",
-                "c.classification_name",
-                "tm.is_scanned"
+                "a.sku"
             ])
             ->get();
 
@@ -1572,6 +1559,8 @@ class GoodsReceivingController extends Controller
             return response()->json(['status' => 404, 'message' => 'Record not found or does not match.'], 404);
         }
     }
+
+
     public function getPutawayData($warehouseman)
     {
         $putaway_planning = DB::table('t_wh_temporary_movement as tm')

@@ -8,7 +8,7 @@ Dashboard
 @endsection
 
 @section('content')
-<div class="row align-items-center">
+<!-- <div class="row align-items-center">
     <div class="col-sm-5 mb-2">
         <div class="row align-items-center ">
             <div class="col-sm-12 mb-2 fw-bold ">
@@ -320,7 +320,7 @@ Dashboard
             </div>
         </div>
     </div>
-</div>
+</div> -->
 @endsection
 
 @section("javascript")
