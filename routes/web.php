@@ -94,6 +94,9 @@ Route::group(["middleware" => "auth"], function () {
         Route::get("/{id}/datatablesOutstandingItems", [App\Http\Controllers\InboundPlanningController::class, "datatablesOutstandingItems"])->name("datatablesOutstandingItems");
         Route::post("/{id}/processRemoveScan", [App\Http\Controllers\InboundPlanningController::class, "processRemoveScan"])->name("processRemoveScan");
         Route::post("/{id}/confirmInboundPlanning", [App\Http\Controllers\InboundPlanningController::class, "confirmInboundPlanning"])->name("confirmInboundPlanning");
+        Route::get("/{id}/checkMismatch", [App\Http\Controllers\InboundPlanningController::class, "checkMismatch"])->name("checkMismatch");
+        Route::post("/{id}/confirmInboundPlanningMismatch", [App\Http\Controllers\InboundPlanningController::class, "confirmInboundPlanningMismatch"])->name("confirmInboundPlanningMismatch");
+
     });
 
     Route::group([
@@ -615,14 +618,14 @@ Route::get('finish-inbound/{checker}', [App\Http\Controllers\InboundPlanningCont
 
 Route::post('save-partial-vehicle/{inboundPlanningNo}/{checker}', [App\Http\Controllers\InboundPlanningController::class, "processSavePartialVehicleMobileApp"])->name("processSavePartialVehicleMobileApp");
 Route::get('get-vehicle', [App\Http\Controllers\InboundPlanningController::class, 'getVehicleForMobileApp'])->name("getVehicleForMobileApp");
-Route::get('get-wh-trans/{inboundPlanningNo}', [App\Http\Controllers\InboundPlanningController::class, 'getWHTransportation'])->name("getWHTransportation");
+Route::get('get-vehicle-no/{inboundPlanningNo}/{userCreated}', [App\Http\Controllers\InboundPlanningController::class, 'getVehicleNO'])->name("getVehicleNO");
+Route::get('get-wh-trans/{inboundPlanningNo}/{userCreated}/{vehicleNo}', [App\Http\Controllers\InboundPlanningController::class, 'getWHTransportation'])->name("getWHTransportation");
 Route::post('save-finish-vehicle/{activityId}/{vehicleNo}', [App\Http\Controllers\InboundPlanningController::class, "processSaveFinishVehicleMobileApp"])->name("processSaveFinishVehicleMobileApp");
-
 
 // API FOR MOBILE APP - SCAN
 Route::get('/get-sku/{inbound_planning_no}', [App\Http\Controllers\InboundPlanningController::class, 'getSKUforMobileApp']);
 Route::get('/stock-type-scan/{stock_id?}', [App\Http\Controllers\InboundPlanningController::class, 'getStockTypeScanMobileApp']);
-Route::get('/check-qty-plan', [App\Http\Controllers\InboundPlanningController::class, 'checkQtyPlan']);
+Route::get('/check-qty-plan/{inboundPlanningNo}', [App\Http\Controllers\InboundPlanningController::class, 'checkQtyPlan']);
 Route::get('/check-outstanding/{inboundPlanningNo}/{sku}', [App\Http\Controllers\InboundPlanningController::class, 'checkOutstanding']);
 Route::post('/process-scan/{inboundPlanningNo}/{activtyId}/{cheker}', [App\Http\Controllers\InboundPlanningController::class, 'processScanMobileApp']);
 
@@ -631,5 +634,3 @@ Route::get('order-putaway/{warehouseman}', [App\Http\Controllers\GoodsReceivingC
 Route::post('update-putaway', [App\Http\Controllers\GoodsReceivingController::class, 'updateScanStatus']);
 
 Route::get('putaway-data/{warehouseman}', [App\Http\Controllers\GoodsReceivingController::class, 'getPutawayData']);
-
-

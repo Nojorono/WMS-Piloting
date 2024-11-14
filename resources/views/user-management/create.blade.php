@@ -27,7 +27,7 @@ User Management
                                         <div class="col-sm-6 mb-2">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <label for="user_id" class="form-label text-xs">User ID</label>
+                                                    <label for="user_id" class="form-label text-xs">Username</label>
                                                 </div>
                                             </div>
                                             <div class="row">

@@ -471,30 +471,30 @@ $(document).ready(function () {
             id: "part_name",
             desc: "Item Name",
         },
-        {
-            id: "batch_no",
-            desc: "Batch No",
-        },
-        {
-            id: "serial_no",
-            desc: "Serial No",
-        },
-        {
-            id: "imei",
-            desc: "IMEI No",
-        },
-        {
-            id: "part_no",
-            desc: "Part No",
-        },
-        {
-            id: "color",
-            desc: "Color",
-        },
-        {
-            id: "size",
-            desc: "Size",
-        },
+        // {
+        //     id: "batch_no",
+        //     desc: "Batch No",
+        // },
+        // {
+        //     id: "serial_no",
+        //     desc: "Serial No",
+        // },
+        // {
+        //     id: "imei",
+        //     desc: "IMEI No",
+        // },
+        // {
+        //     id: "part_no",
+        //     desc: "Part No",
+        // },
+        // {
+        //     id: "color",
+        //     desc: "Color",
+        // },
+        // {
+        //     id: "size",
+        //     desc: "Size",
+        // },
         {
             id: "expired_date",
             desc: "Expired Date",

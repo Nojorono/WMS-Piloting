@@ -215,6 +215,7 @@ class InboundPlanningController extends Controller
                     $query->where("a.supplier_id", $supplier_id);
                 }
             })
+            ->orderBy("a.supplier_id", "ASC")
             ->get();
 
         return $data;
@@ -222,9 +223,7 @@ class InboundPlanningController extends Controller
 
     public function datatablesSupplier(Request $request)
     {
-        // DB::enableQueryLog();
         $data = $this->getSupplier();
-        // print_r(DB::getQueryLog());
         return DataTables::of($data)
             ->make(true);
     }
@@ -279,6 +278,7 @@ class InboundPlanningController extends Controller
             ->orderBy("a.sku", "asc")
             ->get();
     }
+
     // private function getSKU($sku = false)
     // {
     //     $data = DB::query()
@@ -787,6 +787,7 @@ class InboundPlanningController extends Controller
                     "color" => $validated["arr_color"][$i]["value"],
                     "size" => $validated["arr_size"][$i]["value"],
                     "qty" => $validated["arr_qty_plan"][$i]["value"],
+                    "qty_history" => $validated["arr_qty_plan"][$i]["value"],
                     "uom_name" => $validated["arr_uom"][$i]["value"],
                     "clasification_id" => $validated["arr_id_classification"][$i]["value"],
                     "user_created" => session("username"),
@@ -1085,30 +1086,99 @@ class InboundPlanningController extends Controller
         return $data;
     }
 
+
     private function getWHTransportationWHScanQty($inbound_planning_no)
     {
-        $data = DB::query()
+        $data = DB::table('t_wh_transportation as b')
+            ->distinct() // Menambahkan distinct
             ->select([
-                "a.checker",
-                "a.supervisor_id",
-                "b.arrival_date",
-                "b.start_unloading",
-                "b.finish_unloading",
-                "b.departure_date",
-                "b.vehicle_no",
-                "b.driver_name",
-                "c.vehicle_type",
-                "b.container_no",
-                "b.seal_no",
+                'a.main_checker',
+                'b.arrival_date',
+                'b.start_unloading',
+                'b.finish_unloading',
+                'b.departure_date',
+                'b.vehicle_no',
+                'b.driver_name',
+                'c.vehicle_type',
+                'b.container_no',
+                'b.seal_no',
             ])
-            ->from("t_wh_activity as a")
-            ->leftJoin("t_wh_transportation as b", "a.activity_id", "=", "b.activity_id")
-            ->leftJoin("m_wh_vehicle as c", "b.vehicle_id", "=", "c.vehicle_id")
+            ->leftJoin('m_wh_vehicle as c', 'b.vehicle_id', '=', 'c.vehicle_id')
+            ->leftJoin('t_wh_scan_qty as s', 'b.activity_id', '=', 's.activity_id')
+            ->leftJoin('t_wh_activity as a', 'a.activity_id', '=', 'b.activity_id')
             ->where("a.inbound_planning_no", $inbound_planning_no)
             ->get();
 
         return $data;
     }
+
+    // private function getWHTransportationWHScanQty($inbound_planning_no)
+    // {
+    //     $data = DB::query()
+    //         ->distinct()
+    //         ->select([
+    //             "a.main_checker",
+    //             "a.checker",
+    //             "a.supervisor_id",
+    //             "b.arrival_date",
+    //             "b.start_unloading",
+    //             "b.finish_unloading",
+    //             "b.departure_date",
+    //             "b.vehicle_no",
+    //             "b.driver_name",
+    //             "c.vehicle_type",
+    //             "b.container_no",
+    //             "b.seal_no",
+    //         ])
+    //         ->from("t_wh_activity as a")
+    //         ->leftJoin("t_wh_transportation as b", "a.activity_id", "=", "b.activity_id")
+    //         ->leftJoin("m_wh_vehicle as c", "b.vehicle_id", "=", "c.vehicle_id")
+    //         ->where("a.inbound_planning_no", $inbound_planning_no)
+    //         ->get();
+
+    //     return $data;
+    // }
+
+    private function getScanHistory($inbound_planning_no)
+    {
+
+        $current_data_wh_activity = $this->getWHActivityByChecker($inbound_planning_no, session('username'));
+
+        if (count($current_data_wh_activity) == 0) {
+            return collect();
+        }
+
+        $activity_id = $current_data_wh_activity[0]->activity_id;
+
+        $data = DB::query()
+            ->select([
+                "a.sku",
+                "a.part_name",
+                "a.pallet_id",
+                "a.serial_no",
+                "c.expired_date",
+                "a.qty_scan",
+                "c.qty",
+                "c.qty_history",
+                DB::raw("c.qty_history - a.qty_scan AS discrepancy"),
+                "a.uom_name",
+                "a.stock_id",
+                "a.user_created",
+                "a.scan_id",
+            ])
+            ->from("t_wh_scan_qty as a")
+            ->leftJoin("t_wh_activity as b", "b.activity_id", "=", "a.activity_id")
+            ->leftJoin("t_wh_inbound_planning_detail as c", function ($query) {
+                $query->on("c.SKU", "=", "a.sku");
+                $query->on("c.batch_no", "=", "a.batch_no");
+            })
+            ->where("a.activity_id", $activity_id)
+            ->where("c.inbound_planning_no", $inbound_planning_no)
+            ->get();
+
+        return $data;
+    }
+
 
     public function show(Request $request, $id)
     {
@@ -1167,20 +1237,26 @@ class InboundPlanningController extends Controller
             "12",
         ]);
         $current_data_wh_activity = $this->getWHActivity($current_data->inbound_planning_no);
+
         $current_data_wh_transportation_wh_scan_qty = $this->getWHTransportationWHScanQty($current_data->inbound_planning_no);
 
+        $scan_history = $this->getScanHistory($current_data->inbound_planning_no);
+
         //can_confirm start 
-        $can_confirm = true;
+        $can_confirm = false; // Default awal adalah false (button disabled)
         if (count($current_data_wh_transportation_wh_scan_qty) > 0) {
             foreach ($current_data_wh_transportation_wh_scan_qty as $key_data_wh_transportation_wh_scan_qty => $value_data_wh_transportation_wh_scan_qty) {
-
+                // Ambil data tanggal dan status unloading
                 $arrival_date = $value_data_wh_transportation_wh_scan_qty->arrival_date;
                 $start_unloading = $value_data_wh_transportation_wh_scan_qty->start_unloading;
                 $finish_unloading = $value_data_wh_transportation_wh_scan_qty->finish_unloading;
                 $departure_date = $value_data_wh_transportation_wh_scan_qty->departure_date;
-                // if(empty($finish_unloading) || empty($departure_date)){ //temp_disabled_odoo_TASK1598
-                if (!empty($arrival_date) && !empty($start_unloading)  && (empty($finish_unloading) || empty($departure_date))) {
-                    $can_confirm = false;
+
+                // Cek apakah ada data yang kosong
+                if (!empty($arrival_date) && !empty($start_unloading) && !empty($finish_unloading) && !empty($departure_date)) {
+                    // Jika semua data sudah ada, set $can_confirm = true (button enabled)
+                    $can_confirm = true;
+                    break; // Karena kita hanya perlu satu data yang lengkap untuk enable tombol, kita bisa keluar dari loop.
                 }
             }
         }
@@ -1192,6 +1268,7 @@ class InboundPlanningController extends Controller
         $data["current_data_wh_activity"] = $current_data_wh_activity;
         $data["current_data_wh_transportation_wh_scan_qty"] = $current_data_wh_transportation_wh_scan_qty;
         $data["can_confirm"] = $can_confirm;
+        $data["scan_history"] = $scan_history;
 
         return view("inbound-planning.show", compact("data"));
     }
@@ -1776,15 +1853,23 @@ class InboundPlanningController extends Controller
 
     public function datatablesTargetUserAssign(Request $request)
     {
-        // DB::enableQueryLog();
         $data = $this->getTargetUserAssign();
-        // print_r(DB::getQueryLog());
         return DataTables::of($data)
             ->make(true);
     }
 
     public function processAssignChecker(Request $request, $id)
     {
+
+        $mainCheckerId = $request->input('main_checker');
+
+        if (!$mainCheckerId) {
+            return response()->json([
+                'err' => true,
+                'message' => 'Main Checker is required.',
+                'data' => [],
+            ], 200);
+        }
 
         $check_Inbound_Planning = $this->getInboundPlanning($id);
         if (count($check_Inbound_Planning) == 0) {
@@ -1881,11 +1966,41 @@ class InboundPlanningController extends Controller
             "arr_checker_date_finish" => $arr_checker_date_finish,
             "arr_checker_time_finish" => $arr_checker_time_finish,
         ];
+
+
+
         DB::beginTransaction();
         try {
 
             $max_count_username = count($validated["arr_checker_username"]);
             $data_t_wh_activity = [];
+
+            $existing_checkers = DB::table("t_wh_activity")
+                ->where("inbound_planning_no", $current_data->inbound_planning_no)
+                ->where(function ($query) use ($validated) {
+                    foreach ($validated["arr_checker_username"] as $checker) {
+                        $query->orWhere('checker', $checker['value']);
+                    }
+                })
+                ->pluck('checker')
+                ->toArray();
+
+            // Cek apakah ada checker yang sudah ada
+            $duplicate_checkers = [];
+            foreach ($validated["arr_checker_username"] as $checker) {
+                if (in_array($checker['value'], $existing_checkers)) {
+                    $duplicate_checkers[] = $checker['value'];
+                }
+            }
+
+            if (!empty($duplicate_checkers)) {
+                return response()->json([
+                    'err' => true,
+                    "message" => implode(", ", $duplicate_checkers) . " - Already assign ! ",
+                    'data' => [],
+                ], 200);
+            }
+
             for ($i = 0; $i < $max_count_username; $i++) {
                 $temp_datetime_est_start = date("Y-m-d H:i:s", strtotime($validated["arr_checker_date_start"][$i]["value"] . " " . $validated["arr_checker_time_start"][$i]["value"]));
                 $temp_datetime_est_finish = date("Y-m-d H:i:s", strtotime($validated["arr_checker_date_finish"][$i]["value"] . " " . $validated["arr_checker_time_finish"][$i]["value"]));
@@ -1894,6 +2009,7 @@ class InboundPlanningController extends Controller
                     "inbound_planning_no" => $current_data->inbound_planning_no,
                     "reference_no" => $current_data->reference_no,
                     "checker" => $validated["arr_checker_username"][$i]["value"],
+                    "main_checker" =>  $mainCheckerId,
                     "datetime_est_start" => $temp_datetime_est_start,
                     "datetime_est_finish" => $temp_datetime_est_finish,
                     "is_active" => "Y",
@@ -2007,6 +2123,27 @@ class InboundPlanningController extends Controller
         return $pdf->stream($data["current_data"]->inbound_planning_no . ".pdf");
     }
 
+    // private function getWHActivityByChecker($inbound_planning_no, $checker)
+    // {
+    //     $data = DB::query()
+    //         ->select([
+    //             "a.activity_id",
+    //             "a.checker",
+    //             DB::raw("CAST(a.datetime_est_start AS DATE) AS start_date"),
+    //             DB::raw("CAST(a.datetime_est_start AS TIME) AS start_time"),
+    //             DB::raw("CAST(a.datetime_est_finish AS DATE) AS finish_date"),
+    //             DB::raw("CAST(a.datetime_est_finish AS TIME) AS finish_time"),
+    //         ])
+    //         ->from("t_wh_activity as a")
+    //         ->leftJoin("t_wh_inbound_planning as b", "b.inbound_planning_no", "=", "a.inbound_planning_no")
+    //         ->where("a.inbound_planning_no", $inbound_planning_no)
+    //         ->where("a.checker", $checker)
+    //         ->orderBy("a.datetime_created", "DESC")
+    //         ->get();
+    //     return $data;
+    // }
+
+
     private function getWHActivityByChecker($inbound_planning_no, $checker)
     {
         $data = DB::query()
@@ -2021,7 +2158,7 @@ class InboundPlanningController extends Controller
             ->from("t_wh_activity as a")
             ->leftJoin("t_wh_inbound_planning as b", "b.inbound_planning_no", "=", "a.inbound_planning_no")
             ->where("a.inbound_planning_no", $inbound_planning_no)
-            ->where("a.checker", $checker)
+            ->where("a.main_checker", $checker)
             ->orderBy("a.datetime_created", "DESC")
             ->get();
         return $data;
@@ -2053,7 +2190,8 @@ class InboundPlanningController extends Controller
             ->leftJoin("m_wh_vehicle as b", "b.vehicle_id", "=", "a.vehicle_id")
             ->leftJoin("t_wh_activity as c", "c.activity_id", "=", "a.activity_id")
             ->where("a.activity_id", $activity_id)
-            ->where("c.checker", $checker)
+            // ->where("c.checker", $checker)
+            ->where("c.main_checker", $checker)
             ->where(function ($query) use ($vehicle_no) {
                 if ($vehicle_no !== false) {
                     $query->where("a.vehicle_no", $vehicle_no);
@@ -2088,6 +2226,7 @@ class InboundPlanningController extends Controller
         $data["current_data_detail"] = $current_data_detail;
 
         $current_data_wh_activity = $this->getWHActivityByChecker($current_data->inbound_planning_no, session('username'));
+
         if (count($current_data_wh_activity) == 0) {
             echo "<script>
             alert('You are not assigned to this inbound planning no');
@@ -2096,9 +2235,6 @@ class InboundPlanningController extends Controller
             return;
         }
         $data["current_data_wh_activity"] = $current_data_wh_activity;
-
-        // $current_data_scan = $this->getWHScanType($current_data->inbound_planning_no,$current_data_wh_activity[0]->activity_id);
-        // $data["current_data_scan"] = $current_data_scan;
 
         $current_data_transpotation = $this->getWHTransportationByCheckerAndActivityIDAndVehicleNo($current_data_wh_activity[0]->activity_id, session('username'));
         $data["current_data_transpotation"] = $current_data_transpotation;
@@ -2921,6 +3057,7 @@ class InboundPlanningController extends Controller
             ->where("a.activity_id", $activity_id)
             ->where("c.inbound_planning_no", $current_data->inbound_planning_no)
             ->get();
+
         return DataTables::of($data)
             ->addColumn('action', function ($result) {
                 $button = "";
@@ -3036,80 +3173,6 @@ class InboundPlanningController extends Controller
                 ->make(true);
         }
 
-        // $data = [];
-
-        // $raw_data = DB::query()
-        // ->select([
-        //     "b.SKU",
-        //     "b.item_name",
-        //     "b.expired_date",
-        //     "b.batch_no",
-        //     "b.qty",
-        //     "b.uom_name",
-        //     "b.serial_no",
-        // ])
-        // ->from("t_wh_inbound_planning as a")
-        // ->leftJoin("t_wh_inbound_planning_detail as b","b.inbound_planning_no","=","a.inbound_planning_no")
-        // ->where("a.inbound_planning_no",$current_data->inbound_planning_no)
-        // ->get();
-        // if(count($raw_data) > 0){
-        //     foreach ($raw_data as $key_raw_data => $value_raw_data) {
-        //         $SKU = $value_raw_data->SKU;
-        //         $item_name = $value_raw_data->item_name;
-        //         $expired_date = $value_raw_data->expired_date;
-        //         $batch_no = $value_raw_data->batch_no;
-        //         $qty = $value_raw_data->qty;
-        //         $uom_name = $value_raw_data->uom_name;
-        //         $serial_no = $value_raw_data->serial_no;
-        //         $total_qty_scan = 0;
-
-        //         $get_qty_scan = DB::query()
-        //         ->select([
-        //             "b.qty_scan",
-        //             "b.sku",
-        //             "b.batch_no",
-        //             "b.serial_no",
-        //         ])
-        //         ->from("t_wh_activity as a")
-        //         ->leftJoin("t_wh_scan_qty as b","b.activity_id","=","a.activity_id")
-        //         ->where("a.inbound_planning_no",$current_data->inbound_planning_no)
-        //         ->where("b.sku",$SKU)
-        //         ->where(function ($query) use($batch_no,$serial_no)
-        //         {
-        //             if(!empty($batch_no)){
-        //                 $query->where("b.batch_no",$batch_no);
-        //             }
-        //             if(!empty($serial_no)){
-        //                 $query->where("b.serial_no",$serial_no);
-        //             }
-        //         })
-        //         ->get();
-
-        //         if(count($get_qty_scan) > 0){
-        //             foreach ($get_qty_scan as $key_qty_scan => $value_qty_scan) {
-        //                 if($value_qty_scan->qty_scan !== null && !empty($value_qty_scan->qty_scan)){
-        //                     $total_qty_scan += $value_qty_scan->qty_scan;
-        //                 }
-        //             }
-
-        //         }
-
-        //         $qty_outstanding = $qty - $total_qty_scan;
-
-        //         $temp_object = new stdClass();
-        //         $temp_object->SKU = $SKU;
-        //         $temp_object->item_name = $item_name;
-        //         $temp_object->expired_date = $expired_date;
-        //         $temp_object->batch_no = $batch_no;
-        //         $temp_object->qty = $qty;
-        //         $temp_object->uom_name = $uom_name;
-        //         $temp_object->serial_no = $serial_no;
-        //         $temp_object->total_qty_scan = $total_qty_scan;
-        //         $temp_object->qty_outstanding = $qty_outstanding;
-        //         $data[] = $temp_object;
-        //     }
-        // }
-
         $data = DB::select("SELECT 
         * FROM (
             SELECT 
@@ -3200,9 +3263,9 @@ class InboundPlanningController extends Controller
         }
         $data_status_id_receive = $get_status_id_receive;
 
+
         DB::beginTransaction();
         try {
-
             // ambil total qty scan dari t_wh_scan_qty start
             $temp_data_t_wh_inbound_planning_detail = [];
             $current_data_wh_activity = $this->getWHActivity($current_data->inbound_planning_no);
@@ -3350,6 +3413,296 @@ class InboundPlanningController extends Controller
         ], 200);
     }
 
+
+    public function CheckScanActivity($inboundPlanningNo)
+    {
+        $result = DB::table('t_wh_inbound_planning as a')
+            ->leftJoin('t_wh_inbound_planning_detail as b', 'b.inbound_planning_no', '=', 'a.inbound_planning_no')
+            ->leftJoin('t_wh_activity as c', function ($join) {
+                $join->on('a.inbound_planning_no', '=', 'c.inbound_planning_no')
+                    ->on('a.reference_no', '=', 'c.reference_no');
+            })
+            ->leftJoin('t_wh_scan_qty as d', function ($join) {
+                $join->on('c.activity_id', '=', 'd.activity_id')
+                    ->on('b.sku', '=', 'd.sku')
+                    ->on('b.batch_no', '=', 'd.batch_no');
+            })
+            ->select(
+                'b.sku',
+                'b.item_name',
+                'b.qty as qty_plan',
+                DB::raw('SUM(d.qty_scan) as qty_scan'),
+                DB::raw('IF(b.qty - SUM(d.qty_scan) IS NOT NULL, b.qty - SUM(d.qty_scan), b.qty) as qty_outstanding'),
+                'b.uom_name'
+            )
+            ->where('a.inbound_planning_no', $inboundPlanningNo)
+            ->groupBy('b.sku', 'b.item_name', 'b.qty', 'b.uom_name')
+            ->get();
+
+        return $result;
+    }
+
+
+    public function checkMismatch($id)
+    {
+        // Memanggil fungsi CheckScanActivity untuk mengambil data
+        $scanActivity = $this->CheckScanActivity($id);
+
+        // Menyimpan data mismatch
+        $mismatchData = [];
+
+        // Memeriksa apakah ada mismatch antara qty_scan dan qty_plan
+        foreach ($scanActivity as $item) {
+            // Jika qty_scan null, anggap sebagai 0 untuk perbandingan
+            $qtyScan = $item->qty_scan ?? 0;
+            if ($qtyScan != $item->qty_plan) {
+                // Menyimpan item dengan mismatch
+                $mismatchData[] = [
+                    'sku' => $item->sku,
+                    'qty_plan' => $item->qty_plan,
+                    'qty_scan' => $qtyScan,
+                ];
+            }
+        }
+
+        if (count($mismatchData) > 0) {
+            // Jika ada mismatch, kembalikan data mismatch
+            return response()->json([
+                'status' => 'mismatch',
+                'message' => 'There is a mismatch between qty_scan and qty_plan.',
+                'data' => $mismatchData // Mengirimkan data mismatch
+            ]);
+        }
+
+        // Jika tidak ada mismatch, beri tahu bahwa data valid
+        return response()->json([
+            'status' => 'valid',
+            'message' => 'Data is valid and ready to be processed.'
+        ]);
+    }
+
+
+    public function confirmInboundPlanningMismatch(Request $request, $id)
+    {
+
+        $gr_status_id = $this->getStatusID("GR", "OGR");
+
+        if (!$gr_status_id) {
+            return response()->json([
+                "err" => true,
+                "message" => "GR Status Id is not defined",
+                "data" => [],
+            ], 200);
+        }
+
+        $check_Inbound_Planning = $this->getInboundPlanning($id);
+        if (count($check_Inbound_Planning) == 0) {
+            return response()->json([
+                "err" => true,
+                "message" => "Inbound Planning doesnt exist",
+                "data" => [],
+            ], 200);
+        }
+
+        $current_data = $check_Inbound_Planning[0];
+
+        if (!in_array($current_data->status_id, ["UIN"])) {
+            return response()->json([
+                "err" => true,
+                "message" => "Inbound Planning status is not Unreceived",
+                "data" => [],
+            ], 200);
+        }
+
+        $get_status_id_receive = $this->getStatusID("IN", "RIN");
+        if (!$get_status_id_receive) {
+            return response()->json([
+                "err" => true,
+                "message" => "Inbound Receive Status ID is not defined",
+                "data" => [],
+            ], 200);
+        }
+        $data_status_id_receive = $get_status_id_receive;
+
+
+        DB::beginTransaction();
+        try {
+            // ambil total qty scan dari t_wh_scan_qty start
+            $temp_data_t_wh_inbound_planning_detail = [];
+            $current_data_wh_activity = $this->getWHActivity($current_data->inbound_planning_no);
+            $current_data_detail = $this->getInboundPlanningDetail($id);
+
+            if (count($current_data_wh_activity) > 0) {
+                foreach ($current_data_wh_activity as $key_data_wh_activity => $value_data_wh_activity) {
+                    $get_scan_qty = DB::query()
+                        ->select([
+                            "a.SKU",
+                            "a.batch_no",
+                            "b.qty_scan",
+                            "b.stock_id",
+                        ])
+                        ->from("t_wh_inbound_planning_detail AS a")
+                        ->leftJoin("t_wh_scan_qty AS b", function ($query) {
+                            $query->on("b.sku", "=", "a.SKU");
+                            $query->on("b.batch_no", "=", "a.batch_no");
+                        })
+                        ->where("a.inbound_planning_no", $id)
+                        ->where("b.activity_id", $value_data_wh_activity->activity_id)
+                        ->get();
+
+                    if (count($get_scan_qty) > 0) {
+                        foreach ($get_scan_qty as $key_scan_qty => $value_scan_qty) {
+                            $sku = $value_scan_qty->SKU;
+                            $stock_id = $value_scan_qty->stock_id;
+                            $qty_scan = $value_scan_qty->qty_scan;
+                            if (!array_key_exists($sku . "|" . $stock_id, $temp_data_t_wh_inbound_planning_detail)) {
+                                $temp_data_t_wh_inbound_planning_detail[$sku . "|" . $stock_id] = 0;
+                            }
+                            $temp_data_t_wh_inbound_planning_detail[$sku . "|" . $stock_id] += $qty_scan;
+                        }
+                    }
+                }
+            }
+            // ambil total qty scan dari t_wh_scan_qty end
+
+            // insert t_wh_inbound_detail start
+            if (count($temp_data_t_wh_inbound_planning_detail) > 0) {
+                foreach ($temp_data_t_wh_inbound_planning_detail as $key_temp_data_t_wh_inbound_planning_detail => $value_temp_data_t_wh_inbound_planning_detail) {
+                    foreach ($current_data_detail as $key_current_data_detail => $value_current_data_detail) {
+
+                        $arr_temp_t_wh_inbound_planning_detail = explode("|", $key_temp_data_t_wh_inbound_planning_detail);
+                        $temp_sku = $arr_temp_t_wh_inbound_planning_detail[0];
+                        $temp_stock_id = $arr_temp_t_wh_inbound_planning_detail[1];
+                        $target_sku = $value_current_data_detail->SKU;
+
+                        if ($temp_sku == $target_sku) {
+                            $qty_receive = $value_temp_data_t_wh_inbound_planning_detail;
+                            $discrepancy = $value_current_data_detail->qty - $qty_receive;
+
+                            $inbound_planning = $value_current_data_detail->inbound_planning_no;
+                            $SKU = $value_current_data_detail->SKU;
+
+                            // UPDATE QTY PLAN based on Actual QTY SCAN
+                            if ($qty_receive != $value_current_data_detail->qty) {
+                                DB::table("t_wh_inbound_planning_detail")
+                                    ->where("inbound_planning_no", $inbound_planning)
+                                    ->where("SKU", $SKU)
+                                    ->update([
+                                        "qty" => $qty_receive,
+                                        "user_updated" => session("username"),
+                                        "datetime_updated" => $this->datetime_now,
+                                    ]);
+
+
+                                // Update task_type in t_wh_inbound_planning
+                                DB::table("t_wh_inbound_planning")
+                                    ->where("inbound_planning_no", $inbound_planning)
+                                    ->update([
+                                        "task_type" => 'Partial Receive',
+                                        "user_updated" => session("username"),
+                                        "datetime_updated" => $this->datetime_now,
+                                    ]);
+                            }
+
+
+                            DB::table("t_wh_inbound_detail")
+                                ->insert([
+                                    "inbound_planning_no" => $value_current_data_detail->inbound_planning_no,
+                                    "SKU" => $value_current_data_detail->SKU,
+                                    "item_name" => $value_current_data_detail->item_name,
+                                    "batch_no" => $value_current_data_detail->batch_no,
+                                    "serial_no" => $value_current_data_detail->serial_no,
+                                    "imei" => $value_current_data_detail->imei,
+                                    "part_no" => $value_current_data_detail->part_no,
+                                    "color" => $value_current_data_detail->color,
+                                    "size" => $value_current_data_detail->size,
+                                    "expired_date" => $value_current_data_detail->expired_date,
+                                    "qty" => $qty_receive,
+                                    "discrepancy" => $discrepancy,
+                                    "uom_name" => $value_current_data_detail->uom_name,
+                                    "stock_id" => $temp_stock_id,
+                                    "clasification_id" => $value_current_data_detail->clasification_id,
+                                    "spv_id" => session("username"),
+                                    "user_updated" => session("username"),
+                                    "datetime_updated" => $this->datetime_now,
+                                ]);
+                        }
+                    }
+                }
+            }
+            // insert t_wh_inbound_detail end
+
+            // update status_id start
+            DB::table("t_wh_inbound_planning")
+                ->where("inbound_planning_no", $current_data->inbound_planning_no)
+                ->update([
+                    "status_id" => $data_status_id_receive,
+                    "user_updated" => session("username"),
+                    "datetime_updated" => $this->datetime_now,
+                ]);
+            // update status_id end
+
+            //insert t_wh_receive start
+            $get_all_data_inbound_planning = DB::query()
+                ->select([
+                    "a.inbound_planning_no",
+                ])
+                ->from("t_wh_inbound_planning as a")
+                ->where("a.inbound_planning_no", $current_data->inbound_planning_no)
+                ->limit(1)
+                ->get();
+            if (count($get_all_data_inbound_planning) > 0) {
+                foreach ($get_all_data_inbound_planning as $key_data_inbound_planning => $value_data_inbound_planning) {
+                    $inbound_planning_no = $value_data_inbound_planning->inbound_planning_no;
+                    $temp_gr_id = explode("-", $inbound_planning_no);
+                    $temp_gr_id[1] = "GR";
+                    $gr_id = "";
+
+                    foreach ($temp_gr_id as $key_temp_gr_id => $value_temp_gr_id) {
+                        $gr_id .= $value_temp_gr_id;
+                        if (count($temp_gr_id) > ($key_temp_gr_id + 1)) {
+                            $gr_id .= "-";
+                        }
+                    }
+
+                    DB::table("t_wh_receive")
+                        ->insert([
+                            "inbound_planning_no" => $inbound_planning_no,
+                            "gr_id" => $gr_id,
+                            "status_id" => $gr_status_id,
+                            "user_created" => session("username"),
+                            "datetime_created" => $this->datetime_now,
+                        ]);
+                }
+            }
+            //insert t_wh_receive end
+
+            // DB::commit();
+        } catch (\Illuminate\Database\QueryException $error) {
+            \Illuminate\Support\Facades\Log::error('QueryException error', array('context' => $error));
+            DB::rollBack();
+            return response()->json([
+                "err" => true,
+                "message" => "Something Wrong",
+                "data" => [],
+            ], 500);
+        } catch (\Exception $error) {
+            \Illuminate\Support\Facades\Log::error('Exception error', array('context' => $error));
+            DB::rollBack();
+            return response()->json([
+                "err" => true,
+                "message" => "Something Wrong",
+                "data" => [],
+            ], 500);
+        }
+
+        return response()->json([
+            "err" => false,
+            "message" => "Success Update Inbound Planning No",
+            "data" => [],
+        ], 200);
+    }
+
     private function getDataTallySheet($inbound_planning_no)
     {
         $data = DB::query()
@@ -3454,7 +3807,7 @@ class InboundPlanningController extends Controller
         // Fetch data from the database using Query Builder
         $dt = DB::table('t_wh_inbound_planning as ip')
             ->join('t_wh_activity as a', 'ip.inbound_planning_no', '=', 'a.inbound_planning_no')
-            ->select('a.checker', 'ip.inbound_planning_no', 'ip.status_id', 'a.location_from', 'a.datetime_created')
+            ->select('a.activity_id', 'a.checker', 'a.main_checker', 'ip.inbound_planning_no', 'ip.status_id', 'a.location_from', 'a.datetime_created')
             ->where('ip.status_id', 'UIN')
             ->where('a.checker', $checker)
             ->orderBy('a.datetime_created', 'desc')
@@ -3585,13 +3938,40 @@ class InboundPlanningController extends Controller
     }
 
 
-    public function getWHTransportation($inboundPlanningNo)
+    public function getVehicleNO($inboundPlanningNo, $userCreated)
     {
         $dt = DB::table('t_wh_transportation as t')
             ->join('t_wh_activity as a', 't.activity_id', '=', 'a.activity_id')
             ->join('t_wh_inbound_planning as p', 'a.inbound_planning_no', '=', 'p.inbound_planning_no')
             ->select('t.*')
             ->where('p.inbound_planning_no', $inboundPlanningNo)
+            ->where('t.user_created', $userCreated)
+            ->where('p.status_id', 'UIN')
+            ->get();
+
+        // Memanggil fungsi untuk memeriksa apakah outstanding sudah 0
+        $zeroOutStanding = $this->isOutStandingZero($inboundPlanningNo);
+        $isOutstandingZero = $zeroOutStanding->is_outstanding_zero;
+
+        // Menambahkan is_outstanding_zero ke setiap transport
+        foreach ($dt as $transport) {
+            $transport->is_outstanding_zero = $isOutstandingZero;
+        }
+
+        // Mengembalikan data dengan is_outstanding_zero
+        return response()->json($dt, 200);
+    }
+
+
+    public function getWHTransportation($inboundPlanningNo, $userCreated, $vehicleNo)
+    {
+        $dt = DB::table('t_wh_transportation as t')
+            ->join('t_wh_activity as a', 't.activity_id', '=', 'a.activity_id')
+            ->join('t_wh_inbound_planning as p', 'a.inbound_planning_no', '=', 'p.inbound_planning_no')
+            ->select('t.*')
+            ->where('p.inbound_planning_no', $inboundPlanningNo)
+            ->where('t.user_created', $userCreated)
+            ->where('t.vehicle_no', $vehicleNo)
             ->where('p.status_id', 'UIN')
             ->get();
 
@@ -3704,20 +4084,13 @@ class InboundPlanningController extends Controller
             ->where('inbound_planning_no', $inbound_planning_no)
             ->get();
 
+
         // Kembalikan response dalam format JSON
         return response()->json($data, 200);
     }
 
-    public function checkQtyPlan(Request $request)
+    public function checkQtyPlan(Request $request, $inboundPlanningNo)
     {
-        // Validasi parameter
-        $request->validate([
-            'inbound_planning_no' => 'required|string',
-            'scan_sku' => 'required|string',
-        ]);
-
-        $inboundPlanningNo = $request->input('inbound_planning_no');
-        $scanSku = $request->input('scan_sku');
 
         // Query untuk memeriksa jumlah rencana
         $check_qty_plan = DB::select("SELECT 
@@ -3742,12 +4115,12 @@ class InboundPlanningController extends Controller
                   t_wh_scan_qty d ON c.activity_id = d.activity_id AND b.sku = d.sku AND b.batch_no = d.batch_no
               WHERE 
                   a.inbound_planning_no = ? 
-                  AND b.sku = ?
+                --   AND b.sku = ?
               GROUP BY 
                   b.sku
           ) t", [
             $inboundPlanningNo,
-            $scanSku,
+            // $scanSku,
         ]);
 
         // Cek hasil query
@@ -3922,7 +4295,6 @@ class InboundPlanningController extends Controller
             return response()->json(['status' => 'success', 'message' => 'Status ID bukan UIN untuk inbound planning no: ' . $inboundPlanningNo], 400);
         }
     }
-
 
     public function getTransportationDetails(Request $request, $inboundPlanningNo, $checker)
     {

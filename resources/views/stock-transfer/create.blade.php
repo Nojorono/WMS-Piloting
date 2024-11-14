@@ -466,6 +466,7 @@ Stock Transfer
                                 <th class="text-xs">Base Qty</th>
                                 <th class="text-xs">Base UoM</th>
                                 <th class="text-xs">Available Qty</th>
+                                <th class="text-xs">Location Id</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -806,6 +807,7 @@ $(document).ready(function () {
                 {data: 'base_qty', searchable: true, className: 'text-xs'},
                 {data: 'base_uom', searchable: true, className: 'text-xs'},
                 {data: 'available_qty', searchable: true, className: 'text-xs'},
+                {data: 'location_id', searchable: true, className: 'text-xs'},
             ],
         });
     });

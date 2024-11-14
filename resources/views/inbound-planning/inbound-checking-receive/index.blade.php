@@ -68,6 +68,7 @@ Inbound Planning
                                         </div>
                                     </div>
                                     <hr>
+                                    <!-- TRANSPORTATION -->
                                     <div class="row">
                                         <div class="col-sm-12" id="container_detail_vehicle">
                                             @php
@@ -241,7 +242,7 @@ Inbound Planning
                                                     </select>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="row mb-2 align-items-center">
                                                 <label for="scan_qty" class="form-label text-xs col-sm-2">Quantity</label>
                                                 <div class="col-sm-3">
@@ -317,6 +318,7 @@ Inbound Planning
                                 </div>
                                 {{-- page-tab--checked-items end --}}
 
+                                <!-- OUTSTANDING -->
                                 {{-- page-tab--outstanding-items start --}}
                                 <div class="tab-pane" id="page-tab--outstanding-items">
                                     <div class="row">
@@ -921,124 +923,124 @@ Inbound Planning
             formData.append("arr_departure_date", JSON.stringify(arr_departure_date));
             formData.append("arr_departure_time", JSON.stringify(arr_departure_time));
 
-            // $.ajax({
-            //     url:url,
-            //     method: _method,
-            //     data: formData,
-            //     contentType: false,
-            //     processData: false,
-            //     cache: false,
-            //     beforeSend: function () {
-            //         $("input[name^='vehicle_id']").removeClass('is-invalid');
-            //         $("[id^='validation_vehicle_id']").html('');
-            //         $("input[name^='vehicle_type']").removeClass('is-invalid');
-            //         $("[id^='validation_vehicle_type']").html('');
-            //         $("input[name^='vehicle_no']").removeClass('is-invalid');
-            //         $("[id^='validation_vehicle_no']").html('');
-            //         $("input[name^='driver_name']").removeClass('is-invalid');
-            //         $("[id^='validation_driver_name']").html('');
-            //         $("input[name^='container_no']").removeClass('is-invalid');
-            //         $("[id^='validation_container_no']").html('');
-            //         $("input[name^='seal_no']").removeClass('is-invalid');
-            //         $("[id^='validation_seal_no']").html('');
-            //         $("input[name^='arrival_date']").removeClass('is-invalid');
-            //         $("[id^='validation_arrival_date']").html('');
-            //         $("input[name^='arrival_time']").removeClass('is-invalid');
-            //         $("[id^='validation_arrival_time']").html('');
-            //         $("input[name^='start_unloading_date']").removeClass('is-invalid');
-            //         $("[id^='validation_start_unloading_date']").html('');
-            //         $("input[name^='start_unloading_time']").removeClass('is-invalid');
-            //         $("[id^='validation_start_unloading_time']").html('');
-            //         $("input[name^='finish_unloading_date']").removeClass('is-invalid');
-            //         $("[id^='validation_finish_unloading_date']").html('');
-            //         $("input[name^='finish_unloading_time']").removeClass('is-invalid');
-            //         $("[id^='validation_finish_unloading_time']").html('');
-            //         $("input[name^='departure_date']").removeClass('is-invalid');
-            //         $("[id^='validation_departure_date']").html('');
-            //         $("input[name^='departure_time']").removeClass('is-invalid');
-            //         $("[id^='validation_departure_time']").html('');
-            //     },
-            //     error: function (error) {
-            //         Swal
-            //         .mixin({
-            //             customClass: {
-            //                 confirmButton: 'btn btn-primary me-2',
-            //             },
-            //             buttonsStyling: false,
-            //         })
-            //         .fire({
-            //             text: 'Something Wrong',
-            //             type: 'error',
-            //             icon: 'error',
-            //         });
-            //     },
-            //     complete: function () {
+            $.ajax({
+                url: url,
+                method: _method,
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                beforeSend: function() {
+                    $("input[name^='vehicle_id']").removeClass('is-invalid');
+                    $("[id^='validation_vehicle_id']").html('');
+                    $("input[name^='vehicle_type']").removeClass('is-invalid');
+                    $("[id^='validation_vehicle_type']").html('');
+                    $("input[name^='vehicle_no']").removeClass('is-invalid');
+                    $("[id^='validation_vehicle_no']").html('');
+                    $("input[name^='driver_name']").removeClass('is-invalid');
+                    $("[id^='validation_driver_name']").html('');
+                    $("input[name^='container_no']").removeClass('is-invalid');
+                    $("[id^='validation_container_no']").html('');
+                    $("input[name^='seal_no']").removeClass('is-invalid');
+                    $("[id^='validation_seal_no']").html('');
+                    $("input[name^='arrival_date']").removeClass('is-invalid');
+                    $("[id^='validation_arrival_date']").html('');
+                    $("input[name^='arrival_time']").removeClass('is-invalid');
+                    $("[id^='validation_arrival_time']").html('');
+                    $("input[name^='start_unloading_date']").removeClass('is-invalid');
+                    $("[id^='validation_start_unloading_date']").html('');
+                    $("input[name^='start_unloading_time']").removeClass('is-invalid');
+                    $("[id^='validation_start_unloading_time']").html('');
+                    $("input[name^='finish_unloading_date']").removeClass('is-invalid');
+                    $("[id^='validation_finish_unloading_date']").html('');
+                    $("input[name^='finish_unloading_time']").removeClass('is-invalid');
+                    $("[id^='validation_finish_unloading_time']").html('');
+                    $("input[name^='departure_date']").removeClass('is-invalid');
+                    $("[id^='validation_departure_date']").html('');
+                    $("input[name^='departure_time']").removeClass('is-invalid');
+                    $("[id^='validation_departure_time']").html('');
+                },
+                error: function(error) {
+                    Swal
+                        .mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-primary me-2',
+                            },
+                            buttonsStyling: false,
+                        })
+                        .fire({
+                            text: 'Something Wrong',
+                            type: 'error',
+                            icon: 'error',
+                        });
+                },
+                complete: function() {
 
-            //     },
-            //     success: function (response) {
-            //         if(typeof response !== 'object'){
-            //             Swal
-            //             .mixin({
-            //                 customClass: {
-            //                     confirmButton: 'btn btn-primary me-2',
-            //                 },
-            //                 buttonsStyling: false,
-            //             })
-            //             .fire({
-            //                 text: 'Something Wrong',
-            //                 type: 'error',
-            //                 icon: 'error',
-            //             });
-            //             return;
-            //         }
+                },
+                success: function(response) {
+                    if (typeof response !== 'object') {
+                        Swal
+                            .mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-primary me-2',
+                                },
+                                buttonsStyling: false,
+                            })
+                            .fire({
+                                text: 'Something Wrong',
+                                type: 'error',
+                                icon: 'error',
+                            });
+                        return;
+                    }
 
-            //         if(response.err){
-            //             for (const key_data in response.data) {
-            //                 if (Object.hasOwnProperty.call(response.data, key_data)) {
-            //                     const arr_message = response.data[key_data];
-            //                     let text_message = "";
-            //                     arr_message.forEach(error_message => {
-            //                         text_message += `${error_message} <br>`;
-            //                     });
-            //                     $(`#${key_data}`).addClass('is-invalid');
-            //                     $(`#validation_${key_data}`).html(text_message);
-            //                 }
-            //             }
-            //             Swal
-            //             .mixin({
-            //                 customClass: {
-            //                     confirmButton: 'btn btn-primary me-2',
-            //                 },
-            //                 buttonsStyling: false,
-            //             })
-            //             .fire({
-            //                 text: `${response.message}`,
-            //                 type: 'error',
-            //                 icon: 'error',
-            //             });
-            //             $("#btn_save_partial_vehicle").prop("disabled",false);
-            //             return;
-            //         }
+                    if (response.err) {
+                        for (const key_data in response.data) {
+                            if (Object.hasOwnProperty.call(response.data, key_data)) {
+                                const arr_message = response.data[key_data];
+                                let text_message = "";
+                                arr_message.forEach(error_message => {
+                                    text_message += `${error_message} <br>`;
+                                });
+                                $(`#${key_data}`).addClass('is-invalid');
+                                $(`#validation_${key_data}`).html(text_message);
+                            }
+                        }
+                        Swal
+                            .mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-primary me-2',
+                                },
+                                buttonsStyling: false,
+                            })
+                            .fire({
+                                text: `${response.message}`,
+                                type: 'error',
+                                icon: 'error',
+                            });
+                        $("#btn_save_partial_vehicle").prop("disabled", false);
+                        return;
+                    }
 
-            //         Swal
-            //         .mixin({
-            //             customClass: {
-            //                 confirmButton: 'btn btn-primary me-2',
-            //             },
-            //             buttonsStyling: false,
-            //         })
-            //         .fire({
-            //             text: `${response.message}`,
-            //             type: 'success',
-            //             icon: 'success',
-            //         });
+                    Swal
+                        .mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-primary me-2',
+                            },
+                            buttonsStyling: false,
+                        })
+                        .fire({
+                            text: `${response.message}`,
+                            type: 'success',
+                            icon: 'success',
+                        });
 
-            //         window.location = "{{ route('inbound_planning.inboundCheckingAndReceive' , [ 'id'=> $data['current_data']->inbound_planning_no ]) }}";
-            //         $("#btn_save_partial_vehicle").prop("disabled",false);
-            //         return;
+                    window.location = "{{ route('inbound_planning.inboundCheckingAndReceive' , [ 'id'=> $data['current_data']->inbound_planning_no ]) }}";
+                    $("#btn_save_partial_vehicle").prop("disabled", false);
+                    return;
 
-            //     },
-            // });
+                },
+            });
         });
 
         $("#btn_save_vehicle").on("click", function(e) {

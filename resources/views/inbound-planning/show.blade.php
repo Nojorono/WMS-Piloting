@@ -133,6 +133,9 @@ Inbound Planning
                                         <a class="nav-link text-xs" data-bs-toggle="tab" href="#page-tab--transport-and-unloading">Transport & Unloading</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="nav-link text-xs" data-bs-toggle="tab" href="#page-tab--scan-history">Scan History</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link text-xs" data-bs-toggle="tab" href="#page-tab--notes">Notes</a>
                                     </li>
                                     <li class="nav-item">
@@ -140,6 +143,7 @@ Inbound Planning
                                     </li>
                                 </ul>
                             </div>
+
                             <div class="card-body tab-content py-0">
                                 <div class="tab-pane active" id="page-tab--item-detail">
                                     <div class="row mb-2">
@@ -150,19 +154,19 @@ Inbound Planning
                                                         <tr>
                                                             <th class="text-xs text-center">SKU No</th>
                                                             <th class="text-xs text-center">Item Name</th>
-                                                            <th class="text-xs text-center">Batch No</th>
-                                                            <th class="text-xs text-center">Serial No</th>
-                                                            <th class="text-xs text-center">IMEI No</th>
-                                                            <th class="text-xs text-center">Part No</th>
-                                                            <th class="text-xs text-center">Color</th>
-                                                            <th class="text-xs text-center">Size</th>
-                                                            <th class="text-xs text-center">Stock ID</th>
+                                                            <!-- <th class="text-xs text-center">Batch No</th> -->
+                                                            <!-- <th class="text-xs text-center">Serial No</th> -->
+                                                            <!-- <th class="text-xs text-center">IMEI No</th> -->
+                                                            <!-- <th class="text-xs text-center">Part No</th> -->
+                                                            <!-- <th class="text-xs text-center">Color</th> -->
+                                                            <!-- <th class="text-xs text-center">Size</th> -->
+                                                            <!-- <th class="text-xs text-center">Stock ID</th> -->
                                                             <th class="text-xs text-center">Stock Type</th>
                                                             <th class="text-xs text-center">Expired Date</th>
                                                             <th class="text-xs text-center">UOM</th>
                                                             <th class="text-xs text-center">Qty Plan</th>
-                                                            <th class="text-xs text-center">Discrepancy</th>
-                                                            <th class="text-xs text-center">Classification ID</th>
+                                                            <!-- <th class="text-xs text-center">Discrepancy</th> -->
+                                                            <!-- <th class="text-xs text-center">Classification ID</th> -->
                                                             <th class="text-xs text-center">Classification</th>
                                                         </tr>
                                                     </thead>
@@ -184,7 +188,7 @@ Inbound Planning
                                                                 <input type='text' class='form-control py-0' name='item_name[]' id='item_name_{{ $current_row }}' value="{{ $current_data_detail->part_name }}" readonly>
                                                                 <div id="validation_item_name_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
-                                                            <td>
+                                                            <!-- <td>
                                                                 <input type='text' class='form-control py-0' name='batch_no[]' id='batch_no_{{ $current_row }}' value="{{ $current_data_detail->batch_no }}" readonly>
                                                                 <div id="validation_batch_no_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
@@ -211,7 +215,7 @@ Inbound Planning
                                                             <td>
                                                                 <input type='text' class='form-control py-0' name='stock_id[]' id='stock_id_{{ $current_row }}' value="{{ $current_data_detail->stock_id }}" readonly>
                                                                 <div id="validation_stock_id_{{ $current_row }}" class="invalid-feedback text-xs"></div>
-                                                            </td>
+                                                            </td> -->
                                                             <td>
                                                                 <input type='text' class='form-control py-0' name='stock_type[]' id='stock_type_{{ $current_row }}' value="{{ $current_data_detail->stock_type }}" readonly>
                                                                 <div id="validation_stock_type_{{ $current_row }}" class="invalid-feedback text-xs"></div>
@@ -228,14 +232,14 @@ Inbound Planning
                                                                 <input type='text' class='form-control py-0' name='qty_plan[]' id='qty_plan_{{ $current_row }}' value="{{ $current_data_detail->qty }}" readonly>
                                                                 <div id="validation_qty_plan_{{ $current_row }}" class="invalid-feedback text-xs"></div>
                                                             </td>
-                                                            <td>
+                                                            <!-- <td>
                                                                 <input type='text' class='form-control py-0' name='discrepancy[]' id='discrepancy_{{ $current_row }}' value="{{ $current_data_detail->discrepancy }}" readonly>
                                                                 <div id="validation_discrepancy_{{ $current_row }}" class="invalid-feedback text-xs"></div>
-                                                            </td>
-                                                            <td>
+                                                            </td> -->
+                                                            <!-- <td>
                                                                 <input type='text' class='form-control py-0' name='id_classification[]' id='id_classification_{{ $current_row }}' value="{{ $current_data_detail->clasification_id }}" readonly>
                                                                 <div id="validation_id_classification_{{ $current_row }}" class="invalid-feedback text-xs"></div>
-                                                            </td>
+                                                            </td> -->
                                                             <td>
                                                                 <input type='text' class='form-control py-0' name='classification[]' id='classification_{{ $current_row }}' value="{{ $current_data_detail->classification_name }}" readonly>
                                                                 <div id="validation_classification_{{ $current_row }}" class="invalid-feedback text-xs"></div>
@@ -249,15 +253,15 @@ Inbound Planning
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="tab-pane" id="page-tab--transport-and-unloading">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <div class="table-responsive">
+                                            <div class="table-responsive text-center">
                                                 <table class="table " id="tabel-transport-and-unloading" {{-- style="min-width: calc(2.5 * 100%);" --}}>
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-xs text-center">Checker</th>
-                                                            <th class="text-xs text-center">Supervisor</th>
+                                                            <th class="text-xs text-center">Main Checker</th>
                                                             <th class="text-xs text-center">Arrival Vehicle</th>
                                                             <th class="text-xs text-center">Start Unloading</th>
                                                             <th class="text-xs text-center">Finish Unloading</th>
@@ -273,8 +277,7 @@ Inbound Planning
                                                         @if (count($data["current_data_wh_transportation_wh_scan_qty"]) > 0)
                                                         @foreach ($data["current_data_wh_transportation_wh_scan_qty"] as $current_data_wh_transportation_wh_scan_qty )
                                                         <tr>
-                                                            <td class="text-xs">{{ $current_data_wh_transportation_wh_scan_qty->checker}}</td>
-                                                            <td class="text-xs">{{ $current_data_wh_transportation_wh_scan_qty->supervisor_id}}</td>
+                                                            <td class="text-xs">{{ $current_data_wh_transportation_wh_scan_qty->main_checker}}</td>
                                                             <td class="text-xs">{{ $current_data_wh_transportation_wh_scan_qty->arrival_date}}</td>
                                                             <td class="text-xs">{{ $current_data_wh_transportation_wh_scan_qty->start_unloading}}</td>
                                                             <td class="text-xs">{{ $current_data_wh_transportation_wh_scan_qty->finish_unloading}}</td>
@@ -293,6 +296,57 @@ Inbound Planning
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="tab-pane" id="page-tab--scan-history">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive text-center">
+                                                <table class="table " id="tabel-scan-history" {{-- style="min-width: calc(2.5 * 100%);" --}}>
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-xs text-center">SKU No</th>
+                                                            <th class="text-xs text-center">Item Name</th>
+                                                            <th class="text-xs text-center">Pallet No</th>
+                                                            <th class="text-xs text-center">Serial No</th>
+                                                            <th class="text-xs text-center">Expired Date</th>
+                                                            <th class="text-xs text-center">Qty Plan History</th>
+                                                            <th class="text-xs text-center">Qty Scan</th>
+                                                            <th class="text-xs text-center">Qty Plan Actual</th>
+                                                            <th class="text-xs text-center">UoM</th>
+                                                            <th class="text-xs text-center">Stock Type</th>
+                                                            <th class="text-xs text-center">Update By</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @if(isset($data["scan_history"]) && count($data["scan_history"]) > 0)
+                                                        @foreach ($data["scan_history"] as $scan_history)
+                                                        <tr>
+                                                            <td class="text-xs">{{ $scan_history->sku }}</td>
+                                                            <td class="text-xs">{{ $scan_history->part_name }}</td>
+                                                            <td class="text-xs">{{ $scan_history->pallet_id }}</td>
+                                                            <td class="text-xs">{{ $scan_history->serial_no }}</td>
+                                                            <td class="text-xs">{{ $scan_history->expired_date }}</td>
+                                                            <td class="text-xs">{{ $scan_history->qty_history }}</td>
+                                                            <td class="text-xs">{{ $scan_history->qty_scan }}</td>
+                                                            <td class="text-xs">{{ $scan_history->qty }}</td>
+                                                            <td class="text-xs">{{ $scan_history->uom_name }}</td>
+                                                            <td class="text-xs">{{ $scan_history->stock_id }}</td>
+                                                            <td class="text-xs">{{ $scan_history->user_created }}</td>
+                                                        </tr>
+                                                        @endforeach
+                                                        @else
+                                                        <tr>
+                                                            <td colspan="10" class="text-xs text-center">Belum ada data scan history.</td>
+                                                        </tr>
+                                                        @endif
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="tab-pane" id="page-tab--notes">
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -329,6 +383,7 @@ Inbound Planning
                                             @if ($data["current_data"]->status_id == "OPI")
                                             <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_confirm_to_unreceive" name="btn_confirm_to_unreceive"> Confirm Inbound Planning</button>
                                             @endif
+
                                             @if ($data["current_data"]->status_id == "UIN")
                                             <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_assign_to_checker" name="btn_assign_to_checker">Assign to Checker</button>
                                             <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_view_checker" name="btn_view_checker">View Checker</button>
@@ -352,6 +407,7 @@ Inbound Planning
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="modal-ConfirmToUnreceive" tabindex="-1" aria-labelledby="modal-ConfirmToUnreceiveLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -462,6 +518,7 @@ Inbound Planning
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
+
                                 <div class="col-sm-12 mb-2">
                                     <button type="button" class="btn btn-primary mb-0 py-1" name="btn_add_row_checker" id="btn_add_row_checker">Add Row Checker</button>
                                 </div>
@@ -470,6 +527,7 @@ Inbound Planning
                                         <table class="table " id="tabel-AssignToChecker" style="width: 100%;">
                                             <thead>
                                                 <tr>
+                                                    <th class="text-xs">Main Checker</th>
                                                     <th class="text-xs">Checker Name</th>
                                                     <th class="text-xs">Date Start</th>
                                                     <th class="text-xs">Time Start</th>
@@ -482,6 +540,7 @@ Inbound Planning
                                         </table>
                                     </div>
                                 </div>
+
                                 <div class="col-sm-12 mb-2">
                                     <button type="submit" class="btn btn-primary mb-0 py-1" name="btn_save_checker" id="btn_save_checker">Save</button>
                                 </div>
@@ -526,7 +585,31 @@ Inbound Planning
         </div>
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="mismatchModal" tabindex="-1" aria-labelledby="mismatchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between align-items-center">
+                <div class="flex-grow-1 text-center">
+                    <h4 class="modal-title" id="mismatchModalLabel">Ditemukan Ketidaksesuaian !</h4>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p></br>Mohon konfirmasi Checker untuk <b>Qty Scan</b> mengapa tidak sesuai dengan <b>Qty Plan. </b></br>Jika Anda memilih <b>"Save"</b>, maka <b>Qty Plan</b> akan diubah otomatis sesuai dengan <b>Qty Scan</b>.</p>
+                <div id="mismatchTableContainer"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Don't Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
 
 @section("javascript")
 <script type="text/javascript">
@@ -668,6 +751,9 @@ Inbound Planning
         $("#btn_add_row_checker").on("click", function() {
             const html_row_checker = `
         <tr id="row_checker_${row_count_checker}">
+             <td class="text-center">
+                <input type="radio" name="main_checker" class="main-checker-radio" data-row-id="${row_count_checker}">
+            </td>
             <td>
                 <div class="input-group">  
                     <input type="text" class="form-control py-0" name="checker_username[]" id="checker_username_${row_count_checker}" readonly>
@@ -717,6 +803,31 @@ Inbound Planning
             const url = $(this).prop('action');
             const _token = $("input[name='_token']").val();
             const _method = $("input[name='_method']").val();
+
+            // Ambil ID baris yang memiliki radio button yang dipilih
+            const mainCheckerRadio = $("input[name='main_checker']:checked");
+
+            // Jika tidak ada radio button yang dipilih
+            if (mainCheckerRadio.length === 0) {
+                Swal.fire({
+                    text: 'Please select a Main Checker.',
+                    type: 'error',
+                    icon: 'error',
+                });
+                return; // Stop form submission jika tidak ada main checker yang dipilih
+            }
+
+            // Dapatkan ID baris dari radio button yang dipilih
+            const rowId = mainCheckerRadio.data('row-id');
+            console.log('Selected Main Checker Row ID:', rowId);
+
+            // Dapatkan checker username (nama checker) dari baris yang dipilih
+            const mainCheckerUsername = $("input[name='checker_username[]']")
+                .eq(rowId - 1) // Mengambil username checker dari row yang dipilih (pastikan indeksnya sesuai)
+                .val();
+
+            console.log('mainCheckerUsername', mainCheckerUsername);
+
             const arr_checker_username = [];
             $("input[name^='checker_username']").each(function() {
                 arr_checker_username.push({
@@ -757,11 +868,10 @@ Inbound Planning
                 });
             });
 
-
-
             const formData = new FormData();
             formData.append("_token", _token);
             formData.append("_method", _method);
+            formData.append("main_checker", mainCheckerUsername);
             formData.append("arr_checker_username", JSON.stringify(arr_checker_username));
             formData.append("arr_checker_date_start", JSON.stringify(arr_checker_date_start));
             formData.append("arr_checker_time_start", JSON.stringify(arr_checker_time_start));
@@ -872,13 +982,64 @@ Inbound Planning
         });
 
         $("#btn_confirm_inbound_planning").on("click", function() {
-            const confirmed = confirm("Are you sure this data is already correct ?");
+            // Mengirim request ke server untuk memeriksa apakah ada ketidaksesuaian
+            $.ajax({
+                url: "{{ route('inbound_planning.checkMismatch', ['id' => $data['current_data']->inbound_planning_no]) }}",
+                method: "GET",
+                success: function(response) {
+                    if (response.status === 'mismatch') {
+                        // Membuat tabel mismatch
+                        let mismatchDetails = `
+                                    <table class="table table-striped table-sm" style="width: 100%; text-align: center;">
+                                         <thead class="table-dark">
+                                            <tr>
+                                                <th class="font-weight-bold">SKU</th>
+                                                <th class="font-weight-bold">Qty Plan</th>
+                                                <th class="font-weight-bold">Qty Scan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${response.data.map(item => `
+                                                <tr>
+                                                    <td>${item.sku}</td>
+                                                    <td>${item.qty_plan}</td>
+                                                    <td>${item.qty_scan}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                `;
 
-            if (!confirmed) {
-                return;
-            }
+                        // Masukkan tabel mismatch ke dalam modal
+                        document.getElementById('mismatchTableContainer').innerHTML = mismatchDetails;
 
-            const url = "{{ route('inbound_planning.confirmInboundPlanning', [ 'id'=> $data['current_data']->inbound_planning_no ]) }}";
+                        // Tampilkan modal
+                        $('#mismatchModal').modal('show');
+
+                        // Event listener untuk tombol "Save"
+                        document.getElementById('saveBtn').addEventListener('click', function() {
+                            // Lanjutkan dengan confirmInboundPlanningMismatch
+                            confirmInboundPlanningMismatch();
+                            // Tutup modal setelah tindakan diselesaikan
+                            $('#mismatchModal').modal('hide');
+                        });
+                    } else {
+                        // Jika tidak ada mismatch, lanjutkan proses
+                        confirmInboundPlanning();
+                    }
+                },
+
+                error: function(error) {
+                    Swal.fire({
+                        text: 'Error checking mismatch',
+                        icon: 'error',
+                    });
+                }
+            });
+        });
+
+        function confirmInboundPlanning() {
+            const url = "{{ route('inbound_planning.confirmInboundPlanning', ['id'=> $data['current_data']->inbound_planning_no ]) }}";
             const _token = $("meta[name='csrf-token']").prop('content');
             const _method = "POST";
 
@@ -893,78 +1054,79 @@ Inbound Planning
                 contentType: false,
                 processData: false,
                 cache: false,
-                beforeSend: function() {
-
-                },
-                error: function(error) {
-                    Swal
-                        .mixin({
-                            customClass: {
-                                confirmButton: 'btn btn-primary me-2',
-                            },
-                            buttonsStyling: false,
-                        })
-                        .fire({
-                            text: 'Something Wrong',
+                success: function(response) {
+                    if (response.err) {
+                        Swal.fire({
+                            text: response.message,
                             type: 'error',
                             icon: 'error',
                         });
-                },
-                complete: function() {
-
-                },
-                success: function(response) {
-                    if (typeof response !== 'object') {
-                        Swal
-                            .mixin({
-                                customClass: {
-                                    confirmButton: 'btn btn-primary me-2',
-                                },
-                                buttonsStyling: false,
-                            })
-                            .fire({
-                                text: 'Something Wrong',
-                                type: 'error',
-                                icon: 'error',
-                            });
                         return;
                     }
 
-                    if (response.err) {
-                        Swal
-                            .mixin({
-                                customClass: {
-                                    confirmButton: 'btn btn-primary me-2',
-                                },
-                                buttonsStyling: false,
-                            })
-                            .fire({
-                                text: `${response.message}`,
-                                type: 'error',
-                                icon: 'error',
-                            });
-                        return;
-                    }
+                    Swal.fire({
+                        text: response.message,
+                        type: 'success',
+                        icon: 'success',
+                    });
 
-                    Swal
-                        .mixin({
-                            customClass: {
-                                confirmButton: 'btn btn-primary me-2',
-                            },
-                            buttonsStyling: false,
-                        })
-                        .fire({
-                            text: `${response.message}`,
-                            type: 'success',
-                            icon: 'success',
-                        });
-
-                    window.location = "{{ route('inbound_planning.index') }}";
-                    return;
-
+                    window.location = "{{ route('inbound_planning.index') }}"; // Redirect setelah berhasil
                 },
+                error: function(error) {
+                    Swal.fire({
+                        text: 'Something went wrong while confirming the inbound planning',
+                        type: 'error',
+                        icon: 'error',
+                    });
+                }
             });
-        });
+        }
+
+        // Fungsi untuk mengonfirmasi inbound planning jika pengguna memilih "Save"
+        function confirmInboundPlanningMismatch() {
+            const url = "{{ route('inbound_planning.confirmInboundPlanningMismatch', ['id'=> $data['current_data']->inbound_planning_no ]) }}";
+            const _token = $("meta[name='csrf-token']").prop('content');
+            const _method = "POST";
+
+            const formData = new FormData();
+            formData.append("_token", _token);
+            formData.append("_method", _method);
+
+            $.ajax({
+                url: url,
+                method: _method,
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function(response) {
+                    if (response.err) {
+                        Swal.fire({
+                            text: response.message,
+                            type: 'error',
+                            icon: 'error',
+                        });
+                        return;
+                    }
+
+                    Swal.fire({
+                        text: response.message,
+                        type: 'success',
+                        icon: 'success',
+                    });
+
+                    window.location = "{{ route('inbound_planning.index') }}"; // Redirect setelah berhasil
+                },
+                error: function(error) {
+                    Swal.fire({
+                        text: 'Something went wrong while confirming the inbound planning',
+                        type: 'error',
+                        icon: 'error',
+                    });
+                }
+            });
+        }
+
     });
 </script>
 @endsection

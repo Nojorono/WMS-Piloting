@@ -271,31 +271,55 @@ class GoodsReceivingController extends Controller
         return $data;
     }
 
-
     private function getWHActivity($gr_id)
     {
-        $data = DB::query()
-            ->select([
-                "a.checker",
-                "a.supervisor_id",
-                DB::raw("CAST(b.arrival_date AS DATE) AS arrival_date"),
-                DB::raw("CAST(b.start_unloading AS DATE) AS start_unloading"),
-                DB::raw("CAST(b.finish_unloading AS date) AS finish_unloading"),
-                DB::raw("CAST(b.departure_date AS DATE) AS departure_date"),
-                "b.vehicle_no",
-                "b.driver_name",
-                "c.vehicle_type",
-                "b.container_no",
-                "b.seal_no",
-            ])
-            ->from("t_wh_activity as a")
-            ->leftJoin("t_wh_transportation as b", "b.activity_id", "=", "a.activity_id")
-            ->leftJoin("m_wh_vehicle as c", "c.vehicle_id", "=", "b.vehicle_id")
-            ->leftJoin("t_wh_receive as d", "d.inbound_planning_no", "=", "a.inbound_planning_no")
+        $data = DB::table('t_wh_transportation as b')
+            ->select(
+                'a.main_checker',
+                DB::raw('CAST(b.arrival_date AS DATE) AS arrival_date'),
+                DB::raw('CAST(b.start_unloading AS DATE) AS start_unloading'),
+                DB::raw('CAST(b.finish_unloading AS DATE) AS finish_unloading'),
+                DB::raw('CAST(b.departure_date AS DATE) AS departure_date'),
+                'b.vehicle_no',
+                'b.driver_name',
+                'c.vehicle_type',
+                'b.container_no',
+                'b.seal_no'
+            )
+            ->distinct()
+            ->leftJoin('t_wh_activity as a', 'a.activity_id', '=', 'b.activity_id')
+            ->leftJoin('m_wh_vehicle as c', 'c.vehicle_id', '=', 'b.vehicle_id')
+            ->leftJoin('t_wh_receive as d', 'd.inbound_planning_no', '=', 'a.inbound_planning_no')
             ->where("d.gr_id", $gr_id)
             ->get();
+
         return $data;
     }
+
+    // private function getWHActivity($gr_id)
+    // {
+    //     $data = DB::query()
+    //         ->select([
+    //             "a.checker",
+    //             "a.supervisor_id",
+    //             DB::raw("CAST(b.arrival_date AS DATE) AS arrival_date"),
+    //             DB::raw("CAST(b.start_unloading AS DATE) AS start_unloading"),
+    //             DB::raw("CAST(b.finish_unloading AS date) AS finish_unloading"),
+    //             DB::raw("CAST(b.departure_date AS DATE) AS departure_date"),
+    //             "b.vehicle_no",
+    //             "b.driver_name",
+    //             "c.vehicle_type",
+    //             "b.container_no",
+    //             "b.seal_no",
+    //         ])
+    //         ->from("t_wh_activity as a")
+    //         ->leftJoin("t_wh_transportation as b", "b.activity_id", "=", "a.activity_id")
+    //         ->leftJoin("m_wh_vehicle as c", "c.vehicle_id", "=", "b.vehicle_id")
+    //         ->leftJoin("t_wh_receive as d", "d.inbound_planning_no", "=", "a.inbound_planning_no")
+    //         ->where("d.gr_id", $gr_id)
+    //         ->get();
+    //     return $data;
+    // }
 
     public function show(Request $request, $id)
     {
@@ -310,14 +334,49 @@ class GoodsReceivingController extends Controller
         $current_data = $getDataGoodsReceiving[0];
         $current_data_detail = $this->getGoodReceiveDetails($current_data->gr_id);
         $current_data_wh_activity = $this->getWHActivity($current_data->gr_id);
+        $scan_history = $this->getScanHistory($current_data->gr_id);
 
         $data = [];
         $data["current_data"] = $current_data;
         $data["current_data_detail"] = $current_data_detail;
         $data["current_data_wh_activity"] = $current_data_wh_activity;
 
+        $data["scan_history"] = $scan_history;
+
         // dd($data);
         return view("goods-receiving.show", compact("data"));
+    }
+
+
+    public function getScanHistory($gr_id)
+    {
+
+        $data = DB::table('t_wh_temporary_movement as tm')
+            ->join('t_wh_receive_detail as rd', 'tm.movement_id', '=', 'rd.movement_id')
+            ->join('t_wh_receive as r', 'rd.gr_id', '=', 'r.gr_id')
+            ->select(
+                'rd.gr_id',
+                'tm.movement_id',
+                'r.status_id',
+                'tm.sku',
+                'tm.part_name',
+                'tm.serial_no',
+                'tm.expired_date',
+                'tm.qty',
+                'tm.uom_name',
+                'tm.stock_id',
+                'tm.location_from',
+                'tm.location_to',
+                'tm.warehouseman',
+                'tm.user_created',
+                'tm.datetime_created',
+                'tm.is_scanned'
+            )
+            ->where('r.gr_id', $gr_id)
+            ->orderBy('tm.sku')
+            ->get();
+
+        return $data;
     }
 
     public function processGoodReceive(Request $request, $id)
@@ -470,6 +529,7 @@ class GoodsReceivingController extends Controller
                     $query->where("a.location_code", $location_code);
                 }
             })
+            ->orderBy("a.location_code", "ASC") 
             ->get();
         return $data;
     }

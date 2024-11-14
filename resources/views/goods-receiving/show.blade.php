@@ -95,6 +95,9 @@ Goods Receiving
                                         <a class="nav-link text-xs" data-bs-toggle="tab" href="#page-tab--transport-and-unloading">Transport & Unloading</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="nav-link text-xs" data-bs-toggle="tab" href="#page-tab--scan-history">Scan History</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link text-xs" data-bs-toggle="tab" href="#page-tab--notes">Notes</a>
                                     </li>
                                     <li class="nav-item">
@@ -198,6 +201,7 @@ Goods Receiving
                                         </div>
                                     </div>
                                 </div>
+                                <!-- TRANSPORT & UNLOADING -->
                                 <div class="tab-pane" id="page-tab--transport-and-unloading">
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -205,8 +209,8 @@ Goods Receiving
                                                 <table class="table " id="tabel-transport-and-unloading" {{-- style="min-width: calc(2.5 * 100%);" --}}>
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-xs text-center">Checker</th>
-                                                            <th class="text-xs text-center">Supervisor</th>
+                                                            <th class="text-xs text-center">Main Checker</th>
+                                                            <!-- <th class="text-xs text-center">Supervisor</th> -->
                                                             <th class="text-xs text-center">Arrival Vehicle</th>
                                                             <th class="text-xs text-center">Start Unloading</th>
                                                             <th class="text-xs text-center">Finish Unloading</th>
@@ -221,9 +225,8 @@ Goods Receiving
                                                     <tbody>
                                                         @if (count($data["current_data_wh_activity"]) > 0)
                                                         @foreach ($data["current_data_wh_activity"] as $current_data_wh_activity )
-                                                        <tr>
-                                                            <td class="text-xs">{{ $current_data_wh_activity->checker}}</td>
-                                                            <td class="text-xs">{{ $current_data_wh_activity->supervisor_id}}</td>
+                                                        <tr class="text-center">
+                                                            <td class="text-xs">{{ $current_data_wh_activity->main_checker}}</td>
                                                             <td class="text-xs">{{ $current_data_wh_activity->arrival_date}}</td>
                                                             <td class="text-xs">{{ $current_data_wh_activity->start_unloading}}</td>
                                                             <td class="text-xs">{{ $current_data_wh_activity->finish_unloading}}</td>
@@ -242,6 +245,61 @@ Goods Receiving
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- SCAN HISTORY -->
+                                <div class="tab-pane" id="page-tab--scan-history">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table " id="tabel-scan-history" {{-- style="min-width: calc(2.5 * 100%);" --}}>
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-xs text-center">GR Id</th>
+                                                            <th class="text-xs text-center">Movement Id</th>
+                                                            <th class="text-xs text-center">Warehouseman</th>
+                                                            <th class="text-xs text-center">Qty Scan</th>
+                                                            <th class="text-xs text-center">SKU</th>
+                                                            <th class="text-xs text-center">Item Name</th>
+                                                            <th class="text-xs text-center">Serial No</th>
+                                                            <th class="text-xs text-center">Status Id</th>
+                                                            <th class="text-xs text-center">Expired Date</th>
+                                                            <th class="text-xs text-center">UoM Name</th>
+                                                            <th class="text-xs text-center">Stock Id</th>
+                                                            <th class="text-xs text-center">Location From</th>
+                                                            <th class="text-xs text-center">Location To</th>
+                                                            <th class="text-xs text-center">Assign By</th>
+                                                            <th class="text-xs text-center">Datetime Created</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @if (count($data["scan_history"]) > 0)
+                                                        @foreach ($data["scan_history"] as $scan_history )
+                                                        <tr class="text-center">
+                                                            <td class="text-xs">{{ $scan_history->gr_id}}</td>
+                                                            <td class="text-xs">{{ $scan_history->movement_id}}</td>
+                                                            <td class="text-xs">{{ $scan_history->warehouseman}}</td>
+                                                            <td class="text-xs">{{ $scan_history->qty}}</td>
+                                                            <td class="text-xs">{{ $scan_history->sku}}</td>
+                                                            <td class="text-xs">{{ $scan_history->part_name}}</td>
+                                                            <td class="text-xs">{{ $scan_history->serial_no}}</td>
+                                                            <td class="text-xs">{{ $scan_history->status_id}}</td>
+                                                            <td class="text-xs">{{ $scan_history->expired_date}}</td>
+                                                            <td class="text-xs">{{ $scan_history->uom_name}}</td>
+                                                            <td class="text-xs">{{ $scan_history->stock_id}}</td>
+                                                            <td class="text-xs">{{ $scan_history->location_from}}</td>
+                                                            <td class="text-xs">{{ $scan_history->location_to}}</td>
+                                                            <td class="text-xs">{{ $scan_history->user_created}}</td>
+                                                            <td class="text-xs">{{ $scan_history->datetime_created}}</td>
+                                                        </tr>
+                                                        @endforeach
+                                                        @endif
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="tab-pane" id="page-tab--notes">
                                     <div class="row">
                                         <div class="col-sm-12">

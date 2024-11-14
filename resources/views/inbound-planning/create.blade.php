@@ -200,18 +200,18 @@ Inbound Planning
                                                         <tr>
                                                             <th class="text-xs text-center">SKU No</th>
                                                             <th class="text-xs text-center">Item Name</th>
-                                                            <th class="text-xs text-center">Batch No</th>
+                                                            <!-- <th class="text-xs text-center">Batch No</th>
                                                             <th class="text-xs text-center">Serial No</th>
                                                             <th class="text-xs text-center">IMEI No</th>
                                                             <th class="text-xs text-center">Part No</th>
                                                             <th class="text-xs text-center">Color</th>
                                                             <th class="text-xs text-center">Size</th>
                                                             <th class="text-xs text-center">Stock ID</th>
-                                                            <th class="text-xs text-center">Stock Type</th>
+                                                            <th class="text-xs text-center">Stock Type</th> -->
                                                             <th class="text-xs text-center">Expired Date</th>
                                                             <th class="text-xs text-center">UOM</th>
                                                             <th class="text-xs text-center">Qty Plan</th>
-                                                            <th class="text-xs text-center">Classification ID</th>
+                                                            <!-- <th class="text-xs text-center">Classification ID</th> -->
                                                             <th class="text-xs text-center">Classification</th>
                                                             <th class="text-xs text-center">Action</th>
                                                         </tr>
@@ -497,35 +497,35 @@ $(document).ready(function () {
                 <input type='text' class='form-control py-0' name='item_name[]' id='item_name_${row_Table_Item_Detail}' readonly>
                 <div id="validation_item_name_${row_Table_Item_Detail}" class="invalid-feedback text-xs"></div>
             </td>
-            <td>
+            <td style="display: none">
                 <input type='text' class='form-control py-0' name='batch_no[]' id='batch_no_${row_Table_Item_Detail}'>
                 <div id="validation_batch_no_${row_Table_Item_Detail}" class="invalid-feedback text-xs"></div>
             </td>
-            <td>
+            <td style="display: none">
                 <input type='text' class='form-control py-0' name='serial_no[]' id='serial_no_${row_Table_Item_Detail}'>
                 <div id="validation_serial_no_${row_Table_Item_Detail}" class="invalid-feedback text-xs"></div>
             </td>
-            <td>
+            <td style="display: none">
                 <input type='text' class='form-control py-0' name='imei_no[]' id='imei_no_${row_Table_Item_Detail}'>
                 <div id="validation_imei_no_${row_Table_Item_Detail}" class="invalid-feedback text-xs"></div>
             </td>
-            <td>
+            <td style="display: none">
                 <input type='text' class='form-control py-0' name='part_no[]' id='part_no_${row_Table_Item_Detail}'>
                 <div id="validation_part_no_${row_Table_Item_Detail}" class="invalid-feedback text-xs"></div>
             </td>
-            <td>
+            <td style="display: none">
                 <input type='text' class='form-control py-0' name='color[]' id='color_${row_Table_Item_Detail}'>
                 <div id="validation_color_${row_Table_Item_Detail}" class="invalid-feedback text-xs"></div>
             </td>
-            <td>
+            <td style="display: none">
                 <input type='text' class='form-control py-0' name='size[]' id='size_${row_Table_Item_Detail}'>
                 <div id="validation_size_${row_Table_Item_Detail}" class="invalid-feedback text-xs"></div>
             </td>
-            <td>
+            <td style="display: none">
                 <input type='text' class='form-control py-0' name='stock_id[]' id='stock_id_${row_Table_Item_Detail}' readonly>
                 <div id="validation_stock_id_${row_Table_Item_Detail}" class="invalid-feedback text-xs"></div>
             </td>
-            <td>
+            <td style="display: none">
                 <input type='text' class='form-control py-0' name='stock_type[]' id='stock_type_${row_Table_Item_Detail}' readonly>
                 <div id="validation_stock_type_${row_Table_Item_Detail}" class="invalid-feedback text-xs"></div>
             </td>
@@ -544,7 +544,7 @@ $(document).ready(function () {
                 <input type='text' class='form-control py-0' name='qty_plan[]' id='qty_plan_${row_Table_Item_Detail}'>
                 <div id="validation_qty_plan_${row_Table_Item_Detail}" class="invalid-feedback text-xs"></div>
             </td>
-            <td>
+            <td style="display: none">
                 <input type='text' class='form-control py-0' name='id_classification[]' id='id_classification_${row_Table_Item_Detail}' readonly>
                 <div id="validation_id_classification_${row_Table_Item_Detail}" class="invalid-feedback text-xs"></div>
             </td>

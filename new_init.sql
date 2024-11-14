@@ -12,7 +12,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Dumping structure for table wms.failed_jobs
-DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `uuid` varchar(255) NOT NULL,
@@ -30,7 +29,6 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 /*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
 
 -- Dumping structure for table wms.migrations
-DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) NOT NULL,
@@ -48,7 +46,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_comodity
-DROP TABLE IF EXISTS `m_comodity`;
 CREATE TABLE IF NOT EXISTS `m_comodity` (
   `comodity_id` int(11) NOT NULL,
   `comodity name` varchar(50) DEFAULT NULL,
@@ -64,7 +61,6 @@ CREATE TABLE IF NOT EXISTS `m_comodity` (
 /*!40000 ALTER TABLE `m_comodity` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_item_classification
-DROP TABLE IF EXISTS `m_item_classification`;
 CREATE TABLE IF NOT EXISTS `m_item_classification` (
   `item_classification_id` int(11) NOT NULL,
   `classification_name` varchar(50) DEFAULT NULL,
@@ -95,7 +91,6 @@ INSERT INTO `m_item_classification` (`item_classification_id`, `classification_n
 /*!40000 ALTER TABLE `m_item_classification` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_item_classification_copy
-DROP TABLE IF EXISTS `m_item_classification_copy`;
 CREATE TABLE IF NOT EXISTS `m_item_classification_copy` (
   `item_classification_id` int(11) NOT NULL,
   `classification_name` varchar(50) DEFAULT NULL,
@@ -118,7 +113,6 @@ INSERT INTO `m_item_classification_copy` (`item_classification_id`, `classificat
 /*!40000 ALTER TABLE `m_item_classification_copy` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_item_uom
-DROP TABLE IF EXISTS `m_item_uom`;
 CREATE TABLE IF NOT EXISTS `m_item_uom` (
   `uom_name` varchar(50) NOT NULL DEFAULT '',
   `uom_type_id` int(11) NOT NULL DEFAULT 0,
@@ -150,7 +144,6 @@ INSERT INTO `m_item_uom` (`uom_name`, `uom_type_id`, `created_by`, `created_on`,
 /*!40000 ALTER TABLE `m_item_uom` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_item_uom_2
-DROP TABLE IF EXISTS `m_item_uom_2`;
 CREATE TABLE IF NOT EXISTS `m_item_uom_2` (
   `item_uom_id` int(11) NOT NULL DEFAULT 0,
   `uom_name` varchar(50) DEFAULT NULL,
@@ -178,7 +171,6 @@ INSERT INTO `m_item_uom_2` (`item_uom_id`, `uom_name`, `created_by`, `created_on
 /*!40000 ALTER TABLE `m_item_uom_2` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_item_uom_type
-DROP TABLE IF EXISTS `m_item_uom_type`;
 CREATE TABLE IF NOT EXISTS `m_item_uom_type` (
   `uom_type_id` int(11) NOT NULL,
   `uom_type_name` varchar(50) NOT NULL DEFAULT '',
@@ -198,7 +190,6 @@ INSERT INTO `m_item_uom_type` (`uom_type_id`, `uom_type_name`, `user_created`, `
 /*!40000 ALTER TABLE `m_item_uom_type` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_menu
-DROP TABLE IF EXISTS `m_menu`;
 CREATE TABLE IF NOT EXISTS `m_menu` (
   `menu_id` int(11) NOT NULL AUTO_INCREMENT,
   `menu_name` varchar(50) DEFAULT NULL,
@@ -216,9 +207,9 @@ CREATE TABLE IF NOT EXISTS `m_menu` (
   `datetime_created` datetime DEFAULT NULL,
   PRIMARY KEY (`menu_id`,`platform_id`) USING BTREE,
   UNIQUE KEY `menu_id` (`menu_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table wms.m_menu: 45 rows
+-- Dumping data for table wms.m_menu: 46 rows
 /*!40000 ALTER TABLE `m_menu` DISABLE KEYS */;
 INSERT INTO `m_menu` (`menu_id`, `menu_name`, `description`, `platform_id`, `parent_id`, `status`, `no_urut`, `id_dom`, `menu_link`, `menu_icon`, `menu_icon_white`, `is_active`, `user_created`, `datetime_created`) VALUES
 	(31, 'User Management', 'User Management', '2', 10, 1, 1, 'user_management', 'user_management', NULL, NULL, 'Y', 'backdoor', '2023-03-16 09:42:13'),
@@ -265,11 +256,11 @@ INSERT INTO `m_menu` (`menu_id`, `menu_name`, `description`, `platform_id`, `par
 	(42, 'Shipping Load', 'Shipping Load', '2', 41, 1, 2, 'shipping_load', 'shipping_load', NULL, NULL, 'Y', 'backdoor', '2023-07-27 14:16:46'),
 	(41, 'Transportation', 'Transportation', '2', 0, 1, 5, 'transportation', NULL, 'public/img/transport.png', 'public/img/transport_white.png', 'Y', 'backdoor', '2023-07-27 14:16:51'),
 	(44, 'User Group Management', 'User Group Management', '2', 10, 1, 2, 'user_group_management', 'user_group_management', NULL, NULL, 'Y', 'backdoor', '2024-08-30 09:17:49'),
-	(45, 'COGS Computation', 'COGS Computation', '2', 32, 1, 4, 'cogs_computation', 'cogs_computation', NULL, NULL, 'Y', 'backdoor', '2024-08-30 09:17:49');
+	(45, 'COGS Computation', 'COGS Computation', '2', 32, 1, 4, 'cogs_computation', 'cogs_computation', NULL, NULL, 'Y', 'backdoor', '2024-08-30 09:17:49'),
+	(46, 'Change Password', 'Change Password', '2', 10, 1, 3, 'user_change_password', 'user_change_password', NULL, NULL, 'Y', 'backdoor', '2024-08-30 09:17:49');
 /*!40000 ALTER TABLE `m_menu` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_process
-DROP TABLE IF EXISTS `m_process`;
 CREATE TABLE IF NOT EXISTS `m_process` (
   `process_id` int(11) NOT NULL DEFAULT 0,
   `process_code` char(11) NOT NULL DEFAULT '',
@@ -312,7 +303,6 @@ INSERT INTO `m_process` (`process_id`, `process_code`, `process_name`, `is_movem
 /*!40000 ALTER TABLE `m_process` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_process_2
-DROP TABLE IF EXISTS `m_process_2`;
 CREATE TABLE IF NOT EXISTS `m_process_2` (
   `process_id` char(11) NOT NULL DEFAULT '',
   `process_code` char(11) NOT NULL DEFAULT '',
@@ -344,7 +334,6 @@ INSERT INTO `m_process_2` (`process_id`, `process_code`, `process_name`, `is_act
 /*!40000 ALTER TABLE `m_process_2` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_status
-DROP TABLE IF EXISTS `m_status`;
 CREATE TABLE IF NOT EXISTS `m_status` (
   `status_id` varchar(3) NOT NULL DEFAULT '',
   `status_name` varchar(50) DEFAULT NULL,
@@ -415,7 +404,6 @@ INSERT INTO `m_status` (`status_id`, `status_name`, `process_id`, `is_active`, `
 /*!40000 ALTER TABLE `m_status` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_status_2
-DROP TABLE IF EXISTS `m_status_2`;
 CREATE TABLE IF NOT EXISTS `m_status_2` (
   `status_id` int(11) NOT NULL AUTO_INCREMENT,
   `status_name` varchar(50) DEFAULT NULL,
@@ -455,7 +443,6 @@ INSERT INTO `m_status_2` (`status_id`, `status_name`, `process_id`, `is_active`,
 /*!40000 ALTER TABLE `m_status_2` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_status_relation
-DROP TABLE IF EXISTS `m_status_relation`;
 CREATE TABLE IF NOT EXISTS `m_status_relation` (
   `status_relation_id` int(11) NOT NULL DEFAULT 0,
   `status_id` varchar(3) NOT NULL DEFAULT '',
@@ -483,7 +470,6 @@ INSERT INTO `m_status_relation` (`status_relation_id`, `status_id`, `is_active`,
 /*!40000 ALTER TABLE `m_status_relation` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_user_group
-DROP TABLE IF EXISTS `m_user_group`;
 CREATE TABLE IF NOT EXISTS `m_user_group` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(10) NOT NULL,
@@ -496,178 +482,46 @@ CREATE TABLE IF NOT EXISTS `m_user_group` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table wms.m_user_group: ~4 rows (approximately)
+-- Dumping data for table wms.m_user_group: ~3 rows (approximately)
 /*!40000 ALTER TABLE `m_user_group` DISABLE KEYS */;
 INSERT INTO `m_user_group` (`id`, `name`, `description`, `created_by`, `created_at`, `updated_by`, `updated_at`, `is_activ`) VALUES
-	(1, 'SA', 'Superadmin', '', '2024-08-30 08:48:51', NULL, '2024-09-04 11:28:51', 'Y'),
+	(1, 'SA', 'Superadmin', '', '2024-08-30 08:48:51', NULL, '2024-09-18 08:12:53', 'Y'),
 	(2, 'SPV', 'Spv', '', '2024-08-30 10:21:49', NULL, '2024-09-04 13:03:06', 'Y'),
 	(3, 'ADM', 'Admin', '', '2024-08-30 10:22:03', NULL, '2024-09-04 13:00:36', 'Y'),
 	(4, 'Staff', 'Staff', 'superadmin', '2024-09-03 10:30:09', NULL, '2024-09-04 13:00:24', 'Y');
 /*!40000 ALTER TABLE `m_user_group` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_user_group_menu_access
-DROP TABLE IF EXISTS `m_user_group_menu_access`;
 CREATE TABLE IF NOT EXISTS `m_user_group_menu_access` (
   `usergroup_id` bigint(20) NOT NULL DEFAULT 0,
   `menu_id` int(11) NOT NULL,
   PRIMARY KEY (`usergroup_id`,`menu_id`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table wms.m_user_group_menu_access: 148 rows
+-- Dumping data for table wms.m_user_group_menu_access: 149 rows
 /*!40000 ALTER TABLE `m_user_group_menu_access` DISABLE KEYS */;
-INSERT INTO `m_user_group_menu_access` (`usergroup_id`, `menu_id`) VALUES
-	(1, 1),
-	(1, 4),
-	(1, 5),
-	(1, 6),
-	(1, 7),
-	(1, 8),
-	(1, 9),
-	(1, 10),
-	(1, 11),
-	(1, 12),
-	(1, 13),
-	(1, 14),
-	(1, 15),
-	(1, 16),
-	(1, 17),
-	(1, 18),
-	(1, 19),
-	(1, 20),
-	(1, 21),
-	(1, 22),
-	(1, 23),
-	(1, 24),
-	(1, 25),
-	(1, 26),
-	(1, 27),
-	(1, 28),
-	(1, 29),
-	(1, 30),
-	(1, 31),
-	(1, 32),
-	(1, 33),
-	(1, 34),
-	(1, 35),
-	(1, 36),
-	(1, 37),
-	(1, 38),
-	(1, 39),
-	(1, 40),
-	(1, 41),
-	(1, 42),
-	(1, 43),
-	(1, 44),
-	(1, 45),
-	(2, 1),
-	(2, 4),
-	(2, 5),
-	(2, 6),
-	(2, 7),
-	(2, 8),
-	(2, 9),
-	(2, 10),
-	(2, 11),
-	(2, 12),
-	(2, 13),
-	(2, 14),
-	(2, 15),
-	(2, 16),
-	(2, 17),
-	(2, 18),
-	(2, 19),
-	(2, 20),
-	(2, 21),
-	(2, 22),
-	(2, 23),
-	(2, 24),
-	(2, 25),
-	(2, 26),
-	(2, 27),
-	(2, 28),
-	(2, 29),
-	(2, 30),
-	(2, 31),
-	(2, 32),
-	(2, 33),
-	(2, 34),
-	(2, 35),
-	(2, 36),
-	(2, 37),
-	(2, 38),
-	(2, 39),
-	(2, 40),
-	(2, 41),
-	(2, 42),
-	(2, 43),
-	(2, 44),
-	(2, 45),
-	(3, 1),
-	(3, 4),
-	(3, 5),
-	(3, 6),
-	(3, 7),
-	(3, 8),
-	(3, 9),
-	(3, 10),
-	(3, 11),
-	(3, 12),
-	(3, 13),
-	(3, 14),
-	(3, 15),
-	(3, 16),
-	(3, 17),
-	(3, 18),
-	(3, 19),
-	(3, 20),
-	(3, 21),
-	(3, 22),
-	(3, 23),
-	(3, 24),
-	(3, 25),
-	(3, 26),
-	(3, 27),
-	(3, 28),
-	(3, 29),
-	(3, 30),
-	(3, 31),
-	(3, 32),
-	(3, 33),
-	(3, 34),
-	(3, 35),
-	(3, 36),
-	(3, 37),
-	(3, 38),
-	(3, 39),
-	(3, 40),
-	(3, 41),
-	(3, 42),
-	(3, 43),
-	(3, 44),
-	(3, 45),
-	(4, 1),
-	(4, 5),
-	(4, 6),
-	(4, 11),
-	(4, 12),
-	(4, 13),
-	(4, 14),
-	(4, 15),
-	(4, 16),
-	(4, 17),
-	(4, 18),
-	(4, 19),
-	(4, 20),
-	(4, 21),
-	(4, 39),
-	(4, 40),
-	(4, 41),
-	(4, 42),
-	(4, 43);
+INSERT INTO `m_user_group_menu_access` (`usergroup_id`, `menu_id`) 
+VALUES 
+  (1, 10), 
+  (1, 31), 
+  (1, 44), 
+  (1, 46), 
+  (2, 1), 
+  (2, 10), 
+  (2, 11), 
+  (2, 12), 
+  (2, 31), 
+  (2, 44), 
+  (2, 46),  
+  (3, 1), 
+  (3, 11), 
+  (3, 12), 
+  (4, 1), 
+  (4, 11),  
+  (4, 12);
 /*!40000 ALTER TABLE `m_user_group_menu_access` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_user_menu_access
-DROP TABLE IF EXISTS `m_user_menu_access`;
 CREATE TABLE IF NOT EXISTS `m_user_menu_access` (
   `username` varchar(50) NOT NULL,
   `menu_id` int(11) NOT NULL,
@@ -733,7 +587,6 @@ INSERT INTO `m_user_menu_access` (`username`, `menu_id`) VALUES
 /*!40000 ALTER TABLE `m_user_menu_access` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_warehouse
-DROP TABLE IF EXISTS `m_warehouse`;
 CREATE TABLE IF NOT EXISTS `m_warehouse` (
   `wh_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `wh_code` varchar(50) DEFAULT NULL,
@@ -766,7 +619,6 @@ INSERT INTO `m_warehouse` (`wh_id`, `wh_code`, `wh_prefix`, `wh_name`, `address1
 /*!40000 ALTER TABLE `m_warehouse` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_adjustment_type
-DROP TABLE IF EXISTS `m_wh_adjustment_type`;
 CREATE TABLE IF NOT EXISTS `m_wh_adjustment_type` (
   `adjustment_code` varchar(5) NOT NULL DEFAULT '',
   `adjustment_type` varchar(50) DEFAULT NULL,
@@ -783,7 +635,6 @@ INSERT INTO `m_wh_adjustment_type` (`adjustment_code`, `adjustment_type`, `user_
 /*!40000 ALTER TABLE `m_wh_adjustment_type` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_buffer
-DROP TABLE IF EXISTS `m_wh_buffer`;
 CREATE TABLE IF NOT EXISTS `m_wh_buffer` (
   `buffer_id` int(11) NOT NULL AUTO_INCREMENT,
   `contact_id` int(11) NOT NULL DEFAULT 0,
@@ -810,7 +661,6 @@ INSERT INTO `m_wh_buffer` (`buffer_id`, `contact_id`, `sku`, `qty_buffer`, `rule
 /*!40000 ALTER TABLE `m_wh_buffer` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_client
-DROP TABLE IF EXISTS `m_wh_client`;
 CREATE TABLE IF NOT EXISTS `m_wh_client` (
   `client_id` varchar(20) NOT NULL,
   `client_name` varchar(40) DEFAULT NULL,
@@ -840,7 +690,6 @@ INSERT INTO `m_wh_client` (`client_id`, `client_name`, `address1`, `address2`, `
 /*!40000 ALTER TABLE `m_wh_client` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_client_project
-DROP TABLE IF EXISTS `m_wh_client_project`;
 CREATE TABLE IF NOT EXISTS `m_wh_client_project` (
   `client_project_id` int(11) NOT NULL AUTO_INCREMENT,
   `client_id` varchar(20) NOT NULL,
@@ -874,7 +723,6 @@ INSERT INTO `m_wh_client_project` (`client_project_id`, `client_id`, `project_ty
 /*!40000 ALTER TABLE `m_wh_client_project` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_client_project_whs
-DROP TABLE IF EXISTS `m_wh_client_project_whs`;
 CREATE TABLE IF NOT EXISTS `m_wh_client_project_whs` (
   `client_project_id` int(11) NOT NULL,
   `client_id` varchar(20) NOT NULL,
@@ -901,7 +749,6 @@ INSERT INTO `m_wh_client_project_whs` (`client_project_id`, `client_id`, `wh_id`
 /*!40000 ALTER TABLE `m_wh_client_project_whs` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_commodity
-DROP TABLE IF EXISTS `m_wh_commodity`;
 CREATE TABLE IF NOT EXISTS `m_wh_commodity` (
   `commodity_id` int(11) NOT NULL AUTO_INCREMENT,
   `commodity_name` varchar(50) DEFAULT '',
@@ -924,7 +771,6 @@ INSERT INTO `m_wh_commodity` (`commodity_id`, `commodity_name`, `commodity_desc`
 /*!40000 ALTER TABLE `m_wh_commodity` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_contact_buffer
-DROP TABLE IF EXISTS `m_wh_contact_buffer`;
 CREATE TABLE IF NOT EXISTS `m_wh_contact_buffer` (
   `contact_id` int(11) NOT NULL AUTO_INCREMENT,
   `client_project_id` int(11) DEFAULT NULL,
@@ -944,7 +790,6 @@ INSERT INTO `m_wh_contact_buffer` (`contact_id`, `client_project_id`, `supplier_
 /*!40000 ALTER TABLE `m_wh_contact_buffer` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_contact_buffer_detail
-DROP TABLE IF EXISTS `m_wh_contact_buffer_detail`;
 CREATE TABLE IF NOT EXISTS `m_wh_contact_buffer_detail` (
   `contact_id` int(11) NOT NULL AUTO_INCREMENT,
   `notification_type_id` int(11) NOT NULL,
@@ -964,7 +809,6 @@ INSERT INTO `m_wh_contact_buffer_detail` (`contact_id`, `notification_type_id`, 
 /*!40000 ALTER TABLE `m_wh_contact_buffer_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_inbox
-DROP TABLE IF EXISTS `m_wh_inbox`;
 CREATE TABLE IF NOT EXISTS `m_wh_inbox` (
   `inbox_id` int(11) NOT NULL AUTO_INCREMENT,
   `buffer_id` int(11) NOT NULL,
@@ -984,7 +828,6 @@ INSERT INTO `m_wh_inbox` (`inbox_id`, `buffer_id`, `available_qty_total`, `messa
 /*!40000 ALTER TABLE `m_wh_inbox` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_item
-DROP TABLE IF EXISTS `m_wh_item`;
 CREATE TABLE IF NOT EXISTS `m_wh_item` (
   `sku` varchar(20) NOT NULL DEFAULT '',
   `part_name` varchar(200) DEFAULT NULL,
@@ -1022,14 +865,66 @@ CREATE TABLE IF NOT EXISTS `m_wh_item` (
 
 -- Dumping data for table wms.m_wh_item: 3 rows
 /*!40000 ALTER TABLE `m_wh_item` DISABLE KEYS */;
-INSERT INTO `m_wh_item` (`sku`, `part_name`, `base_qty`, `imei`, `part_no`, `color`, `size`, `item_classification_id`, `base_uom`, `length`, `width`, `height`, `volume`, `directions`, `group_id`, `wh_id`, `client_id`, `photo`, `is_serial_no`, `is_batch_no`, `is_imei`, `created_by`, `created_on`, `user_updated`, `datetime_updated`, `is_active`) VALUES
-	('SKU/GD2/001', 'Glue', NULL, NULL, NULL, NULL, NULL, NULL, 'BARREL', 50, 50, 50, 1000, NULL, NULL, '2', 'NOJ', NULL, 'N', 'N', 'N', 'superadmin', '2024-09-04 13:23:31', NULL, NULL, 'Y'),
-	('CG001', 'Cengkeh', NULL, NULL, NULL, NULL, NULL, NULL, 'KG', 60, 100, 5, 40, NULL, NULL, '1', 'NOJ', NULL, 'N', 'N', 'N', 'superadmin', '2024-08-26 09:06:49', NULL, NULL, 'Y'),
-	('sku001', 'Cigatow - Supplier1', NULL, NULL, NULL, NULL, NULL, NULL, 'PALLET', 50, 50, 50, 125000, NULL, NULL, '1', 'NOJ', NULL, 'N', 'Y', 'N', 'superadmin', '2024-09-02 11:16:37', NULL, NULL, 'Y');
+INSERT INTO `m_wh_item` (
+  `sku`, `part_name`, `base_qty`, `imei`, 
+  `part_no`, `color`, `size`, `item_classification_id`, 
+  `base_uom`, `length`, `width`, `height`, 
+  `volume`, `directions`, `group_id`, 
+  `wh_id`, `client_id`, `photo`, `is_serial_no`, 
+  `is_batch_no`, `is_imei`, `created_by`, 
+  `created_on`, `user_updated`, `datetime_updated`, 
+  `is_active`
+) 
+VALUES 
+  (
+    'SKU001', 'Cigatow', NULL, NULL, NULL, 
+    NULL, NULL, NULL, 'PALLET', 50, 50, 
+    50, 1000, NULL, NULL, '1', 'NOJ', NULL, 
+    'N', 'N', 'N', 'superadmin', '2024-09-04 13:23:31', 
+    NULL, NULL, 'Y'
+  ), 
+  (
+    'SKU002', 'Foil', NULL, NULL, NULL, 
+    NULL, NULL, NULL, 'PALLET', 60, 100, 5, 40, 
+    NULL, NULL, '1', 'NOJ', NULL, 'N', 'N', 
+    'N', 'superadmin', '2024-08-26 09:06:49', 
+    NULL, NULL, 'Y'
+  ), 
+  (
+    'SKU003', 'Porous Plug Wrap Paper', 
+    NULL, NULL, NULL, NULL, NULL, NULL, 
+    'PALLET', 50, 50, 50, 125000, NULL, 
+    NULL, '1', 'NOJ', NULL, 'N', 'N', 'N', 
+    'superadmin', '2024-09-02 11:16:37', 
+    NULL, NULL, 'Y'
+  ),
+    (
+    'SKU004', 'Cigarete Paper', 
+    NULL, NULL, NULL, NULL, NULL, NULL, 
+    'PALLET', 50, 50, 50, 125000, NULL, 
+    NULL, '1', 'NOJ', NULL, 'N', 'N', 'N', 
+    'superadmin', '2024-09-02 11:16:37', 
+    NULL, NULL, 'Y'
+  ),
+  (
+    'SKU005', 'CTP', 
+    NULL, NULL, NULL, NULL, NULL, NULL, 
+    'PALLET', 50, 50, 50, 125000, NULL, 
+    NULL, '1', 'NOJ', NULL, 'N', 'N', 'N', 
+    'superadmin', '2024-09-02 11:16:37', 
+    NULL, NULL, 'Y'
+  ),
+  (
+    'SKU006', 'Inner frame', 
+    NULL, NULL, NULL, NULL, NULL, NULL, 
+    'PALLET', 50, 50, 50, 125000, NULL, 
+    NULL, '1', 'NOJ', NULL, 'N', 'N', 'N', 
+    'superadmin', '2024-09-02 11:16:37', 
+    NULL, NULL, 'Y'
+  );
 /*!40000 ALTER TABLE `m_wh_item` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_location
-DROP TABLE IF EXISTS `m_wh_location`;
 CREATE TABLE IF NOT EXISTS `m_wh_location` (
   `location_id` int(11) NOT NULL AUTO_INCREMENT,
   `location_code` varchar(50) NOT NULL,
@@ -1056,24 +951,54 @@ CREATE TABLE IF NOT EXISTS `m_wh_location` (
 
 -- Dumping data for table wms.m_wh_location: 13 rows
 /*!40000 ALTER TABLE `m_wh_location` DISABLE KEYS */;
-INSERT INTO `m_wh_location` (`location_id`, `location_code`, `wh_id`, `location_name`, `index_code`, `location_type`, `commodity_id`, `client_project_id`, `stock_id`, `created_by`, `created_on`, `user_updated`, `datetime_updated`, `is_active`, `is_deleted`) VALUES
-	(1, '1A1-001-001', 1, '1A1-001-001', 'F02', 'Bulk', 2, 1, NULL, 'atmi', '2022-09-27 09:55:36', 'atmi', '2023-03-07 09:14:55', 'Y', NULL),
-	(2, '1A1-001-002', 1, '1A1-001-002', 'R02', 'Racking', 1, 1, NULL, 'atmi', '2022-09-27 09:55:36', NULL, NULL, 'Y', NULL),
-	(3, '1A1-012', 1, '1A1-012', 'F01', 'Bulk', 2, 1, NULL, 'atmi', '2022-09-27 09:55:36', NULL, NULL, 'Y', NULL),
-	(4, '1A1-001-001', 2, '1A1-001-001', 'R01', 'Racking', 4, 2, NULL, 'atmi', '2022-09-27 09:55:36', NULL, NULL, 'Y', NULL),
-	(5, 'DMG01-001', 1, 'DMG01-001', 'F02', 'Quarantine', 2, 1, NULL, NULL, NULL, NULL, NULL, 'Y', NULL),
-	(6, '1A1-001-003', 1, '1A1-001-003', 'R01', 'Racking', 3, 1, NULL, NULL, NULL, NULL, NULL, 'Y', NULL),
-	(7, 'FL001', 1, 'FL001', 'F01', 'Bulk', 4, 1, NULL, NULL, NULL, NULL, NULL, 'Y', NULL),
-	(8, '1B1-001-001', 1, '1B1-001-001', 'R01', 'Racking', 3, 1, NULL, NULL, NULL, NULL, NULL, 'Y', NULL),
-	(9, 'DMG-001-001', 1, 'DMG-001-001', 'R02', 'Racking', 1, 1, NULL, NULL, NULL, NULL, NULL, 'Y', NULL),
-	(10, 'test_location_1', 1, 'test_location_1', 'R01', 'Racking', 2, 1, NULL, NULL, NULL, NULL, NULL, 'Y', NULL),
-	(11, 'test_location_2', 1, 'test_location_2', 'R02', 'Racking', 2, 1, NULL, NULL, NULL, NULL, NULL, 'Y', NULL),
-	(12, 'test_location_3', 1, 'test_location_3', 'F01', 'Bulk', 1, 1, NULL, 'atmi', '2023-03-06 17:31:40', NULL, NULL, NULL, NULL),
-	(13, 'R1F3', 1, 'R1F3', 'F01', 'Bulk', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `m_wh_location` (
+  `location_id`, `location_code`, `wh_id`, 
+  `location_name`, `index_code`, `location_type`, 
+  `commodity_id`, `client_project_id`, 
+  `stock_id`, `created_by`, `created_on`, 
+  `user_updated`, `datetime_updated`, 
+  `is_active`, `is_deleted`
+) 
+VALUES 
+  (
+    1, 'GD01-F01-001', 1, 'GD01-F01-001', 
+    'F01', 'Floor', 2, 1, NULL, 'atmi', '2022-09-27 09:55:36', 
+    'atmi', '2023-03-07 09:14:55', 'Y', 
+    NULL
+  ),
+  (
+    2, 'GD01-F01-002', 1, 'GD01-F01-002', 
+    'F01', 'Floor', 2, 1, NULL, 'atmi', '2022-09-27 09:55:36', 
+    'atmi', '2023-03-07 09:14:55', 'Y', 
+    NULL
+  ),
+  (
+    3, 'GD01-F01-003', 1, 'GD01-F01-003', 
+    'F01', 'Floor', 2, 1, NULL, 'atmi', '2022-09-27 09:55:36', 
+    'atmi', '2023-03-07 09:14:55', 'Y', 
+    NULL
+  ),
+  (
+    4, 'GD02-F01-001', 2, 'GD02-F01-001', 
+    'F01', 'Floor', 2, 1, NULL, 'atmi', '2022-09-27 09:55:36', 
+    'atmi', '2023-03-07 09:14:55', 'Y', 
+    NULL
+  ),
+  (
+    5, 'GD02-F01-002', 2, 'GD02-F01-002', 
+    'F01', 'Floor', 2, 1, NULL, 'atmi', '2022-09-27 09:55:36', 
+    'atmi', '2023-03-07 09:14:55', 'Y', 
+    NULL
+  ),
+  (
+    6, 'GD02-F01-003', 2, 'GD02-F01-003', 
+    'F01', 'Floor', 2, 1, NULL, 'atmi', '2022-09-27 09:55:36', 
+    'atmi', '2023-03-07 09:14:55', 'Y', 
+    NULL
+  );
 /*!40000 ALTER TABLE `m_wh_location` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_location_index
-DROP TABLE IF EXISTS `m_wh_location_index`;
 CREATE TABLE IF NOT EXISTS `m_wh_location_index` (
   `index_code` varchar(10) NOT NULL DEFAULT '',
   `index_name` varchar(50) DEFAULT NULL,
@@ -1092,16 +1017,31 @@ CREATE TABLE IF NOT EXISTS `m_wh_location_index` (
 
 -- Dumping data for table wms.m_wh_location_index: 5 rows
 /*!40000 ALTER TABLE `m_wh_location_index` DISABLE KEYS */;
-INSERT INTO `m_wh_location_index` (`index_code`, `index_name`, `length`, `width`, `height`, `capacity`, `is_active`, `is_deleted`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`) VALUES
-	('R01', 'Rack 01', '20', '30', '50', '1000', 'Y', NULL, 'atmi', '2022-09-21 17:34:29', NULL, NULL),
-	('R02', 'Rack 02', '30', '30', '50', '1000', 'N', NULL, 'atmi', '2022-09-21 17:34:29', 'superadmin', '2024-09-04 11:38:36'),
-	('F01', 'Floor 01', '30', '30', '100', '1000', 'Y', NULL, 'atmi', '2022-09-21 17:34:29', NULL, NULL),
-	('F02', 'Floor 02', '50', '50', '100', '1000', 'Y', NULL, 'atmi', '2022-09-21 17:34:29', NULL, NULL),
-	('R03', 'Rack 03', '50', '30', '50', '1000', 'Y', NULL, 'atmi', '2023-03-07 10:29:42', 'superadmin', '2024-09-04 11:31:32');
+INSERT INTO `m_wh_location_index` (
+  `index_code`, `index_name`, `length`, 
+  `width`, `height`, `capacity`, `is_active`, 
+  `is_deleted`, `user_created`, `datetime_created`, 
+  `user_updated`, `datetime_updated`
+) 
+VALUES 
+  (
+    'F01', 'Floor', '30', '30', '100', 
+    '1000', 'Y', NULL, 'atmi', '2022-09-21 17:34:29', 
+    NULL, NULL
+  ), 
+  (
+    'R01', 'Rack', '50', '30', '50', 
+    '1000', 'Y', NULL, 'atmi', '2023-03-07 10:29:42', 
+    'superadmin', '2024-09-04 11:31:32'
+  ),
+  (
+    'B01', 'Bulk', '50', '30', '50', 
+    '1000', 'Y', NULL, 'atmi', '2023-03-07 10:29:42', 
+    'superadmin', '2024-09-04 11:31:32'
+  );
 /*!40000 ALTER TABLE `m_wh_location_index` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_location_type
-DROP TABLE IF EXISTS `m_wh_location_type`;
 CREATE TABLE IF NOT EXISTS `m_wh_location_type` (
   `type_name` varchar(50) NOT NULL DEFAULT '',
   `user_created` varchar(50) DEFAULT '',
@@ -1120,7 +1060,6 @@ INSERT INTO `m_wh_location_type` (`type_name`, `user_created`, `datetime_created
 /*!40000 ALTER TABLE `m_wh_location_type` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_mail
-DROP TABLE IF EXISTS `m_wh_mail`;
 CREATE TABLE IF NOT EXISTS `m_wh_mail` (
   `mail_id` int(11) NOT NULL AUTO_INCREMENT,
   `buffer_id` int(11) NOT NULL DEFAULT 0,
@@ -1142,7 +1081,6 @@ INSERT INTO `m_wh_mail` (`mail_id`, `buffer_id`, `available_qty_total`, `subject
 /*!40000 ALTER TABLE `m_wh_mail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_methods
-DROP TABLE IF EXISTS `m_wh_methods`;
 CREATE TABLE IF NOT EXISTS `m_wh_methods` (
   `methods_id` int(11) NOT NULL,
   `methods_name` varchar(50) DEFAULT '',
@@ -1161,7 +1099,6 @@ INSERT INTO `m_wh_methods` (`methods_id`, `methods_name`, `methods_desc`, `user_
 /*!40000 ALTER TABLE `m_wh_methods` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_notification_type
-DROP TABLE IF EXISTS `m_wh_notification_type`;
 CREATE TABLE IF NOT EXISTS `m_wh_notification_type` (
   `notification_type_id` int(11) NOT NULL AUTO_INCREMENT,
   `notification_type_name` varchar(50) DEFAULT NULL,
@@ -1177,7 +1114,6 @@ INSERT INTO `m_wh_notification_type` (`notification_type_id`, `notification_type
 /*!40000 ALTER TABLE `m_wh_notification_type` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_order_type
-DROP TABLE IF EXISTS `m_wh_order_type`;
 CREATE TABLE IF NOT EXISTS `m_wh_order_type` (
   `order_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `order_type` varchar(50) DEFAULT NULL,
@@ -1197,7 +1133,6 @@ INSERT INTO `m_wh_order_type` (`order_id`, `order_type`, `created_by`, `created_
 /*!40000 ALTER TABLE `m_wh_order_type` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_parameter
-DROP TABLE IF EXISTS `m_wh_parameter`;
 CREATE TABLE IF NOT EXISTS `m_wh_parameter` (
   `param_var` varchar(20) NOT NULL,
   `rules_id` varchar(50) NOT NULL,
@@ -1218,7 +1153,6 @@ INSERT INTO `m_wh_parameter` (`param_var`, `rules_id`, `param_text`, `remarks`, 
 /*!40000 ALTER TABLE `m_wh_parameter` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_project_type
-DROP TABLE IF EXISTS `m_wh_project_type`;
 CREATE TABLE IF NOT EXISTS `m_wh_project_type` (
   `project_type_id` int(11) NOT NULL,
   `project_type_name` varchar(50) DEFAULT '',
@@ -1234,7 +1168,6 @@ INSERT INTO `m_wh_project_type` (`project_type_id`, `project_type_name`, `projec
 /*!40000 ALTER TABLE `m_wh_project_type` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_rules
-DROP TABLE IF EXISTS `m_wh_rules`;
 CREATE TABLE IF NOT EXISTS `m_wh_rules` (
   `rules_id` int(11) NOT NULL AUTO_INCREMENT,
   `desc` varchar(50) DEFAULT NULL,
@@ -1250,7 +1183,6 @@ INSERT INTO `m_wh_rules` (`rules_id`, `desc`) VALUES
 /*!40000 ALTER TABLE `m_wh_rules` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_service_type
-DROP TABLE IF EXISTS `m_wh_service_type`;
 CREATE TABLE IF NOT EXISTS `m_wh_service_type` (
   `service_id` int(11) NOT NULL,
   `service_name` varchar(25) DEFAULT NULL,
@@ -1271,7 +1203,6 @@ INSERT INTO `m_wh_service_type` (`service_id`, `service_name`, `service_descript
 /*!40000 ALTER TABLE `m_wh_service_type` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_setting_buffer
-DROP TABLE IF EXISTS `m_wh_setting_buffer`;
 CREATE TABLE IF NOT EXISTS `m_wh_setting_buffer` (
   `client_project_id` int(11) DEFAULT NULL,
   `supplier_id` int(11) DEFAULT NULL,
@@ -1289,7 +1220,6 @@ CREATE TABLE IF NOT EXISTS `m_wh_setting_buffer` (
 /*!40000 ALTER TABLE `m_wh_setting_buffer` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_stock_count_type
-DROP TABLE IF EXISTS `m_wh_stock_count_type`;
 CREATE TABLE IF NOT EXISTS `m_wh_stock_count_type` (
   `type_code` varchar(3) NOT NULL DEFAULT '',
   `type_name` varchar(50) DEFAULT '',
@@ -1307,7 +1237,6 @@ INSERT INTO `m_wh_stock_count_type` (`type_code`, `type_name`, `is_active`, `use
 /*!40000 ALTER TABLE `m_wh_stock_count_type` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_stock_type
-DROP TABLE IF EXISTS `m_wh_stock_type`;
 CREATE TABLE IF NOT EXISTS `m_wh_stock_type` (
   `stock_id` varchar(10) NOT NULL DEFAULT '',
   `stock_type` varchar(50) DEFAULT '',
@@ -1334,7 +1263,6 @@ INSERT INTO `m_wh_stock_type` (`stock_id`, `stock_type`, `process_id`, `selling_
 /*!40000 ALTER TABLE `m_wh_stock_type` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_stock_type_copy
-DROP TABLE IF EXISTS `m_wh_stock_type_copy`;
 CREATE TABLE IF NOT EXISTS `m_wh_stock_type_copy` (
   `stock_id` varchar(10) NOT NULL DEFAULT '',
   `stock_type` varchar(50) DEFAULT '',
@@ -1355,7 +1283,6 @@ INSERT INTO `m_wh_stock_type_copy` (`stock_id`, `stock_type`, `created_by`, `cre
 /*!40000 ALTER TABLE `m_wh_stock_type_copy` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_supplier
-DROP TABLE IF EXISTS `m_wh_supplier`;
 CREATE TABLE IF NOT EXISTS `m_wh_supplier` (
   `supplier_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `supplier_name` varchar(50) DEFAULT NULL,
@@ -1379,16 +1306,53 @@ CREATE TABLE IF NOT EXISTS `m_wh_supplier` (
 
 -- Dumping data for table wms.m_wh_supplier: 5 rows
 /*!40000 ALTER TABLE `m_wh_supplier` DISABLE KEYS */;
-INSERT INTO `m_wh_supplier` (`supplier_id`, `supplier_name`, `address1`, `address2`, `address3`, `city`, `client_id`, `contact_person`, `phone`, `created_by`, `created_on`, `user_updated`, `datetime_updated`, `is_active`, `is_deleted`) VALUES
-	(1, 'test', 'Jalan Ciputat Raya No 99', NULL, NULL, 'Jakarta', '1', NULL, NULL, NULL, NULL, NULL, NULL, 'Y', NULL),
-	(2, 'PT XYZ', 'Jalan Bahagia', NULL, NULL, 'Bekasi', '2', NULL, NULL, 'atmi', '2022-10-03 09:45:31', NULL, NULL, 'Y', NULL),
-	(3, 'PT Yunbo', 'Jalan Jalan', NULL, NULL, 'Jonggol', '1', NULL, NULL, NULL, NULL, NULL, NULL, 'Y', NULL),
-	(4, 'PT Maju Jaya', 'asd', 'qwe', 'zxc', 'Jakarta', '1', 'Cindy', '123', 'atmi', '2023-03-08 15:20:56', 'atmi', '2023-03-08 17:25:43', 'Y', 'N'),
-	(5, 'Supplier Tow', 'address1', 'address2', NULL, 'Kudus', 'NOJ', 'aji', '0811111', 'superadmin', '2024-09-04 14:21:36', NULL, NULL, 'Y', 'N');
+INSERT INTO `m_wh_supplier` (
+  `supplier_id`, `supplier_name`, `address1`, 
+  `address2`, `address3`, `city`, `client_id`, 
+  `contact_person`, `phone`, `created_by`, 
+  `created_on`, `user_updated`, `datetime_updated`, 
+  `is_active`, `is_deleted`
+) 
+VALUES 
+  (
+    1, 'Supplier Cigatow', 'Address1 Supplier Cigatow', 'Address2 Supplier Cigatow', 
+    NULL, 'Kudus', 'NOJ', 'aji', '0811111', 
+    'superadmin', '2024-09-04 14:21:36', 
+    NULL, NULL, 'Y', 'N'
+  ),
+   (
+    2, 'Supplier Foil', 'Address1 Supplier Foil', 'Address2 Supplier Foil', 
+    NULL, 'Kudus', 'NOJ', 'aji', '0811111', 
+    'superadmin', '2024-09-04 14:21:36', 
+    NULL, NULL, 'Y', 'N'
+  ),
+  (
+    3, 'Supplier Porous Plug Wrap Paper', 'Address1 Porous Plug Wrap Paper', 'Address2 Porous Plug Wrap Paper', 
+    NULL, 'Kudus', 'NOJ', 'aji', '0811111', 
+    'superadmin', '2024-09-04 14:21:36', 
+    NULL, NULL, 'Y', 'N'
+  ),
+   (
+    4, 'Supplier Cigarete paper', 'Address1 Cigarete paper', 'Address2 Cigarete paper', 
+    NULL, 'Kudus', 'NOJ', 'aji', '0811111', 
+    'superadmin', '2024-09-04 14:21:36', 
+    NULL, NULL, 'Y', 'N'
+  ),
+    (
+    5, 'Supplier CTP', 'Address1 CTP', 'Address2 CTP', 
+    NULL, 'Kudus', 'NOJ', 'aji', '0811111', 
+    'superadmin', '2024-09-04 14:21:36', 
+    NULL, NULL, 'Y', 'N'
+  ),
+   (
+    6, 'Supplier Inner frame', 'Address1 Inner frame', 'Address2 Inner frame', 
+    NULL, 'Kudus', 'NOJ', 'aji', '0811111', 
+    'superadmin', '2024-09-04 14:21:36', 
+    NULL, NULL, 'Y', 'N'
+  );
 /*!40000 ALTER TABLE `m_wh_supplier` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_transaction_type
-DROP TABLE IF EXISTS `m_wh_transaction_type`;
 CREATE TABLE IF NOT EXISTS `m_wh_transaction_type` (
   `transaction_type` varchar(3) NOT NULL DEFAULT '',
   `transaction_name` varchar(50) DEFAULT '',
@@ -1405,7 +1369,6 @@ INSERT INTO `m_wh_transaction_type` (`transaction_type`, `transaction_name`, `cr
 /*!40000 ALTER TABLE `m_wh_transaction_type` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_transporter
-DROP TABLE IF EXISTS `m_wh_transporter`;
 CREATE TABLE IF NOT EXISTS `m_wh_transporter` (
   `transporter_id` int(11) NOT NULL AUTO_INCREMENT,
   `transporter_name` varchar(100) DEFAULT NULL,
@@ -1425,7 +1388,6 @@ INSERT INTO `m_wh_transporter` (`transporter_id`, `transporter_name`, `is_active
 /*!40000 ALTER TABLE `m_wh_transporter` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_user_client_project
-DROP TABLE IF EXISTS `m_wh_user_client_project`;
 CREATE TABLE IF NOT EXISTS `m_wh_user_client_project` (
   `username` varchar(100) NOT NULL,
   `client_project_id` int(11) NOT NULL,
@@ -1434,21 +1396,21 @@ CREATE TABLE IF NOT EXISTS `m_wh_user_client_project` (
 
 -- Dumping data for table wms.m_wh_user_client_project: 10 rows
 /*!40000 ALTER TABLE `m_wh_user_client_project` DISABLE KEYS */;
-INSERT INTO `m_wh_user_client_project` (`username`, `client_project_id`) VALUES
-	('ares', 1),
-	('superadmin', 1),
-	('superadmin', 2),
-	('superadmin', 3),
-	('superadmin', 4),
-	('superadmin', 5),
-	('superadmin', 6),
-	('whsman01', 1),
-	('whsman01', 2),
-	('whs_spv', 1);
+INSERT INTO `m_wh_user_client_project` (`username`, `client_project_id`) 
+VALUES 
+  ('admin', 1), 
+  ('superadmin', 1), 
+  ('superadmin', 2), 
+  ('superadmin', 3), 
+  ('superadmin', 4), 
+  ('superadmin', 5), 
+  ('superadmin', 6), 
+  ('whsman01', 1), 
+  ('whsman01', 2), 
+  ('whs_spv', 1);
 /*!40000 ALTER TABLE `m_wh_user_client_project` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_user_level
-DROP TABLE IF EXISTS `m_wh_user_level`;
 CREATE TABLE IF NOT EXISTS `m_wh_user_level` (
   `user_level_id` int(11) NOT NULL AUTO_INCREMENT,
   `access_project` enum('N','Y') NOT NULL DEFAULT 'N',
@@ -1472,7 +1434,6 @@ INSERT INTO `m_wh_user_level` (`user_level_id`, `access_project`, `user_level`, 
 /*!40000 ALTER TABLE `m_wh_user_level` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_user_project
-DROP TABLE IF EXISTS `m_wh_user_project`;
 CREATE TABLE IF NOT EXISTS `m_wh_user_project` (
   `user_project_id` int(11) NOT NULL,
   `username` varchar(50) DEFAULT NULL,
@@ -1491,7 +1452,6 @@ CREATE TABLE IF NOT EXISTS `m_wh_user_project` (
 /*!40000 ALTER TABLE `m_wh_user_project` ENABLE KEYS */;
 
 -- Dumping structure for table wms.m_wh_vehicle
-DROP TABLE IF EXISTS `m_wh_vehicle`;
 CREATE TABLE IF NOT EXISTS `m_wh_vehicle` (
   `vehicle_id` int(11) NOT NULL,
   `vehicle_type` varchar(50) DEFAULT NULL,
@@ -1516,7 +1476,6 @@ INSERT INTO `m_wh_vehicle` (`vehicle_id`, `vehicle_type`, `vehicle_description`,
 /*!40000 ALTER TABLE `m_wh_vehicle` ENABLE KEYS */;
 
 -- Dumping structure for table wms.password_resets
-DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
@@ -1529,7 +1488,6 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 
 -- Dumping structure for table wms.personal_access_tokens
-DROP TABLE IF EXISTS `personal_access_tokens`;
 CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `tokenable_type` varchar(255) NOT NULL,
@@ -1550,7 +1508,6 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
 /*!40000 ALTER TABLE `personal_access_tokens` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_running_number
-DROP TABLE IF EXISTS `t_running_number`;
 CREATE TABLE IF NOT EXISTS `t_running_number` (
   `process_code` char(11) NOT NULL DEFAULT '',
   `date` char(50) NOT NULL DEFAULT '',
@@ -1640,9 +1597,9 @@ INSERT INTO `t_running_number` (`process_code`, `date`, `wh_id`, `running_number
 	('IN', '2024-08', 1, 2),
 	('01', '2024-08', 1, 4),
 	('08', '2024-08', 1, 2),
-	('IN', '2024-09', 1, 1),
-	('01', '2024-09', 1, 1),
-	('OUT', '2024-09', 1, 1),
+	('IN', '2024-09', 1, 2),
+	('01', '2024-09', 1, 2),
+	('OUT', '2024-09', 1, 2),
 	('RTN', '2024-09', 1, 2),
 	('04', '2024-09', 1, 1),
 	('08', '2024-09', 1, 1),
@@ -1650,7 +1607,6 @@ INSERT INTO `t_running_number` (`process_code`, `date`, `wh_id`, `running_number
 /*!40000 ALTER TABLE `t_running_number` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_running_number_copy
-DROP TABLE IF EXISTS `t_running_number_copy`;
 CREATE TABLE IF NOT EXISTS `t_running_number_copy` (
   `process_id` char(11) NOT NULL DEFAULT '',
   `wh_id` bigint(20) NOT NULL,
@@ -1667,7 +1623,6 @@ INSERT INTO `t_running_number_copy` (`process_id`, `wh_id`, `running_number`, `l
 /*!40000 ALTER TABLE `t_running_number_copy` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_activity
-DROP TABLE IF EXISTS `t_wh_activity`;
 CREATE TABLE IF NOT EXISTS `t_wh_activity` (
   `activity_id` int(11) NOT NULL AUTO_INCREMENT,
   `process_id` int(11) DEFAULT NULL,
@@ -1680,6 +1635,7 @@ CREATE TABLE IF NOT EXISTS `t_wh_activity` (
   `gr_return_id` varchar(30) DEFAULT NULL,
   `outbound_planning_no` varchar(50) DEFAULT NULL,
   `checker` varchar(30) DEFAULT NULL,
+  `main_checker` varchar(30) DEFAULT NULL,
   `supervisor_id` varchar(50) DEFAULT '',
   `datetime_est_start` datetime DEFAULT NULL,
   `datetime_est_finish` datetime DEFAULT NULL,
@@ -1700,9 +1656,9 @@ CREATE TABLE IF NOT EXISTS `t_wh_activity` (
   KEY `gr_id` (`gr_id`) USING BTREE,
   KEY `inbound_planning_no` (`inbound_planning_no`) USING BTREE,
   KEY `process_id` (`process_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table wms.t_wh_activity: 6 rows
+-- Dumping data for table wms.t_wh_activity: 8 rows
 /*!40000 ALTER TABLE `t_wh_activity` DISABLE KEYS */;
 INSERT INTO `t_wh_activity` (`activity_id`, `process_id`, `inbound_planning_no`, `reference_no`, `movement_id`, `stock_count_id`, `count_no`, `gr_id`, `gr_return_id`, `outbound_planning_no`, `checker`, `supervisor_id`, `datetime_est_start`, `datetime_est_finish`, `datetime_start_counting`, `datetime_finish_counting`, `sku`, `serial_no`, `location_from`, `location_to`, `is_active`, `is_delete`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`) VALUES
 	(1, 12, 'NG1-IN-0924-0001', 'po123123e', NULL, NULL, NULL, NULL, NULL, NULL, 'whsman01', '', '2024-09-04 14:50:00', '2024-09-04 16:50:00', NULL, NULL, NULL, NULL, NULL, NULL, 'Y', 'N', 'ares', '2024-09-04 14:50:17', '', NULL),
@@ -1710,11 +1666,12 @@ INSERT INTO `t_wh_activity` (`activity_id`, `process_id`, `inbound_planning_no`,
 	(3, 12, 'NG1-IN-0924-0001', 'po123123e', NULL, NULL, NULL, NULL, NULL, NULL, 'ares', '', '2024-09-04 14:51:00', '2024-09-04 14:51:00', NULL, NULL, NULL, NULL, NULL, NULL, 'Y', 'N', 'ares', '2024-09-04 14:51:38', '', NULL),
 	(4, 13, NULL, 'po123123e', NULL, NULL, NULL, 'NG1-GR-0924-0001', NULL, NULL, 'ares', '', '2024-09-04 14:59:00', '2024-09-04 14:59:00', NULL, NULL, NULL, NULL, NULL, NULL, 'Y', 'N', 'ares', '2024-09-04 14:59:40', '', NULL),
 	(5, 13, NULL, '123', NULL, NULL, NULL, NULL, 'NG1-GRR-0924-0002', NULL, 'ares', '', '2024-09-04 15:26:00', '2024-09-04 15:26:00', NULL, NULL, NULL, NULL, NULL, NULL, 'Y', 'N', 'ares', '2024-09-04 15:26:40', '', NULL),
-	(6, 8, NULL, NULL, 'NG1-08-0924-0001', NULL, NULL, NULL, NULL, NULL, 'ares', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y', 'N', 'ares', '2024-09-04 15:48:38', '', NULL);
+	(6, 8, NULL, NULL, 'NG1-08-0924-0001', NULL, NULL, NULL, NULL, NULL, 'ares', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y', 'N', 'ares', '2024-09-04 15:48:38', '', NULL),
+	(7, 12, 'NG1-IN-0924-0002', 'er13', NULL, NULL, NULL, NULL, NULL, NULL, 'superadmin', '', '2024-09-25 09:16:00', '2024-09-25 10:16:00', NULL, NULL, NULL, NULL, NULL, NULL, 'Y', 'N', 'superadmin', '2024-09-25 09:16:29', '', NULL),
+	(8, 13, NULL, 'er13', NULL, NULL, NULL, 'NG1-GR-0924-0002', NULL, NULL, 'whsman01', '', '2024-09-25 09:57:00', '2024-09-25 09:57:00', NULL, NULL, NULL, NULL, NULL, NULL, 'Y', 'N', 'superadmin', '2024-09-25 09:57:48', '', NULL);
 /*!40000 ALTER TABLE `t_wh_activity` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_activity_2
-DROP TABLE IF EXISTS `t_wh_activity_2`;
 CREATE TABLE IF NOT EXISTS `t_wh_activity_2` (
   `activity_id` int(11) NOT NULL AUTO_INCREMENT,
   `process_id` char(11) DEFAULT NULL,
@@ -1757,7 +1714,6 @@ INSERT INTO `t_wh_activity_2` (`activity_id`, `process_id`, `client_project_id`,
 /*!40000 ALTER TABLE `t_wh_activity_2` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_adjustment
-DROP TABLE IF EXISTS `t_wh_adjustment`;
 CREATE TABLE IF NOT EXISTS `t_wh_adjustment` (
   `adjustment_id` varchar(30) NOT NULL DEFAULT '',
   `client_project_id` int(11) DEFAULT 0,
@@ -1792,7 +1748,6 @@ INSERT INTO `t_wh_adjustment` (`adjustment_id`, `client_project_id`, `wh_id`, `a
 /*!40000 ALTER TABLE `t_wh_adjustment` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_adjustment_detail
-DROP TABLE IF EXISTS `t_wh_adjustment_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_adjustment_detail` (
   `adjustment_id` varchar(30) NOT NULL DEFAULT '',
   `location_code` varchar(50) NOT NULL DEFAULT '',
@@ -1840,7 +1795,6 @@ INSERT INTO `t_wh_adjustment_detail` (`adjustment_id`, `location_code`, `sku`, `
 /*!40000 ALTER TABLE `t_wh_adjustment_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_checking
-DROP TABLE IF EXISTS `t_wh_checking`;
 CREATE TABLE IF NOT EXISTS `t_wh_checking` (
   `outbound_planning_no` varchar(50) NOT NULL DEFAULT '',
   `bucket_id` varchar(50) NOT NULL DEFAULT '',
@@ -1860,7 +1814,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_checking` (
 /*!40000 ALTER TABLE `t_wh_checking` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_checking_attachment
-DROP TABLE IF EXISTS `t_wh_checking_attachment`;
 CREATE TABLE IF NOT EXISTS `t_wh_checking_attachment` (
   `outbound_planning_no` varchar(50) NOT NULL,
   `img_url` varchar(250) NOT NULL,
@@ -1876,7 +1829,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_checking_attachment` (
 /*!40000 ALTER TABLE `t_wh_checking_attachment` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_checking_detail
-DROP TABLE IF EXISTS `t_wh_checking_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_checking_detail` (
   `outbound_planning_no` varchar(50) NOT NULL DEFAULT '',
   `sku` varchar(50) NOT NULL DEFAULT '',
@@ -1896,7 +1848,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_checking_detail` (
 /*!40000 ALTER TABLE `t_wh_checking_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_checking_transport_loading
-DROP TABLE IF EXISTS `t_wh_checking_transport_loading`;
 CREATE TABLE IF NOT EXISTS `t_wh_checking_transport_loading` (
   `outbound_planning_no` varchar(50) NOT NULL,
   `supervisor_id` varchar(50) DEFAULT NULL,
@@ -1921,14 +1872,14 @@ CREATE TABLE IF NOT EXISTS `t_wh_checking_transport_loading` (
   PRIMARY KEY (`outbound_planning_no`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table wms.t_wh_checking_transport_loading: 1 rows
+-- Dumping data for table wms.t_wh_checking_transport_loading: 2 rows
 /*!40000 ALTER TABLE `t_wh_checking_transport_loading` DISABLE KEYS */;
 INSERT INTO `t_wh_checking_transport_loading` (`outbound_planning_no`, `supervisor_id`, `vehicle_id`, `transporter_id`, `service_id`, `start_loading`, `finish_loading`, `driver`, `vehicle_no`, `container_no`, `seal_no`, `consignee_name`, `consignee_address`, `consignee_city`, `remark`, `phone_no`, `awb`, `image_awb`, `user_created`, `datetime_created`) VALUES
+	('NG1-OUT-0924-0002', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'te', 'te', 'te', NULL, '123213', NULL, NULL, 'superadmin', '2024-09-24 08:15:23'),
 	('NG1-OUT-0924-0001', 'sugeng', 1, 1, 2, '2024-09-04 15:12:00', '2024-09-04 17:12:00', 'asd', 'b123asd', '1', '1', 'asd', 'asd', 'asd', 'tedt', '123123', NULL, NULL, 'ares', '2024-09-04 15:12:28');
 /*!40000 ALTER TABLE `t_wh_checking_transport_loading` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_count_qty
-DROP TABLE IF EXISTS `t_wh_count_qty`;
 CREATE TABLE IF NOT EXISTS `t_wh_count_qty` (
   `count_id` int(11) NOT NULL AUTO_INCREMENT,
   `activity_id` int(11) DEFAULT 0,
@@ -1956,7 +1907,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_count_qty` (
 /*!40000 ALTER TABLE `t_wh_count_qty` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_inbound_detail
-DROP TABLE IF EXISTS `t_wh_inbound_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_inbound_detail` (
   `inbound_planning_no` varchar(50) NOT NULL DEFAULT '',
   `SKU` varchar(50) NOT NULL DEFAULT '',
@@ -1987,14 +1937,14 @@ CREATE TABLE IF NOT EXISTS `t_wh_inbound_detail` (
   KEY `uom_id` (`uom_name`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table wms.t_wh_inbound_detail: 1 rows
+-- Dumping data for table wms.t_wh_inbound_detail: 2 rows
 /*!40000 ALTER TABLE `t_wh_inbound_detail` DISABLE KEYS */;
 INSERT INTO `t_wh_inbound_detail` (`inbound_planning_no`, `SKU`, `item_name`, `batch_no`, `serial_no`, `imei`, `part_no`, `color`, `size`, `expired_date`, `qty`, `discrepancy`, `uom_name`, `clasification_id`, `stock_id`, `spv_id`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`) VALUES
-	('NG1-IN-0924-0001', 'CG001', 'Cengkeh', '', '123', '', '', '', '', '2027-01-01 00:00:00', 1, 0, 'BARREL', 1, 'AV', 'ares', NULL, NULL, 'ares', '2024-09-04 14:54:51');
+	('NG1-IN-0924-0001', 'CG001', 'Cengkeh', '', '123', '', '', '', '', '2027-01-01 00:00:00', 1, 0, 'BARREL', 1, 'AV', 'ares', NULL, NULL, 'ares', '2024-09-04 14:54:51'),
+	('NG1-IN-0924-0002', 'sku001', 'Cigatow - Supplier1', '', '', '', '', '', '', '2025-12-31 00:00:00', 2, 0, 'PALLET', 2, 'AV', 'superadmin', NULL, NULL, 'superadmin', '2024-09-25 09:54:35');
 /*!40000 ALTER TABLE `t_wh_inbound_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_inbound_detail_copy
-DROP TABLE IF EXISTS `t_wh_inbound_detail_copy`;
 CREATE TABLE IF NOT EXISTS `t_wh_inbound_detail_copy` (
   `inbound_planning_no` varchar(50) NOT NULL DEFAULT '',
   `pallet_id` varchar(50) NOT NULL DEFAULT '',
@@ -2036,7 +1986,6 @@ INSERT INTO `t_wh_inbound_detail_copy` (`inbound_planning_no`, `pallet_id`, `sku
 /*!40000 ALTER TABLE `t_wh_inbound_detail_copy` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_inbound_planning
-DROP TABLE IF EXISTS `t_wh_inbound_planning`;
 CREATE TABLE IF NOT EXISTS `t_wh_inbound_planning` (
   `inbound_planning_no` varchar(50) NOT NULL DEFAULT '',
   `wh_id` bigint(20) unsigned DEFAULT NULL,
@@ -2068,17 +2017,17 @@ CREATE TABLE IF NOT EXISTS `t_wh_inbound_planning` (
   KEY `inbound_planning_no` (`inbound_planning_no`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table wms.t_wh_inbound_planning: 4 rows
+-- Dumping data for table wms.t_wh_inbound_planning: 5 rows
 /*!40000 ALTER TABLE `t_wh_inbound_planning` DISABLE KEYS */;
 INSERT INTO `t_wh_inbound_planning` (`inbound_planning_no`, `wh_id`, `client_project_id`, `supplier_id`, `status_id`, `reference_no`, `receipt_no`, `plan_delivery`, `order_id`, `task_type`, `remarks`, `data_upload1`, `data_upload2`, `data_upload3`, `is_active`, `is_deleted`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`) VALUES
 	('NG1-IN-0924-0001', 1, 1, 5, 'FIN', 'po123123e', 'qwe123', '2024-09-04 00:00:00', '1', 'Single Receive', NULL, '', '', '', 'Y', 'N', 'ares', '2024-09-04 14:46:17', 'ares', '2024-09-04 14:56:57'),
+	('NG1-IN-0924-0002', 1, 1, 5, 'FIN', 'er13', '12312', '2024-09-25 00:00:00', '1', 'Single Receive', NULL, '', '', '', 'Y', 'N', 'superadmin', '2024-09-25 09:13:04', 'superadmin', '2024-09-25 09:57:10'),
 	('CBT-IN-0724-0001', 1, 1, 3, 'FIN', 'PO123456', '123456', '2024-07-15 00:00:00', '1', 'Single Receive', NULL, '', '', '', 'Y', 'N', 'superadmin', '2024-07-15 17:00:23', 'superadmin', '2024-07-15 17:02:43'),
 	('CBT-IN-0824-0001', 1, 1, 1, 'FIN', 'PO123', 'RN123', '2024-08-26 00:00:00', '1', 'Single Receive', NULL, '', '', '', 'Y', 'N', 'superadmin', '2024-08-26 09:08:06', 'superadmin', '2024-08-26 13:44:37'),
 	('CBT-IN-0824-0002', 1, 1, 4, 'FIN', 'PO240808001', 'RN240808001', '2024-08-28 00:00:00', '1', 'Single Receive', NULL, '', '', '', 'Y', 'N', 'superadmin', '2024-08-28 11:30:27', 'superadmin', '2024-08-28 11:41:56');
 /*!40000 ALTER TABLE `t_wh_inbound_planning` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_inbound_planning_2
-DROP TABLE IF EXISTS `t_wh_inbound_planning_2`;
 CREATE TABLE IF NOT EXISTS `t_wh_inbound_planning_2` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `inbound_planning_no` varchar(50) DEFAULT NULL,
@@ -2116,7 +2065,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_inbound_planning_2` (
 /*!40000 ALTER TABLE `t_wh_inbound_planning_2` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_inbound_planning_detail
-DROP TABLE IF EXISTS `t_wh_inbound_planning_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_inbound_planning_detail` (
   `inbound_planning_no` varchar(50) NOT NULL DEFAULT '',
   `SKU` varchar(50) NOT NULL DEFAULT '',
@@ -2145,17 +2093,17 @@ CREATE TABLE IF NOT EXISTS `t_wh_inbound_planning_detail` (
   KEY `uom_id` (`uom_name`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table wms.t_wh_inbound_planning_detail: 4 rows
+-- Dumping data for table wms.t_wh_inbound_planning_detail: 5 rows
 /*!40000 ALTER TABLE `t_wh_inbound_planning_detail` DISABLE KEYS */;
 INSERT INTO `t_wh_inbound_planning_detail` (`inbound_planning_no`, `SKU`, `item_name`, `batch_no`, `serial_no`, `imei`, `part_no`, `color`, `size`, `expired_date`, `qty`, `uom_name`, `stock_id`, `clasification_id`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`) VALUES
 	('NG1-IN-0924-0001', 'CG001', 'Cengkeh', '', '123', '', '', '', '', '2027-01-01 00:00:00', 1, 'BARREL', NULL, 1, 'ares', '2024-09-04 14:46:17', NULL, NULL),
+	('NG1-IN-0924-0002', 'sku001', 'Cigatow - Supplier1', '', '', '', '', '', '', '2025-12-31 00:00:00', 2, 'PALLET', NULL, 2, 'superadmin', '2024-09-25 09:13:04', NULL, NULL),
 	('CBT-IN-0724-0001', '75016438', 'DISPLAY PANEL V216B1-L02', '', '', '', '', '', '', NULL, 100, 'UNIT', NULL, 1, 'superadmin', '2024-07-15 17:00:23', NULL, NULL),
 	('CBT-IN-0824-0001', 'CG001', 'Cengkeh', '', '', '', '', '', '', NULL, 400, 'KG', NULL, 1, 'superadmin', '2024-08-26 09:08:06', NULL, NULL),
 	('CBT-IN-0824-0002', 'CG001', 'Cengkeh', '', '', '', '', '', '', '2026-12-28 00:00:00', 40, 'Bag', NULL, 2, 'superadmin', '2024-08-28 11:30:27', NULL, NULL);
 /*!40000 ALTER TABLE `t_wh_inbound_planning_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_inbound_planning_detail_2
-DROP TABLE IF EXISTS `t_wh_inbound_planning_detail_2`;
 CREATE TABLE IF NOT EXISTS `t_wh_inbound_planning_detail_2` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `inbound_id` bigint(20) DEFAULT NULL,
@@ -2195,7 +2143,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_inbound_planning_detail_2` (
 /*!40000 ALTER TABLE `t_wh_inbound_planning_detail_2` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_location_inventory
-DROP TABLE IF EXISTS `t_wh_location_inventory`;
 CREATE TABLE IF NOT EXISTS `t_wh_location_inventory` (
   `location_id` varchar(50) NOT NULL DEFAULT '0',
   `location_type` varchar(50) NOT NULL DEFAULT '',
@@ -2231,17 +2178,17 @@ CREATE TABLE IF NOT EXISTS `t_wh_location_inventory` (
   KEY `item_classification_id` (`clasification_id`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table wms.t_wh_location_inventory: 4 rows
+-- Dumping data for table wms.t_wh_location_inventory: 5 rows
 /*!40000 ALTER TABLE `t_wh_location_inventory` DISABLE KEYS */;
 INSERT INTO `t_wh_location_inventory` (`location_id`, `location_type`, `client_project_id`, `pallet_id`, `sku`, `part_name`, `batch_no`, `serial_no`, `imei`, `part_no`, `color`, `size`, `expired_date`, `clasification_id`, `on_hand_qty`, `allocated_qty`, `picked_qty`, `available_qty`, `uom_name`, `stock_id`, `gr_id`, `gr_datetime`, `last_movement_id`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`, `is_active`) VALUES
 	('test_location_1', 'Racking', 1, NULL, '112233446', 'Teh Kotak Lemon', '03022023', '', '', '', '', '', '2025-02-03', 1, 5, 17, 0, 0, 'PACK', 'AV', 'CBT-GR-0223-0002', '2023-02-03 10:21:46', 'CBT-08-0824-0001', 'atmi', '2023-02-03 10:29:14', 'superadmin', '2024-08-28 15:50:44', 'Y'),
 	('R1F3', 'Racking', 1, NULL, '32L5995', 'TV Toshiba 32L5995', 'test_26okt22_2', NULL, '', '', '', '', NULL, 1, -18, 12, 0, 10, 'PIECES', 'DMG', '', NULL, 'CBT-08-0824-0002', NULL, NULL, 'superadmin', '2024-08-28 15:52:26', 'Y'),
+	('1A1-001-001', 'Bulk', 1, '', 'sku001', 'Cigatow - Supplier1', '', '', '', '', '', '', '2025-12-31', 2, 2, 0, 0, 2, 'PALLET', 'AV', 'NG1-GR-0924-0002', '2024-09-25 10:06:07', 'NG1-01-0924-0002', NULL, NULL, NULL, NULL, 'Y'),
 	('1A1-001-001', 'Bulk', 1, '', 'sku001', 'Cigatow - Supplier1', NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-30', 4, 1, 0, 0, 1, 'PACK', 'DMGR', 'NG1-GRR-0924-0002', '2024-09-04 15:28:55', 'NG1-04-0924-0001', NULL, NULL, NULL, NULL, 'Y'),
 	('1A1-001-001', 'Bulk', 1, '', 'CG001', 'Cengkeh', '', '123', '', '', '', '', '2027-01-01', 1, 1, 0, 0, 1, 'BARREL', 'AV', 'NG1-GR-0924-0001', '2024-09-04 15:02:40', 'NG1-08-0924-0001', NULL, NULL, 'ares', '2024-09-04 15:48:57', 'Y');
 /*!40000 ALTER TABLE `t_wh_location_inventory` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_log_api
-DROP TABLE IF EXISTS `t_wh_log_api`;
 CREATE TABLE IF NOT EXISTS `t_wh_log_api` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `method` varchar(50) DEFAULT '-',
@@ -2257,7 +2204,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_log_api` (
 /*!40000 ALTER TABLE `t_wh_log_api` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_moved_movement
-DROP TABLE IF EXISTS `t_wh_moved_movement`;
 CREATE TABLE IF NOT EXISTS `t_wh_moved_movement` (
   `movement_id` varchar(30) NOT NULL DEFAULT '',
   `process_id` int(11) DEFAULT NULL,
@@ -2289,7 +2235,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_moved_movement` (
 /*!40000 ALTER TABLE `t_wh_moved_movement` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_movement
-DROP TABLE IF EXISTS `t_wh_movement`;
 CREATE TABLE IF NOT EXISTS `t_wh_movement` (
   `movement_id` varchar(50) NOT NULL DEFAULT '',
   `wh_id` int(11) NOT NULL DEFAULT 0,
@@ -2310,7 +2255,6 @@ INSERT INTO `t_wh_movement` (`movement_id`, `wh_id`, `client_project_id`, `movem
 /*!40000 ALTER TABLE `t_wh_movement` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_movement_detail
-DROP TABLE IF EXISTS `t_wh_movement_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_movement_detail` (
   `movement_id` varchar(30) NOT NULL DEFAULT '',
   `process_id` char(11) DEFAULT NULL,
@@ -2341,15 +2285,15 @@ CREATE TABLE IF NOT EXISTS `t_wh_movement_detail` (
   KEY `sku` (`sku`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table wms.t_wh_movement_detail: 2 rows
+-- Dumping data for table wms.t_wh_movement_detail: 3 rows
 /*!40000 ALTER TABLE `t_wh_movement_detail` DISABLE KEYS */;
 INSERT INTO `t_wh_movement_detail` (`movement_id`, `process_id`, `sku`, `part_name`, `pallet_id`, `serial_no`, `batch_no`, `expired_date`, `location_type_from`, `location_from`, `pallet_id_to`, `location_type_to`, `location_to`, `qty`, `uom_name`, `stock_id`, `status_id`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`, `is_active`) VALUES
 	('NG1-01-0924-0001', '1', 'CG001', 'Cengkeh', NULL, '', '', '2027-01-01', 'Bulk', 'Staging Area', '', 'Bulk', '1A1-001-001', 1, 'BARREL', 'AV', '', 'ares', '2024-09-04 15:02:40', NULL, NULL, 'Y'),
-	('NG1-04-0924-0001', '4', 'sku001', 'Cigatow - Supplier1', NULL, '', '', '2024-09-30', 'Bulk', 'Staging Area', '', 'Bulk', '1A1-001-001', 1, 'PACK', 'DMGR', '', 'ares', '2024-09-04 15:28:55', NULL, NULL, 'Y');
+	('NG1-04-0924-0001', '4', 'sku001', 'Cigatow - Supplier1', NULL, '', '', '2024-09-30', 'Bulk', 'Staging Area', '', 'Bulk', '1A1-001-001', 1, 'PACK', 'DMGR', '', 'ares', '2024-09-04 15:28:55', NULL, NULL, 'Y'),
+	('NG1-01-0924-0002', '1', 'sku001', 'Cigatow - Supplier1', NULL, '', '', '2025-12-31', 'Bulk', 'Staging Area', '', 'Bulk', '1A1-001-001', 2, 'PALLET', 'AV', '', 'superadmin', '2024-09-25 10:06:07', NULL, NULL, 'Y');
 /*!40000 ALTER TABLE `t_wh_movement_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_outbound_attachment
-DROP TABLE IF EXISTS `t_wh_outbound_attachment`;
 CREATE TABLE IF NOT EXISTS `t_wh_outbound_attachment` (
   `outbound_planning_no` varchar(50) NOT NULL,
   `img_url` varchar(100) DEFAULT NULL,
@@ -2363,7 +2307,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_outbound_attachment` (
 /*!40000 ALTER TABLE `t_wh_outbound_attachment` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_outbound_detail_sku
-DROP TABLE IF EXISTS `t_wh_outbound_detail_sku`;
 CREATE TABLE IF NOT EXISTS `t_wh_outbound_detail_sku` (
   `outbound_planning_no` varchar(50) NOT NULL,
   `sku` varchar(50) NOT NULL,
@@ -2384,7 +2327,6 @@ INSERT INTO `t_wh_outbound_detail_sku` (`outbound_planning_no`, `sku`, `batch_no
 /*!40000 ALTER TABLE `t_wh_outbound_detail_sku` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_outbound_package
-DROP TABLE IF EXISTS `t_wh_outbound_package`;
 CREATE TABLE IF NOT EXISTS `t_wh_outbound_package` (
   `outbound_planning_no` varchar(50) NOT NULL DEFAULT '',
   `desc_of_goods` varchar(250) DEFAULT '',
@@ -2406,7 +2348,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_outbound_package` (
 /*!40000 ALTER TABLE `t_wh_outbound_package` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_outbound_planning
-DROP TABLE IF EXISTS `t_wh_outbound_planning`;
 CREATE TABLE IF NOT EXISTS `t_wh_outbound_planning` (
   `outbound_planning_no` varchar(50) NOT NULL,
   `wh_id` bigint(20) DEFAULT NULL,
@@ -2426,14 +2367,14 @@ CREATE TABLE IF NOT EXISTS `t_wh_outbound_planning` (
   PRIMARY KEY (`outbound_planning_no`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table wms.t_wh_outbound_planning: 1 rows
+-- Dumping data for table wms.t_wh_outbound_planning: 2 rows
 /*!40000 ALTER TABLE `t_wh_outbound_planning` DISABLE KEYS */;
 INSERT INTO `t_wh_outbound_planning` (`outbound_planning_no`, `wh_id`, `client_project_id`, `supplier_id`, `order_id`, `status_id`, `reference_no`, `receipt_no`, `plan_delivery`, `notes`, `cancel_reason`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`) VALUES
-	('NG1-OUT-0924-0001', 1, 1, 5, '1', 'ALO', 'asdasd', '12d', '2024-09-04', NULL, NULL, 'ares', '2024-09-04 15:12:28', 'ares', '2024-09-04 15:12:40');
+	('NG1-OUT-0924-0001', 1, 1, 5, '1', 'ALO', 'asdasd', '12d', '2024-09-04', NULL, NULL, 'ares', '2024-09-04 15:12:28', 'ares', '2024-09-04 15:12:40'),
+	('NG1-OUT-0924-0002', 1, 1, 5, '1', 'ALO', '11232', '123', '2024-09-24', NULL, NULL, 'superadmin', '2024-09-24 08:15:23', 'superadmin', '2024-09-24 08:15:30');
 /*!40000 ALTER TABLE `t_wh_outbound_planning` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_outbound_planning_detail
-DROP TABLE IF EXISTS `t_wh_outbound_planning_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_outbound_planning_detail` (
   `outbound_planning_no` varchar(50) NOT NULL,
   `sku` varchar(50) NOT NULL,
@@ -2446,14 +2387,14 @@ CREATE TABLE IF NOT EXISTS `t_wh_outbound_planning_detail` (
   PRIMARY KEY (`outbound_planning_no`,`sku`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table wms.t_wh_outbound_planning_detail: 1 rows
+-- Dumping data for table wms.t_wh_outbound_planning_detail: 2 rows
 /*!40000 ALTER TABLE `t_wh_outbound_planning_detail` DISABLE KEYS */;
 INSERT INTO `t_wh_outbound_planning_detail` (`outbound_planning_no`, `sku`, `qty`, `uom_name`, `clasification_id`, `serial_no`, `user_created`, `datetime_created`) VALUES
-	('NG1-OUT-0924-0001', 'CG001', 1, 'PACK', 4, '', 'ares', '2024-09-04 15:12:28');
+	('NG1-OUT-0924-0001', 'CG001', 1, 'PACK', 4, '', 'ares', '2024-09-04 15:12:28'),
+	('NG1-OUT-0924-0002', 'CG001', 1, 'PACK', 2, '', 'superadmin', '2024-09-24 08:15:23');
 /*!40000 ALTER TABLE `t_wh_outbound_planning_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_outbound_planning_history
-DROP TABLE IF EXISTS `t_wh_outbound_planning_history`;
 CREATE TABLE IF NOT EXISTS `t_wh_outbound_planning_history` (
   `outbound_planning_no` varchar(50) NOT NULL,
   `previous_state` varchar(3) DEFAULT NULL,
@@ -2468,7 +2409,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_outbound_planning_history` (
 /*!40000 ALTER TABLE `t_wh_outbound_planning_history` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_packing
-DROP TABLE IF EXISTS `t_wh_packing`;
 CREATE TABLE IF NOT EXISTS `t_wh_packing` (
   `outbound_planning_no` varchar(50) NOT NULL DEFAULT '',
   `bucket_id` varchar(50) NOT NULL DEFAULT '',
@@ -2487,7 +2427,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_packing` (
 /*!40000 ALTER TABLE `t_wh_packing` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_picking
-DROP TABLE IF EXISTS `t_wh_picking`;
 CREATE TABLE IF NOT EXISTS `t_wh_picking` (
   `outbound_planning_no` varchar(50) NOT NULL DEFAULT '',
   `movement_id` varchar(50) NOT NULL DEFAULT '',
@@ -2501,17 +2440,17 @@ CREATE TABLE IF NOT EXISTS `t_wh_picking` (
   PRIMARY KEY (`outbound_planning_no`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table wms.t_wh_picking: 4 rows
+-- Dumping data for table wms.t_wh_picking: 5 rows
 /*!40000 ALTER TABLE `t_wh_picking` DISABLE KEYS */;
 INSERT INTO `t_wh_picking` (`outbound_planning_no`, `movement_id`, `bucket_id`, `status_id`, `picker`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`) VALUES
 	('NG1-OUT-0924-0001', '', '', 'RPO', NULL, 'ares', '2024-09-04 15:12:40', '', NULL),
+	('NG1-OUT-0924-0002', '', '', 'RPO', NULL, 'superadmin', '2024-09-24 08:15:30', '', NULL),
 	('CBT-OUT-0623-0006', '', '', 'RPO', NULL, 'superadmin', '2024-03-19 11:56:11', '', NULL),
 	('CBT-OUT-0523-0007', '', '', 'RPO', NULL, 'superadmin', '2024-08-26 14:45:19', '', NULL),
 	('CBT-OUT-0423-0046', '', '', 'RPO', NULL, 'superadmin', '2024-08-26 14:48:00', '', NULL);
 /*!40000 ALTER TABLE `t_wh_picking` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_picking_detail
-DROP TABLE IF EXISTS `t_wh_picking_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_picking_detail` (
   `outbound_planning_no` varchar(50) NOT NULL DEFAULT '',
   `sku` varchar(50) NOT NULL DEFAULT '',
@@ -2532,7 +2471,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_picking_detail` (
 /*!40000 ALTER TABLE `t_wh_picking_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_receive
-DROP TABLE IF EXISTS `t_wh_receive`;
 CREATE TABLE IF NOT EXISTS `t_wh_receive` (
   `gr_id` varchar(30) NOT NULL,
   `inbound_planning_no` varchar(50) DEFAULT NULL,
@@ -2548,14 +2486,14 @@ CREATE TABLE IF NOT EXISTS `t_wh_receive` (
   KEY `inbound_id` (`inbound_planning_no`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC COMMENT='checking and receiving';
 
--- Dumping data for table wms.t_wh_receive: 1 rows
+-- Dumping data for table wms.t_wh_receive: 2 rows
 /*!40000 ALTER TABLE `t_wh_receive` DISABLE KEYS */;
 INSERT INTO `t_wh_receive` (`gr_id`, `inbound_planning_no`, `status_id`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`, `is_active`) VALUES
-	('NG1-GR-0924-0001', 'NG1-IN-0924-0001', 'CGR', 'ares', '2024-09-04 14:54:51', 'ares', '2024-09-04 15:02:40', 'Y');
+	('NG1-GR-0924-0001', 'NG1-IN-0924-0001', 'CGR', 'ares', '2024-09-04 14:54:51', 'ares', '2024-09-04 15:02:40', 'Y'),
+	('NG1-GR-0924-0002', 'NG1-IN-0924-0002', 'CGR', 'superadmin', '2024-09-25 09:54:35', 'superadmin', '2024-09-25 10:06:07', 'Y');
 /*!40000 ALTER TABLE `t_wh_receive` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_receive_2
-DROP TABLE IF EXISTS `t_wh_receive_2`;
 CREATE TABLE IF NOT EXISTS `t_wh_receive_2` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `inbound_id` bigint(20) DEFAULT NULL,
@@ -2580,7 +2518,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_receive_2` (
 /*!40000 ALTER TABLE `t_wh_receive_2` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_receive_detail
-DROP TABLE IF EXISTS `t_wh_receive_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_receive_detail` (
   `gr_id` varchar(50) NOT NULL DEFAULT '',
   `movement_id` varchar(30) NOT NULL DEFAULT '',
@@ -2593,14 +2530,14 @@ CREATE TABLE IF NOT EXISTS `t_wh_receive_detail` (
   KEY `movement_id` (`movement_id`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table wms.t_wh_receive_detail: 1 rows
+-- Dumping data for table wms.t_wh_receive_detail: 2 rows
 /*!40000 ALTER TABLE `t_wh_receive_detail` DISABLE KEYS */;
 INSERT INTO `t_wh_receive_detail` (`gr_id`, `movement_id`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`, `is_active`) VALUES
-	('NG1-GR-0924-0001', 'NG1-01-0924-0001', 'ares', '2024-09-04 15:02:09', NULL, NULL, 'Y');
+	('NG1-GR-0924-0001', 'NG1-01-0924-0001', 'ares', '2024-09-04 15:02:09', NULL, NULL, 'Y'),
+	('NG1-GR-0924-0002', 'NG1-01-0924-0002', 'superadmin', '2024-09-25 09:58:24', NULL, NULL, 'Y');
 /*!40000 ALTER TABLE `t_wh_receive_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_receive_detail_2
-DROP TABLE IF EXISTS `t_wh_receive_detail_2`;
 CREATE TABLE IF NOT EXISTS `t_wh_receive_detail_2` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `receive_id` int(11) NOT NULL,
@@ -2635,7 +2572,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_receive_detail_2` (
 /*!40000 ALTER TABLE `t_wh_receive_detail_2` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_receive_return
-DROP TABLE IF EXISTS `t_wh_receive_return`;
 CREATE TABLE IF NOT EXISTS `t_wh_receive_return` (
   `gr_return_id` varchar(30) NOT NULL,
   `return_no` varchar(50) DEFAULT NULL,
@@ -2661,7 +2597,6 @@ INSERT INTO `t_wh_receive_return` (`gr_return_id`, `return_no`, `status_id`, `us
 /*!40000 ALTER TABLE `t_wh_receive_return` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_receive_return_detail
-DROP TABLE IF EXISTS `t_wh_receive_return_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_receive_return_detail` (
   `gr_return_id` varchar(50) NOT NULL DEFAULT '',
   `movement_id` varchar(30) NOT NULL DEFAULT '',
@@ -2681,7 +2616,6 @@ INSERT INTO `t_wh_receive_return_detail` (`gr_return_id`, `movement_id`, `user_c
 /*!40000 ALTER TABLE `t_wh_receive_return_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_return
-DROP TABLE IF EXISTS `t_wh_return`;
 CREATE TABLE IF NOT EXISTS `t_wh_return` (
   `return_no` varchar(20) NOT NULL,
   `client_project_id` int(11) DEFAULT NULL,
@@ -2710,7 +2644,6 @@ INSERT INTO `t_wh_return` (`return_no`, `client_project_id`, `wh_id`, `outbound_
 /*!40000 ALTER TABLE `t_wh_return` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_return_detail
-DROP TABLE IF EXISTS `t_wh_return_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_return_detail` (
   `return_no` varchar(50) NOT NULL,
   `sku` varchar(50) NOT NULL,
@@ -2745,7 +2678,6 @@ INSERT INTO `t_wh_return_detail` (`return_no`, `sku`, `item_name`, `batch_no`, `
 /*!40000 ALTER TABLE `t_wh_return_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_scan_checking
-DROP TABLE IF EXISTS `t_wh_scan_checking`;
 CREATE TABLE IF NOT EXISTS `t_wh_scan_checking` (
   `scan_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `outbound_id` varchar(50) NOT NULL DEFAULT '',
@@ -2765,7 +2697,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_scan_checking` (
 /*!40000 ALTER TABLE `t_wh_scan_checking` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_scan_picking
-DROP TABLE IF EXISTS `t_wh_scan_picking`;
 CREATE TABLE IF NOT EXISTS `t_wh_scan_picking` (
   `scan_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `outbound_id` varchar(50) NOT NULL DEFAULT '',
@@ -2785,7 +2716,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_scan_picking` (
 /*!40000 ALTER TABLE `t_wh_scan_picking` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_scan_qty
-DROP TABLE IF EXISTS `t_wh_scan_qty`;
 CREATE TABLE IF NOT EXISTS `t_wh_scan_qty` (
   `scan_id` int(11) NOT NULL AUTO_INCREMENT,
   `activity_id` int(11) NOT NULL DEFAULT 0,
@@ -2810,16 +2740,17 @@ CREATE TABLE IF NOT EXISTS `t_wh_scan_qty` (
   KEY `activity_id` (`activity_id`) USING BTREE,
   KEY `transport_id` (`transport_id`) USING BTREE,
   KEY `uom_id` (`uom_name`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table wms.t_wh_scan_qty: 1 rows
+-- Dumping data for table wms.t_wh_scan_qty: 3 rows
 /*!40000 ALTER TABLE `t_wh_scan_qty` DISABLE KEYS */;
 INSERT INTO `t_wh_scan_qty` (`scan_id`, `activity_id`, `transport_id`, `pallet_id`, `sku`, `part_name`, `qty_scan`, `uom_name`, `serial_no`, `batch_no`, `stock_id`, `remarks`, `is_submit`, `is_active`, `user_created`, `datetime_created`) VALUES
-	(1, 3, 1, '1', 'CG001', 'Cengkeh', 1, 'BARREL', NULL, '', 'AV', NULL, 'Y', 'Y', 'ares', '2024-09-04 14:54:13');
+	(1, 3, 1, '1', 'CG001', 'Cengkeh', 1, 'BARREL', NULL, '', 'AV', NULL, 'Y', 'Y', 'ares', '2024-09-04 14:54:13'),
+	(3, 7, 2, '1', 'sku001', 'Cigatow - Supplier1', 1, 'PALLET', NULL, '', 'AV', NULL, 'Y', 'Y', 'superadmin', '2024-09-25 09:46:57'),
+	(5, 7, 2, '2', 'sku001', 'Cigatow - Supplier1', 1, 'PALLET', NULL, '', 'AV', NULL, 'Y', 'Y', 'superadmin', '2024-09-25 09:47:45');
 /*!40000 ALTER TABLE `t_wh_scan_qty` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_scan_qty_2
-DROP TABLE IF EXISTS `t_wh_scan_qty_2`;
 CREATE TABLE IF NOT EXISTS `t_wh_scan_qty_2` (
   `scan_id` int(11) NOT NULL AUTO_INCREMENT,
   `activity_id` int(11) NOT NULL DEFAULT 0,
@@ -2852,7 +2783,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_scan_qty_2` (
 /*!40000 ALTER TABLE `t_wh_scan_qty_2` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_shipping_load
-DROP TABLE IF EXISTS `t_wh_shipping_load`;
 CREATE TABLE IF NOT EXISTS `t_wh_shipping_load` (
   `booking_no` varchar(50) NOT NULL DEFAULT '',
   `pickup_name` varchar(100) DEFAULT NULL,
@@ -2876,7 +2806,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_shipping_load` (
 /*!40000 ALTER TABLE `t_wh_shipping_load` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_shipping_load_detail
-DROP TABLE IF EXISTS `t_wh_shipping_load_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_shipping_load_detail` (
   `booking_no` varchar(50) NOT NULL,
   `outbound_planning_no` varchar(50) NOT NULL,
@@ -2892,7 +2821,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_shipping_load_detail` (
 /*!40000 ALTER TABLE `t_wh_shipping_load_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_stock_count
-DROP TABLE IF EXISTS `t_wh_stock_count`;
 CREATE TABLE IF NOT EXISTS `t_wh_stock_count` (
   `stock_count_id` varchar(30) NOT NULL DEFAULT '',
   `client_project_id` int(11) DEFAULT 0,
@@ -2916,7 +2844,6 @@ INSERT INTO `t_wh_stock_count` (`stock_count_id`, `client_project_id`, `wh_id`, 
 /*!40000 ALTER TABLE `t_wh_stock_count` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_stock_count_detail
-DROP TABLE IF EXISTS `t_wh_stock_count_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_stock_count_detail` (
   `stock_count_id` varchar(30) NOT NULL DEFAULT '',
   `count_no` varchar(30) NOT NULL DEFAULT '',
@@ -2955,10 +2882,10 @@ INSERT INTO `t_wh_stock_count_detail` (`stock_count_id`, `count_no`, `location_i
 /*!40000 ALTER TABLE `t_wh_stock_count_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_stock_transfer
-DROP TABLE IF EXISTS `t_wh_stock_transfer`;
 CREATE TABLE IF NOT EXISTS `t_wh_stock_transfer` (
   `stock_transfer_id` varchar(30) NOT NULL DEFAULT '',
   `client_project_id` int(11) NOT NULL DEFAULT 0,
+  `wh_id` bigint(20) unsigned DEFAULT NULL,
   `transaction_type` varchar(3) DEFAULT '',
   `remark` varchar(250) DEFAULT '',
   `status_id` varchar(3) DEFAULT '',
@@ -2969,7 +2896,8 @@ CREATE TABLE IF NOT EXISTS `t_wh_stock_transfer` (
   `datetime_created` datetime DEFAULT NULL,
   `user_updated` varchar(50) DEFAULT '',
   `datetime_updated` datetime DEFAULT NULL,
-  PRIMARY KEY (`stock_transfer_id`)
+  PRIMARY KEY (`stock_transfer_id`),
+  KEY `wh_id` (`wh_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Dumping data for table wms.t_wh_stock_transfer: 0 rows
@@ -2977,7 +2905,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_stock_transfer` (
 /*!40000 ALTER TABLE `t_wh_stock_transfer` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_stock_transfer_detail
-DROP TABLE IF EXISTS `t_wh_stock_transfer_detail`;
 CREATE TABLE IF NOT EXISTS `t_wh_stock_transfer_detail` (
   `stock_transfer_id` varchar(30) NOT NULL DEFAULT '',
   `source_sku` varchar(50) NOT NULL DEFAULT '',
@@ -3020,7 +2947,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_stock_transfer_detail` (
 /*!40000 ALTER TABLE `t_wh_stock_transfer_detail` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_supervisor
-DROP TABLE IF EXISTS `t_wh_supervisor`;
 CREATE TABLE IF NOT EXISTS `t_wh_supervisor` (
   `supervisor_id` varchar(50) NOT NULL DEFAULT '',
   `name` varchar(50) DEFAULT NULL,
@@ -3044,7 +2970,6 @@ INSERT INTO `t_wh_supervisor` (`supervisor_id`, `name`, `client_project_id`, `cr
 /*!40000 ALTER TABLE `t_wh_supervisor` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_temporary_movement
-DROP TABLE IF EXISTS `t_wh_temporary_movement`;
 CREATE TABLE IF NOT EXISTS `t_wh_temporary_movement` (
   `movement_id` varchar(30) NOT NULL DEFAULT '',
   `process_id` int(11) DEFAULT NULL,
@@ -3067,19 +2992,20 @@ CREATE TABLE IF NOT EXISTS `t_wh_temporary_movement` (
   `user_updated` varchar(50) DEFAULT NULL,
   `datetime_updated` datetime DEFAULT NULL,
   `is_active` enum('Y','N') DEFAULT 'Y',
+  `is_scanned` enum('Y','N') DEFAULT NULL,
   PRIMARY KEY (`movement_id`,`location_to`,`sku`) USING BTREE,
   KEY `uom_id` (`uom_name`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table wms.t_wh_temporary_movement: 2 rows
+-- Dumping data for table wms.t_wh_temporary_movement: 3 rows
 /*!40000 ALTER TABLE `t_wh_temporary_movement` DISABLE KEYS */;
 INSERT INTO `t_wh_temporary_movement` (`movement_id`, `process_id`, `sku`, `part_name`, `batch_no`, `serial_no`, `expired_date`, `qty`, `uom_name`, `stock_id`, `location_from`, `location_type_from`, `location_to`, `location_type_to`, `warehouseman`, `is_submit`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`, `is_active`) VALUES
+	('NG1-01-0924-0002', 1, 'sku001', 'Cigatow - Supplier1', '', '', '2025-12-31 00:00:00', 2, 'PALLET', 'AV', 'Staging Area', 'Bulk', '1A1-001-001', 'Bulk', 'whsman01', 'Y', 'superadmin', '2024-09-25 10:05:46', NULL, NULL, 'Y'),
 	('NG1-04-0924-0001', 4, 'sku001', 'Cigatow - Supplier1', '', '', '2024-09-30 00:00:00', 1, 'PACK', 'DMGR', 'Staging Area', 'Bulk', '1A1-001-001', 'Bulk', 'ares', 'Y', 'ares', '2024-09-04 15:28:44', NULL, NULL, 'Y'),
 	('NG1-01-0924-0001', 1, 'CG001', 'Cengkeh', '', '', '2027-01-01 00:00:00', 1, 'BARREL', 'AV', 'Staging Area', 'Bulk', '1A1-001-001', 'Bulk', 'ares', 'Y', 'ares', '2024-09-04 15:02:09', NULL, NULL, 'Y');
 /*!40000 ALTER TABLE `t_wh_temporary_movement` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_temporary_movement_copy
-DROP TABLE IF EXISTS `t_wh_temporary_movement_copy`;
 CREATE TABLE IF NOT EXISTS `t_wh_temporary_movement_copy` (
   `movement_id` varchar(30) NOT NULL DEFAULT '',
   `process_id` int(11) DEFAULT 0,
@@ -3113,7 +3039,6 @@ INSERT INTO `t_wh_temporary_movement_copy` (`movement_id`, `process_id`, `sku`, 
 /*!40000 ALTER TABLE `t_wh_temporary_movement_copy` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_transportation
-DROP TABLE IF EXISTS `t_wh_transportation`;
 CREATE TABLE IF NOT EXISTS `t_wh_transportation` (
   `transport_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `activity_id` int(10) unsigned NOT NULL,
@@ -3134,16 +3059,16 @@ CREATE TABLE IF NOT EXISTS `t_wh_transportation` (
   `is_deleted` enum('Y','N') DEFAULT NULL,
   PRIMARY KEY (`transport_id`) USING BTREE,
   KEY `vehicle_no` (`vehicle_no`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC COMMENT='sub menu transportation and unloading on inbound planning';
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC COMMENT='sub menu transportation and unloading on inbound planning';
 
--- Dumping data for table wms.t_wh_transportation: 1 rows
+-- Dumping data for table wms.t_wh_transportation: 2 rows
 /*!40000 ALTER TABLE `t_wh_transportation` DISABLE KEYS */;
 INSERT INTO `t_wh_transportation` (`transport_id`, `activity_id`, `vehicle_no`, `driver_name`, `arrival_date`, `start_unloading`, `finish_unloading`, `departure_date`, `vehicle_id`, `container_no`, `seal_no`, `user_created`, `datetime_created`, `user_updated`, `datetime_updated`, `is_active`, `is_deleted`) VALUES
-	(1, 3, 'b123as', 'pandi', '2024-09-04 14:53:00', '2024-09-04 14:53:00', '2024-09-04 14:54:00', '2024-09-04 14:54:00', 1, '1', '1', 'ares', '2024-09-04 14:53:56', 'ares', '2024-09-04 14:54:30', 'Y', NULL);
+	(1, 3, 'b123as', 'pandi', '2024-09-04 14:53:00', '2024-09-04 14:53:00', '2024-09-04 14:54:00', '2024-09-04 14:54:00', 1, '1', '1', 'ares', '2024-09-04 14:53:56', 'ares', '2024-09-04 14:54:30', 'Y', NULL),
+	(2, 7, 'B123XXX', 'arara', '2024-09-25 09:23:00', '2024-09-25 09:23:00', '2024-09-25 10:52:00', '2024-09-25 10:53:00', 3, '1', '1', 'superadmin', '2024-09-25 09:23:37', 'superadmin', '2024-09-25 09:52:43', 'Y', NULL);
 /*!40000 ALTER TABLE `t_wh_transportation` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_transportation_2
-DROP TABLE IF EXISTS `t_wh_transportation_2`;
 CREATE TABLE IF NOT EXISTS `t_wh_transportation_2` (
   `transport_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `activity_id` int(10) unsigned NOT NULL,
@@ -3175,7 +3100,6 @@ CREATE TABLE IF NOT EXISTS `t_wh_transportation_2` (
 /*!40000 ALTER TABLE `t_wh_transportation_2` ENABLE KEYS */;
 
 -- Dumping structure for table wms.t_wh_user
-DROP TABLE IF EXISTS `t_wh_user`;
 CREATE TABLE IF NOT EXISTS `t_wh_user` (
   `username` varchar(30) NOT NULL,
   `user_level_id` int(11) NOT NULL,
@@ -3203,15 +3127,47 @@ CREATE TABLE IF NOT EXISTS `t_wh_user` (
 
 -- Dumping data for table wms.t_wh_user: 4 rows
 /*!40000 ALTER TABLE `t_wh_user` DISABLE KEYS */;
-INSERT INTO `t_wh_user` (`username`, `user_level_id`, `fullname`, `password`, `wh_id`, `email`, `phone`, `send_email`, `created_by`, `created_on`, `last_login`, `use_hht`, `is_active`, `is_deleted`, `is_android`, `is_web`, `remember_token`, `user_group_id`, `update_by`, `updated_at`) VALUES
-	('superadmin', 5, 'Super Admin', '$2a$10$ILnXIj7eQK8lSFjUgXDsGuYOjCzCUACRW.tRbguR2cpy.AMmBcvka', 1, NULL, NULL, 'Y', 'mariofrans', '2023-03-20 10:51:54', NULL, NULL, 'Y', NULL, 'Y', 'Y', NULL, 1, NULL, NULL),
-	('whsman01', 3, 'whs man', '$2a$10$ILnXIj7eQK8lSFjUgXDsGuYOjCzCUACRW.tRbguR2cpy.AMmBcvka', 1, 'whsman01@test.com', '081111111', 'N', 'superadmin', '2024-08-26 10:30:36', NULL, NULL, 'Y', NULL, 'Y', 'Y', NULL, 4, 'superadmin', '2024-09-03 11:02:06'),
-	('ares', 2, 'sdas', '$2a$10$ILnXIj7eQK8lSFjUgXDsGuYOjCzCUACRW.tRbguR2cpy.AMmBcvka', 1, 'test@test.com', '12312389090', 'N', 'superadmin', '2024-08-30 16:09:34', NULL, NULL, 'Y', NULL, 'N', 'Y', NULL, 3, 'superadmin', '2024-09-04 13:00:50'),
-	('whs_spv', 1, 'whs_spv', '$2a$10$ILnXIj7eQK8lSFjUgXDsGuYOjCzCUACRW.tRbguR2cpy.AMmBcvka', 1, 'whs_spv@test.com', '08111111', 'Y', 'superadmin', '2024-09-04 13:02:05', NULL, NULL, 'Y', NULL, 'N', 'Y', NULL, 2, NULL, NULL);
+INSERT INTO `t_wh_user` (
+  `username`, `user_level_id`, `fullname`, 
+  `password`, `wh_id`, `email`, `phone`, 
+  `send_email`, `created_by`, `created_on`, 
+  `last_login`, `use_hht`, `is_active`, 
+  `is_deleted`, `is_android`, `is_web`, 
+  `remember_token`, `user_group_id`, 
+  `update_by`, `updated_at`
+) 
+VALUES 
+  (
+    'superadmin', 5, 'Super Admin', '$2y$10$ML9NnCSNxqa5RHJjqH7QyeX1qx9fV9J2aLqrReQpSnM.l9VG/I3ni', 
+    1, 'sa@test.com', '081111111', 'Y', 
+    'mariofrans', '2023-03-20 10:51:54', 
+    NULL, NULL, 'Y', NULL, 'Y', 'Y', NULL, 
+    1, 'superadmin', '2024-09-18 08:57:01'
+  ), 
+  (
+    'whsman01', 3, 'whsman01', '$2a$10$ILnXIj7eQK8lSFjUgXDsGuYOjCzCUACRW.tRbguR2cpy.AMmBcvka', 
+    1, 'whsman01@test.com', '081111111', 
+    'N', 'superadmin', '2024-08-26 10:30:36', 
+    NULL, NULL, 'Y', NULL, 'Y', 'Y', NULL, 
+    4, 'superadmin', '2024-09-03 11:02:06'
+  ), 
+  (
+    'admin', 2, 'Admin', '$2a$10$ILnXIj7eQK8lSFjUgXDsGuYOjCzCUACRW.tRbguR2cpy.AMmBcvka', 
+    1, 'test@test.com', '12312389090', 
+    'N', 'superadmin', '2024-08-30 16:09:34', 
+    NULL, NULL, 'Y', NULL, 'N', 'Y', NULL, 
+    3, 'superadmin', '2024-09-04 13:00:50'
+  ), 
+  (
+    'whs_spv', 1, 'whs_spv', '$2a$10$ILnXIj7eQK8lSFjUgXDsGuYOjCzCUACRW.tRbguR2cpy.AMmBcvka', 
+    1, 'whs_spv@test.com', '08111111', 
+    'Y', 'superadmin', '2024-09-04 13:02:05', 
+    NULL, NULL, 'Y', NULL, 'N', 'Y', NULL, 
+    2, NULL, NULL
+  );
 /*!40000 ALTER TABLE `t_wh_user` ENABLE KEYS */;
 
 -- Dumping structure for table wms.users
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
