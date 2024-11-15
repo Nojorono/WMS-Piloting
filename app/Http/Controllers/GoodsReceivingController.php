@@ -529,7 +529,7 @@ class GoodsReceivingController extends Controller
                     $query->where("a.location_code", $location_code);
                 }
             })
-            ->orderBy("a.location_code", "ASC") 
+            ->orderBy("a.location_code", "ASC")
             ->get();
         return $data;
     }

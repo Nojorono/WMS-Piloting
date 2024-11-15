@@ -51,13 +51,31 @@ GR Putaway Location
                                     </div>
                                 </div>
                             </div>
+
+                            @if (session('user_edit') == 1)
+                            <div class="col-sm-12 mt-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 mb-2">
+                                                <div class="d-flex justify-content-center">
+                                                    <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_assign_to_warehouseman" name="btn_assign_to_warehouseman">Assign to Warehouseman</button>
+                                                    <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_view_warehouseman" name="btn_view_warehouseman">View Warehouseman</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+
                         </div>
                         <div class="col-sm-12 mb-2">
                             <div class="card border-0">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <button type="button" class="btn btn-primary mb-0 py-1" id="btn_add_row_putaway_detail" name="btn_add_row_putaway_detail">Add Row</button>
+                                            <button type="button" class="btn btn-primary mb-0 py-1" id="btn_add_row_putaway_detail" name="btn_add_row_putaway_detail">+ Add Item</button>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -153,6 +171,9 @@ GR Putaway Location
                                 </div>
                             </div>
                         </div>
+
+            
+
                         @if (session('user_edit') == 1)
                         <div class="col-sm-12 mb-2">
                             <div class="card">
@@ -160,8 +181,8 @@ GR Putaway Location
                                     <div class="row">
                                         <div class="col-sm-12 mb-2">
                                             <div class="d-flex">
-                                                <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_assign_to_warehouseman" name="btn_assign_to_warehouseman">Assign to Warehouseman</button>
-                                                <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_view_warehouseman" name="btn_view_warehouseman">View Warehouseman</button>
+                                                <!-- <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_assign_to_warehouseman" name="btn_assign_to_warehouseman">Assign to Warehouseman</button>
+                                                <button type="button" class="btn btn-primary mb-0 py-1 me-2" id="btn_view_warehouseman" name="btn_view_warehouseman">View Warehouseman</button> -->
                                                 <button type="submit" class="btn btn-primary mb-0 py-1 ms-auto">Save</button>
                                             </div>
                                         </div>
@@ -170,6 +191,7 @@ GR Putaway Location
                             </div>
                         </div>
                         @endif
+
                     </div>
                 </form>
 
