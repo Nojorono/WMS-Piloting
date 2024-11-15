@@ -15,6 +15,7 @@ Inbound Planning
                 <div class="row">
                     <div class="col-sm-12 d-flex mb-2">
                         <h5 class="me-auto">Inbound Planning - List</h5>
+                        
                         <a href="{{ route('inbound_planning.create') }}" class="text-decoration-none">
                             <button type="button" class="btn btn-primary text-xs py-1">Add</button>
                         </a>
