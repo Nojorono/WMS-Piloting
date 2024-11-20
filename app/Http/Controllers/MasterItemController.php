@@ -58,7 +58,7 @@ class MasterItemController extends Controller
         ->leftJoin("m_warehouse as b","b.wh_id","=","a.wh_id")
         ->leftJoin("m_wh_client_project as c",function ($query)
         {
-            $query->on("c.client_project_id","=","B.client_project_id");
+            $query->on("c.client_project_id","=","b.client_project_id");
             $query->on("c.client_id","=","a.client_id");
         })
         ->where("c.client_project_id",session("current_client_project_id"))
@@ -73,7 +73,7 @@ class MasterItemController extends Controller
     {
 
         $data = $this->get_List_Item_Datatables();
-        
+            
         return DataTables::of($data)
         ->addColumn('action', function ($master_item) {
             $button = "";

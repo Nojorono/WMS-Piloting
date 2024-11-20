@@ -17,7 +17,7 @@ Inbound Planning
                         <h5 class="me-auto">Inbound Planning - List</h5>
                         
                         <a href="{{ route('inbound_planning.create') }}" class="text-decoration-none">
-                            <button type="button" class="btn btn-primary text-xs py-1">Add</button>
+                            <button type="button" class="btn btn-primary text-xs py-1">+ Add Inbound</button>
                         </a>
                     </div>
                     <hr>

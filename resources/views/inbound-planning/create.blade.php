@@ -190,7 +190,7 @@ Inbound Planning
                                     <div class="row mb-2">
                                         <div class="col-sm-12 mb-2">
                                             <div class="d-flex">
-                                                <button type="button" class="btn btn-primary me-2 mb-0 py-1" id="btn_add_row_table_item_detail" name="btn_add_row_table_item_detail">Add</button>
+                                                <button type="button" class="btn btn-primary me-2 mb-0 py-1" id="btn_add_row_table_item_detail" name="btn_add_row_table_item_detail">+ Add SKU</button>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 mb-2" id="container-item-detail">
